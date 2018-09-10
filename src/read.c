@@ -11,14 +11,32 @@
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
+#include <stdio.h>
 
 void     check_fil_s_params(t_env *e, int fd)
 {
     char    *line;
+    char    **str;
+    int     i;
 
     if (get_next_line(fd, &line) <= 0)
         error("File empty");
-    e->a = 0;
+    str = ft_strsplit(line, ' ');
+    ft_strdel(&line);
+    i = -1;
+    while (++i < 4)
+    {
+        // printf("i = %d\n", i);
+        e->map.params[i] = ft_atoi(str[i]);
+        ft_strdel(&str[i]);
+    }
+    free(str);
+    i = -1;
+    while (++i < 4)
+    {
+        ft_putnbr(e->map.params[i]);
+        ft_putchar('\n');
+    }
 }
 void    read_file(t_env *e, int fd)
 {

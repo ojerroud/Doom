@@ -20,19 +20,37 @@
 # define WIDTH 800
 # define HEIGHT 800
 
+typedef struct	s_ixy
+{
+	int	        y;
+	int	        x;
+}				t_ixy;
+
+typedef struct	s_dxy
+{
+	float		x;
+	float		y;
+}				t_dxy;
+
+typedef struct	s_map
+{
+	int         params[4];
+    int         **map;
+}				t_map;
 
 typedef struct  s_mlx
 {
-    void    *mlx;
-    void    *win;
-    void    *img;
+    void        *mlx;
+    void        *win;
+    void        *img;
 }               t_mlx;
 
 typedef struct  s_env
 {
-    t_mlx   mlx;
-    char    *input;
-    int     a;
+    t_mlx       mlx;
+    t_map       map;
+    char        *input;
+    int         a;
 }               t_env;
 
 int     key_hook(int keycode, int a);

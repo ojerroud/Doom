@@ -16,8 +16,9 @@
 # include <stdlib.h>
 # include "../libft/inc/libft.h"
 # include "mlx.h"
+#include <stdio.h> // a supprimer
 
-# define WIDTH 800
+# define WIDTH  800
 # define HEIGHT 800
 
 typedef struct	s_ixy
@@ -32,10 +33,16 @@ typedef struct	s_dxy
 	float		y;
 }				t_dxy;
 
+typedef struct	s_player
+{
+	t_ixy       pos;
+}				t_player;
+
 typedef struct	s_map
 {
-	int         params[4];
     int         **map;
+    int         height;
+    int         width
 }				t_map;
 
 typedef struct  s_mlx
@@ -49,12 +56,14 @@ typedef struct  s_env
 {
     t_mlx       mlx;
     t_map       map;
+    t_player    player;
     char        *input;
-    int         a;
 }               t_env;
 
 int     key_hook(int keycode, int a);
 void    read_param(t_env *e, char *input_map);
 void    error(char *message);
+void    print_map(t_map map);
+void    raycasting(t_env *e);
 
 #endif

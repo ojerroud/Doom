@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojerroud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/10 11:59:32 by ojerroud          #+#    #+#             */
-/*   Updated: 2018/09/10 11:59:34 by ojerroud         ###   ########.fr       */
+/*   Created: 2018/09/11 13:27:08 by ojerroud          #+#    #+#             */
+/*   Updated: 2018/09/11 13:27:09 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
 
-int init_win(t_env *e)
+void    print_map(t_map map, t_player player)
 {
-    e->mlx.mlx = mlx_init();
-    e->mlx.win = mlx_new_window(e->mlx.mlx, WIDTH, HEIGHT, "Doom Nukem");
-    mlx_key_hook (e->mlx.win, key_hook, 0);
-    raycasting(e);
-    mlx_loop(e->mlx.mlx);
-    return (0);
-}
+    int i;
+    int j;
 
-int main(int ac, char **av)
-{
-    t_env   e;
-
-    if (ac != 2)
-        return (0);
-    read_param(&e, av[1]);
-    // print_map(e.map);
-    init_win(&e);
-    return (0);
+    i = -1;
+    printf("%d %d \n", map.width, map.height, player.width, player.height);
+    while (++i < map.params[1])
+    {
+        j = -1;
+        while (++j < map.params[0])
+            printf("%d ", map.map[i][j]);
+        printf("\n");
+    }
 }

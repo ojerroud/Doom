@@ -19,7 +19,7 @@ LIB = -L libft/ -lft -L $(MINI_PATH) -lmlx
 MINIFLAGS = -framework OpenGL -framework AppKit
 
 OBJDIR := obj
-OBJS := $(addprefix $(OBJDIR)/,main.o keyhook.o read.o error.o)
+OBJS := $(addprefix $(OBJDIR)/,main.o keyhook.o read.o error.o draw.o raycasting.o)
 
 $(OBJDIR)/%.o : %.c
 	@$(CC) $(CPPFLAGS) $(CFLAGS) $(vpath_h) -Wall -Wextra -Werror -c \

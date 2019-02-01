@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojerroud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/17 12:17:34 by ojerroud          #+#    #+#             */
-/*   Updated: 2017/04/19 12:55:28 by ojerroud         ###   ########.fr       */
+/*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
+/*   Updated: 2019/02/01 15:56:47 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "DoomNukem.h"
 
-void	ft_putstr(char *str)
+int     init_mlx(t_env *e)
 {
-	if (str)
-		write(1, str, ft_strlen(str));
+    e->mlx.mlx = mlx_init();
+    e->mlx.win = mlx_new_window(e->mlx.mlx, WEIGH, HEIGH, "Init");
+    mlx_key_hook(e->mlx.win, keyhooked, e);
+    mlx_loop(e->mlx.mlx);
+    return (0);
 }

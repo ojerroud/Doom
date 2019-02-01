@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojerroud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/17 12:17:34 by ojerroud          #+#    #+#             */
-/*   Updated: 2017/04/19 12:55:28 by ojerroud         ###   ########.fr       */
+/*   Created: 2019/02/01 12:45:03 by ojerroud          #+#    #+#             */
+/*   Updated: 2019/02/01 12:45:05 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "DoomNukem.h"
 
-void	ft_putstr(char *str)
+int     ft_error(char *str)
 {
-	if (str)
-		write(1, str, ft_strlen(str));
+    ft_putstr("error: ");
+    ft_putendl(str);
+    exit (0);
 }

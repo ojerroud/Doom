@@ -15,9 +15,11 @@
 
 # include "libft.h"
 # include <mlx.h>
+# include <fcntl.h>
 
 # define HEIGH 800
 # define WEIGH 800
+
 # define ESC 53
 # define W 13
 # define D 2
@@ -25,6 +27,25 @@
 # define S 1
 # define SPACE 49
 
+typedef enum	texture
+{
+	floor = 0,
+	wall = 1,
+	water = 2,
+	house = 3,
+	signboard = 4,
+	barrier = 5,
+	door = 6,
+	bookcase = 7,
+	tv = 8,
+	tp = 9,
+	chair = 10,
+	table = 11,
+	computer = 12,
+	console = 13,
+	bed = 14,
+	plant = 15,
+}				;
 
 typedef struct  s_mlx
 {
@@ -35,6 +56,7 @@ typedef struct  s_mlx
 typedef struct  s_env
 {
     t_mlx       mlx;
+    int         silent;
 }               t_env;
 
 /*
@@ -55,5 +77,11 @@ int     init_mlx(t_env *e);
 
 int     keyhooked(int keycode, t_env *e);
 void    key_esc(t_env *e);
+
+/*
+**  reader.c
+*/
+
+void    read_map(t_env *e, char *map);
 
 #endif

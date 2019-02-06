@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/06 14:37:15 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/06 14:56:53 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,20 @@ typedef enum	e_texture
 	plant = 15,
 }				t_texture;
 
+typedef struct		s_ixy
+{
+	int				x;
+	int				y;
+}					t_ixy;
+
+
+typedef struct		s_map
+{
+	char			*name;
+	t_ixy			map;
+}					t_map;
+
+
 typedef struct		s_mlx
 {
     void			*mlx;
@@ -74,6 +88,7 @@ typedef struct		s_env
     int				silent;
 	int				is_title;
 	char			*title;
+	t_map			map;
 }					t_env;
 
 /*
@@ -89,7 +104,7 @@ int     ft_error(char *str);
 int     init_mlx(t_env *e);
 
 /*
-**  keybord.c
+**  keyboard.c
 */
 
 int     keyhooked(int keycode, t_env *e);

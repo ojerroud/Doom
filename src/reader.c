@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 14:20:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/06 14:47:29 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/06 15:02:18 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	create_and_add(t_parse **list, char *content, int begin)
 	ft_strclr(content);
 }
 
-void	check_parts(char *line, int line_nb, t_env *e)
+void	check_section(char *line, int line_nb, t_env *e)
 {
 	int			diff;
 	char		*to_find;
@@ -104,9 +104,9 @@ void	read_file(t_env *e, char *map)
 	fd = open(map, O_RDONLY);
 	while (get_next_line(fd, &line))
 	{
-		check_parts(line, line_nb, e);
+		check_section(line, line_nb, e);
+		ft_strdel(&line);
 		line_nb++;
 	}
 	add_end(e->list, line_nb);
-	print_list(e->list);
 }

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/06 14:56:53 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/06 15:13:11 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define WEIGH 800
 
 # define DASHES "--------------------"
+# define MAP "map"
 # define DESIGN_LEVEL "Design level"
 # define TEXTURE "textures"
 # define GAMEPLAY "gameplay"
@@ -63,7 +64,8 @@ typedef struct		s_ixy
 typedef struct		s_map
 {
 	char			*name;
-	t_ixy			map;
+	t_ixy			dimention;
+	int				**map;
 }					t_map;
 
 

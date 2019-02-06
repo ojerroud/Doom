@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 14:20:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/06 15:02:18 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/06 15:21:34 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,18 @@ void	check_section(char *line, int line_nb, t_env *e)
 	line_nb += 0;
 }
 
+void	save_maps(char * line, int line_nb, t_env *e)
+{
+	char		*to_find;
+
+	to_find = MAP;
+	if (ft_strstr(line, to_find))
+	{
+		printf("|%s| %d\n", ft_strstr(line, to_find), line_nb);
+	}
+	e->silent += 0;
+}
+
 void	read_file(t_env *e, char *map)
 {
 	int		fd;
@@ -105,6 +117,7 @@ void	read_file(t_env *e, char *map)
 	while (get_next_line(fd, &line))
 	{
 		check_section(line, line_nb, e);
+		save_maps(line, line_nb, e);
 		ft_strdel(&line);
 		line_nb++;
 	}

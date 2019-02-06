@@ -20,6 +20,6 @@ int		main(int ac, char **av)
 		ft_error("mauvais nombre d'arguments.");
 	// init_mlx(&e);
 	// ft_putendl(av[1]);
-	read_map(&e, av[1]);
+	read_file(&e, av[1]);
 	return (0);
 }

@@ -12,6 +12,7 @@
 NAME = doom-nukem
 INC_PATH = inc
 MINI_PATH = minilibx
+HEADER = inc/DoomNukem.h
 FLAGS = -Wall -Wextra -Werror
 vpath %.c src
 vpath_h = -I $(INC_PATH) -I $(MINI_PATH) -I libft/includes
@@ -22,7 +23,7 @@ MINIFLAGS = -framework OpenGL -framework AppKit
 OBJDIR := obj
 OBJS := $(addprefix $(OBJDIR)/,main.o error.o init.o keyboard.o reader.o)
 
-$(OBJDIR)/%.o : %.c
+$(OBJDIR)/%.o : %.c $(HEADER)
 	@$(CC) $(FLAGS) $(vpath_h) -c \
 	$(OUTPUT_OPTION) $<
 

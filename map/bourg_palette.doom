@@ -1,4 +1,8 @@
-map, Bourg Palette
+--------------------
+Design level
+--------------------
+
+map1, bourg Palette
 20, 18
 0  0  0  1  0  0  0  0  0  1  0  0  1  0  0  0  0  0  1  0
 1  1  1  1  1  1  1  1  1  1  0  0  1  1  1  1  1  1  1  1
@@ -18,7 +22,8 @@ map, Bourg Palette
 1  0  0  0  2  2  2  2  0  0  0  0  0  0  0  0  0  0  0  1
 1  0  0  0  2  2  2  2  0  0  0  0  0  0  0  0  0  0  0  1
 1  1  0  0  2  2  2  2  1  1  1  1  1  1  1  1  1  1  1  1
-map, red first floor
+
+map2, red first floor
 8, 8
 7  7  0  8  0  0  0  9
 0  0  0  0  0  0  0  0
@@ -28,7 +33,8 @@ map, red first floor
 0  0  0  0  0  0  0  0
 0  0  0  0  0  0  0  0
 -1 -1 9  9 -1 -1 -1 -1
-map, red second floor
+
+map3, red second floor
 8, 7
 12 11 11 0  0  0  0  9
 0  0  0  0  0  0  0  0
@@ -37,7 +43,8 @@ map, red second floor
 0  0  0 13  0  0  0  0
 14 0  0  0  0  0 15  0
 14 0  0  0  0  0 15  0
-map, blue house
+
+map4, blue house
 8, 8
 7  7  0  0  0  0  0  7
 0  0  0  0  0  0  0  0
@@ -47,7 +54,8 @@ map, blue house
 15 0  0  0  0  0  0 15
 15 0  0  0  0  0  0 15
 -1 -1 9  9 -1 -1 -1 -1
-map, prof chen house
+
+map5, prof chen house
 10, 12
 11 11 11 11 0  0  7  7  7  7
 0  0  0  0  0  0  0  0  0  0
@@ -61,3 +69,14 @@ map, prof chen house
 0  0  0  0  0  0  0  0  0  0
 0  0  0  0  0  0  0  0  0  0
 -1 -1 -1 -1 9  9 -1 -1 -1 -1
+
+--------------------
+Texture
+--------------------
+
+
+
+
+
+
+

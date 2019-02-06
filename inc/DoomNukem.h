@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DoomNukem.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojerroud <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/01 11:55:22 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/06 14:37:15 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # define HEIGH 800
 # define WEIGH 800
 
+# define DASHES "--------------------"
+# define DESIGN_LEVEL "Design level"
+# define TEXTURE "textures"
+# define GAMEPLAY "gameplay"
+
+
 # define ESC 53
 # define W 13
 # define D 2
@@ -27,7 +33,7 @@
 # define S 1
 # define SPACE 49
 
-typedef enum	texture
+typedef enum	e_texture
 {
 	floor = 0,
 	wall = 1,
@@ -45,19 +51,30 @@ typedef enum	texture
 	console = 13,
 	bed = 14,
 	plant = 15,
-}				;
+}				t_texture;
 
-typedef struct  s_mlx
+typedef struct		s_mlx
 {
-    void        *mlx;
-    void        *win;
-}               t_mlx;
+    void			*mlx;
+    void			*win;
+}					t_mlx;
 
-typedef struct  s_env
+typedef struct		s_parse
 {
-    t_mlx       mlx;
-    int         silent;
-}               t_env;
+	char			*title;
+	int				begin_line;
+	int				end_line;
+	struct s_parse	*next;
+}					t_parse;
+
+typedef struct		s_env
+{
+    t_mlx			mlx;
+	t_parse			*list;
+    int				silent;
+	int				is_title;
+	char			*title;
+}					t_env;
 
 /*
 **  error.c
@@ -82,6 +99,7 @@ void    key_esc(t_env *e);
 **  reader.c
 */
 
-void    read_map(t_env *e, char *map);
+void    read_file(t_env *e, char *file);
+void	print_list(t_parse *list);
 
 #endif

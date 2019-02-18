@@ -6,7 +6,7 @@
 #    By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 11:55:28 by ojerroud          #+#    #+#              #
-#    Updated: 2019/02/18 10:10:08 by ojerroud         ###   ########.fr        #
+#    Updated: 2019/02/18 11:18:06 by ojerroud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,12 +42,12 @@ $(OBJDIR):
 	@mkdir $(OBJDIR)
 
 clean :
-	@make clean -C libft
+	@make clean -C $(LIBFT_PATH)
 	@/bin/rm -rf $(OBJDIR) $(OBJDIR_EDITOR)
 	@echo "clean.."
 
 fclean : clean
-	@make fclean -C libft
+	@make fclean -C $(LIBFT_PATH)
 	@/bin/rm -f $(NAME) $(EDITOR)
 
 re: fclean all

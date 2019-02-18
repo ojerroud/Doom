@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojerroud <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:02:59 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/01 13:12:20 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/18 10:45:19 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int		main(int ac, char **av)
 
 	if (ac != 2)
 		ft_error("mauvais nombre d'arguments.");
-	// init_mlx(&e);
-	// ft_putendl(av[1]);
+	ft_putendl(av[1]);
 	read_file(&e, av[1]);
+	init_mlx(&e, "init");
 	return (0);
 }

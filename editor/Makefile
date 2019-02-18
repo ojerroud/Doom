@@ -6,24 +6,26 @@
 #    By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 11:55:28 by ojerroud          #+#    #+#              #
-#    Updated: 2019/02/18 10:37:04 by ojerroud         ###   ########.fr        #
+#    Updated: 2019/02/18 10:10:08 by ojerroud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = doom-nukem
+NAME = doom-nukem-editor
 INC_PATH = inc
-MINI_PATH = minilibx
-LIBFT_PATH = libft/
-HEADER = inc/DoomNukem.h
+MINI_PATH = ../minilibx/
+LIBFT_PATH = ../libft/
+HEADER = inc/editor.h
 FLAGS = -Wall -Wextra -Werror
 vpath %.c src editor/src
 vpath_h = -I $(INC_PATH) -I $(MINI_PATH) -I $(LIBFT_PATH)includes
-LIB = -L $(LIBFT_PATH) -lft -L $(MINI_PATH) -lmlx
+LIBS = -L $(LIBFT_PATH) -lft -L $(MINI_PATH) -lmlx
 
 MINIFLAGS = -framework OpenGL -framework AppKit
 
 OBJDIR := obj
-OBJS := $(addprefix $(OBJDIR)/,main.o error.o init.o keyboard.o reader.o mouse.o)
+OBJS := $(addprefix $(OBJDIR)/,main.o init.o draw.o error.o keyboard.o mouse.o)
+
+
 
 $(OBJDIR)/%.o : %.c $(HEADER)
 	$(CC) $(FLAGS) $(vpath_h) -c \
@@ -32,7 +34,7 @@ $(OBJDIR)/%.o : %.c $(HEADER)
 all : $(OBJS)
 	@make -C $(LIBFT_PATH)
 	@make -C $(MINI_PATH)
-	@$(CC) $(LIB) -o $(NAME) $(OBJS) $(MINIFLAGS)
+	@$(CC) $(LIBS) -o $(NAME) $(OBJS) $(MINIFLAGS)
 
 $(OBJS): | $(OBJDIR)
 

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojerroud <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:45:03 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/01 12:45:05 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/13 11:21:09 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "DoomNukem.h"
 
-int     ft_error(char *str)
+int		ft_error(char *str)
 {
-    ft_putstr("error: ");
-    ft_putendl(str);
-    exit (0);
+	ft_putstr("error: ");
+	ft_putendl(str);
+	exit(0);
 }

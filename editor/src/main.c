@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/18 10:37:57 by ojerroud         ###   ########.fr       */
+/*   Created: 2019/02/13 11:38:48 by ojerroud          #+#    #+#             */
+/*   Updated: 2019/02/18 09:42:08 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "DoomNukem.h"
+#include "editor.h"
+#include <stdio.h>
 
-int		init_mlx(t_env *e, char *title)
+int main(int ac, char **av)
 {
-	ft_strcmp(title, "");
-	e->mlx.mlx = mlx_init();
-	e->mlx.win = mlx_new_window(e->mlx.mlx, WIDTH, HEIGHT, title);
-	// e->mlx.img.img_ptr = mlx_new_image(e->mlx.mlx, WEIGH, HEIGH);
-	mlx_mouse_hook(e->mlx.win, mousehooked, e);
-	mlx_key_hook(e->mlx.win, keyhooked, e);
-	mlx_loop(e->mlx.mlx);
+	t_env   e;
+	int		i;
+
+	e.av = av;
+	e.ac = ac;
+	i = -1;
+	init_mlx(&e, "editor");
 	return (0);
 }

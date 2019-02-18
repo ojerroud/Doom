@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   DoomNukem.h                                        :+:      :+:    :+:   */
+/*   editor.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/18 10:44:01 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/18 10:33:20 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOOMNUKEN_H
-# define DOOMNUKEN_H
+#ifndef EDITOR_H
+# define EDITOR_H
 
 # include "libft.h"
 # include <mlx.h>
@@ -71,11 +71,11 @@ typedef struct		s_map
 typedef struct		s_img
 {
 	void			*img_ptr;
+	char			*name;
 	int				*data;
 	int				size_l;
 	int				bpp;
 	int				endian;
-	char			*name;
 	int				width;
 	int				height;
 	struct s_img	*next;
@@ -132,7 +132,7 @@ void    key_esc(t_env *e);
 */
 
 void    read_file(t_env *e, char *file);
-void	print_list(t_parse *list);
+void	print_list(t_img *list);
 
 /*
 **	mouse.c

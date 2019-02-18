@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 14:20:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/06 15:21:34 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/13 11:17:22 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	check_section(char *line, int line_nb, t_env *e)
 	line_nb += 0;
 }
 
-void	save_maps(char * line, int line_nb, t_env *e)
+void	save_maps(char *line, int line_nb, t_env *e)
 {
 	char		*to_find;
 
@@ -122,4 +122,8 @@ void	read_file(t_env *e, char *map)
 		line_nb++;
 	}
 	add_end(e->list, line_nb);
+}
+
+void	read_map(void)
+{
 }

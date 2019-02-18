@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   keyboard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/18 10:37:57 by ojerroud         ###   ########.fr       */
+/*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
+/*   Updated: 2019/02/18 10:09:24 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "DoomNukem.h"
+#include "editor.h"
 
-int		init_mlx(t_env *e, char *title)
+void	key_esc(t_env *e)
 {
-	ft_strcmp(title, "");
-	e->mlx.mlx = mlx_init();
-	e->mlx.win = mlx_new_window(e->mlx.mlx, WIDTH, HEIGHT, title);
-	// e->mlx.img.img_ptr = mlx_new_image(e->mlx.mlx, WEIGH, HEIGH);
-	mlx_mouse_hook(e->mlx.win, mousehooked, e);
-	mlx_key_hook(e->mlx.win, keyhooked, e);
-	mlx_loop(e->mlx.mlx);
+	mlx_destroy_window(e->mlx.mlx, e->mlx.win);
+	exit(0);
+}
+
+int		keyhooked(int keycode, t_env *e)
+{
+	ft_putnbr(keycode);
+	ft_putendl("");
+	if (keycode == ESC)
+		key_esc(e);
 	return (0);
 }

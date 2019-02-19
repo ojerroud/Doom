@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/18 17:04:56 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/19 12:05:19 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ void	change_color(t_img *img)
 		while (++w < img->width)
 		{
 			if (img->name == MAIN)
-				img->data[h * img->width + w] = 0x222222;
-			if (img->name == BUTTON1)
-				img->data[h * img->width + w] = 0xFFFFFF;
+				img->data[h * img->width + w] = img->color;
 			if (img->name == SQUARRE)
-				img->data[h * img->width + w] = 0x666666;
+				img->data[h * img->width + w] = img->color;
+			if (img->name >= BUTTON1)
+				img->data[h * img->width + w] = img->color;
 		}
 	}
 }
@@ -96,7 +96,7 @@ void	draw_shape(t_img	*img)
 		while (++w < img->width)
 		{
 			if (!h || h == img->height - 1 || !w || w == img->width - 1)
-			img->data[h * img->width + w] = 0xFF0000;
+			img->data[h * img->width + w] = 0x000000;
 		}
 	}
 }
@@ -118,7 +118,7 @@ void	put_img_pos(t_env	*e)
 	mlx_clear_window(e->mlx.mlx, e->mlx.win);
 	while (tmp)
 	{
-		if (tmp->name == MAIN || tmp->name == SQUARRE || tmp->name == BUTTON1)
+		if (tmp->name == MAIN || tmp->name == SQUARRE || (tmp->name >= BUTTON1 && tmp->name < END))
 			create_mlx_img(e, tmp);
 		tmp = tmp->next;
 	}
@@ -165,25 +165,37 @@ void	create_list_img(t_img **list, int name, int width, int height)
 void	init_xy(t_img	*list)
 {
 	t_img	*tmp;
+	int		cpt_w;
+	int		cpt_h;
 
 	tmp = list;
+	cpt_w = 0;
+	cpt_h = 0;
 	while (tmp)
 	{
 		if (tmp->name == MAIN)
 		{
 			tmp->pos.x = WIDTH - tmp->width;
 			tmp->pos.y = HEIGHT - tmp->height;
+			tmp->color = 0x222222;
 		}
 		if (tmp->name == SQUARRE)
 		{
 			tmp->pos.x = 10;
 			tmp->pos.y = 10;
+			tmp->color = 0x666666;
 		}
-		if (tmp->name == BUTTON1)
+		if (tmp->name >= BUTTON1)
 		{
-			tmp->pos.x = 0;
-			tmp->pos.y = 0;
+			tmp->pos.x = 0 + (BUTTON_W * cpt_w);
+			tmp->pos.y = 0 + (BUTTON_H * cpt_h);
+			tmp->color = 0xFFFFFF;
+			if (cpt_w)
+				cpt_h ++;
+			cpt_w = !cpt_w;
 		}
+		tmp->color_swap = 1;
+		printf("%d %d %d || %d %d\n", tmp->name, tmp->pos.x, tmp->pos.y, tmp->width, tmp->height);
 		tmp = tmp->next;
 	}
 }
@@ -191,8 +203,17 @@ void	init_xy(t_img	*list)
 void	create_imgs(t_env *e)
 {
 	e->mlx.img = NULL;
-	create_list_img(&e->mlx.img, BUTTON1, WIDTH / 6, HEIGHT / 10);
-	create_list_img(&e->mlx.img, MAIN, 2 * WIDTH / 3, HEIGHT);
+	create_list_img(&e->mlx.img, MAIN, 2 * WIDTH / 3 - 1, HEIGHT - 1);
+	create_list_img(&e->mlx.img, BUTTON1, BUTTON_W - 1, BUTTON_H - 1);
+	create_list_img(&e->mlx.img, BUTTON2, BUTTON_W - 1, BUTTON_H - 1);
+	create_list_img(&e->mlx.img, BUTTON3, BUTTON_W - 1, BUTTON_H - 1);
+	create_list_img(&e->mlx.img, BUTTON4, BUTTON_W - 1, BUTTON_H - 1);
+	create_list_img(&e->mlx.img, BUTTON5, BUTTON_W - 1, BUTTON_H - 1);
+	create_list_img(&e->mlx.img, BUTTON6, BUTTON_W - 1, BUTTON_H - 1);
+	create_list_img(&e->mlx.img, BUTTON7, BUTTON_W - 1, BUTTON_H - 1);
+	create_list_img(&e->mlx.img, BUTTON8, BUTTON_W - 1, BUTTON_H - 1);
+	create_list_img(&e->mlx.img, BUTTON9, BUTTON_W - 1, BUTTON_H - 1);
+	create_list_img(&e->mlx.img, BUTTON10, BUTTON_W - 1, BUTTON_H - 1);
 	create_list_img(&e->mlx.img, SQUARRE, 64, 64);
 	init_xy(e->mlx.img);
 	put_img_pos(e);

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/19 12:04:44 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/19 19:06:37 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,21 @@
 # define WIDTH	1500
 # define HEIGHT	1000
 
-# define ESC		53
-# define W			13
-# define D			2
-# define A			0
-# define S			1
-# define C			8
-# define LEFT		123
-# define RIGHT		124
-# define DOWN		125
-# define UP			126
-# define SPACE		49
-# define BUTTON_W	WIDTH / 6 
-# define BUTTON_H	HEIGHT / 5
+# define ESC			53
+# define W				13
+# define D				2
+# define A				0
+# define S				1
+# define C				8
+# define LEFT			123
+# define RIGHT			124
+# define DOWN			125
+# define UP				126
+# define SPACE			49
+# define BUTTON_W		WIDTH / 6 
+# define BUTTON_H		HEIGHT / 8
+# define BALL1			"../texture/ball1.xpm"
+# define BALL2			"../texture/ball2.xpm"
 
 typedef struct		s_ixy
 {
@@ -52,6 +54,7 @@ typedef enum		e_name
 {
 	MAIN,
 	SQUARRE,
+	SQUARRE2,
 	BUTTON1,
 	BUTTON2,
 	BUTTON3,
@@ -60,10 +63,21 @@ typedef enum		e_name
 	BUTTON6,
 	BUTTON7,
 	BUTTON8,
+	END,
 	BUTTON9,
 	BUTTON10,
-	END,
+	BUTTON11,
+	BUTTON12,
+	BUTTON13,
+	BUTTON14,
 }					t_name;
+
+typedef enum		e_texture
+{
+	POKEBALL1,
+	POKEBALL2,
+	LAST,	
+}					t_texture;
 
 typedef struct		s_img
 {
@@ -80,6 +94,16 @@ typedef struct		s_img
 	t_ixy			pos;
 	struct s_img	*next;
 }					t_img;
+
+typedef struct		s_text
+{
+	void			*img_ptr;
+	int				*data;
+	int				size_l;
+	int				bpp;
+	int				endian;
+	char			*name;
+}					t_text;
 
 typedef struct		s_mlx
 {
@@ -98,6 +122,7 @@ typedef struct		s_env
 	char			**av;
 	int				ac;
 	t_img			*select;
+	t_text			text[LAST - 1];
 }					t_env;
 
 /*
@@ -139,5 +164,11 @@ int					mousehooked(int button, int x, int y, t_env *e);
 void				points(t_env *e, char **av);
 void				create_imgs(t_env *e);
 void				put_img_pos(t_env *e);
+
+/*
+**	texure.c
+*/
+
+void				init_texture(t_env *e);
 
 #endif

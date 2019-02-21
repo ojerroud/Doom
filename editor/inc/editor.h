@@ -18,7 +18,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-# define WIDTH	1500
+# define WIDTH	1800
 # define HEIGHT	1000
 
 # define ESC			53
@@ -34,8 +34,8 @@
 # define SPACE			49
 # define BUTTON_W		WIDTH / 6 
 # define BUTTON_H		HEIGHT / 8
-# define BALL1			"../texture/ball1.xpm"
-# define BALL2			"../texture/ball2.xpm"
+# define BALL1			"texture/ball1.xpm"
+# define BALL2			"texture/ball2.xpm"
 
 typedef struct		s_ixy
 {
@@ -54,7 +54,7 @@ typedef enum		e_name
 {
 	MAIN,
 	SQUARRE,
-	SQUARRE2,
+	// SQUARRE2,
 	BUTTON1,
 	BUTTON2,
 	BUTTON3,
@@ -90,6 +90,7 @@ typedef struct		s_img
 	int				width;
 	int				height;
 	int				color;
+	int				texture_swap;
 	int				color_swap;
 	t_ixy			pos;
 	struct s_img	*next;
@@ -111,6 +112,17 @@ typedef struct		s_mlx
 	void			*win;
 	t_img			*img;
 }					t_mlx;
+
+typedef struct		s_test
+{
+	void			*mlx;
+	void			*win;
+	void			*img;
+	int				*data;
+	int				bpp;
+	int				endian;
+	int				size_l;
+}					t_test;
 
 typedef struct		s_env
 {
@@ -164,11 +176,13 @@ int					mousehooked(int button, int x, int y, t_env *e);
 void				points(t_env *e, char **av);
 void				create_imgs(t_env *e);
 void				put_img_pos(t_env *e);
+void				change_color(t_env *e, t_img *img);
 
 /*
 **	texure.c
 */
 
 void				init_texture(t_env *e);
+void    			scale_texture_to_img(t_img *img, t_env *e);
 
 #endif

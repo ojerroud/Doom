@@ -12,6 +12,30 @@
 
 #include "editor.h"
 
+void    scale_texture_to_img(t_img *img, t_env *e)
+{
+    int     w;
+    int     h;
+    double  w_t;
+    double  h_t;
+
+    h = -1;
+    w_t = (double)img->width / 64.0;
+    h_t = (double)img->height / 64.0;
+    while (++h < img->height)
+    {
+        w = -1;
+        while (++w < img->width)
+        {
+            if (img->texture_swap == 0 || img->texture_swap == 2)
+                img->data[h * img->width + w] = e->text[0].data[(int)((double)h / h_t) * 64 + (int)(((double)w / w_t))];
+            else
+                img->data[h * img->width + w] = e->text[1].data[(int)((double)h / h_t) * 64 + (int)(((double)w / w_t))];
+        }
+    }
+    img->texture_swap = (img->texture_swap == 0 || img->texture_swap == 2) ? 1 : 2;
+}
+
 void	init_texture(t_env *e)
 {
 	int	h;
@@ -19,24 +43,13 @@ void	init_texture(t_env *e)
 	int i;
 
 	i = -1;
+	e->text[0].name = (char *)malloc(sizeof(char) * (ft_strlen(BALL1) + 1));
+	e->text[1].name = (char *)malloc(sizeof(char) * (ft_strlen(BALL2) + 1));
 	ft_strcpy(e->text[0].name, BALL1);
 	ft_strcpy(e->text[1].name, BALL2);
-	// e->text[1].name = BALL2;
 	while (++i < LAST)
 	{
 		e->text[i].img_ptr = mlx_xpm_file_to_image(e->mlx.mlx, e->text[i].name, &h, &w);
 		e->text[i].data = (int *)mlx_get_data_addr(e->text[i].img_ptr, &(e->text[i].bpp), &(e->text[i].size_l), &(e->text[i].endian));
 	}
-	// h = -1;
-	// printf("%d %d\n", img->height, img->width);
-	// while (++h < img->height)
-	// {
-	// 	w = -1;
-	// 	while (++w < img->width)
-	// 	{
-	// 		// img->data[h * img->width + w] = 0xFFFFFF;
-	// 	}
-	// }
-	// printf("%d %d\n", img->pos.x, img->pos.y);
-	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->text[0].img_ptr, 65, HEIGHT - 65);
 }

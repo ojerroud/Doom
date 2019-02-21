@@ -12,11 +12,6 @@
 
 #include "editor.h"
 
-void    cell_pressed()
-{
-
-}
-
 int     mousehooked(int button, int x, int y, t_env *e)
 {
     t_img   *list;
@@ -28,7 +23,12 @@ int     mousehooked(int button, int x, int y, t_env *e)
         {
             list->color += (list->color_swap * 0x222222);
             list->color_swap *= -1;
-            put_img_pos(e);
+            if (list->name == MAIN || list->name == SQUARRE )
+                change_color(e, list);
+            else
+                // change_color(e, list);
+                scale_texture_to_img(list, e);
+            mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, list->img_ptr, list->pos.x, list->pos.y);
         }
         list = list->next;
     }
@@ -39,6 +39,5 @@ int     mousehooked(int button, int x, int y, t_env *e)
     ft_putnbr(y);
     ft_putchar('\n');
     e->is_title += 0;
-
     return (0);
 }

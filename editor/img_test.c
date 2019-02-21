@@ -24,19 +24,19 @@ int     k(int keycode, t_env *e)
 
 void	change_img(t_test *img, t_test texture, int taille)
 {
-	int i;
-	int j;
+	int w;
+	int h;
 	double	t;
 
-	j = -1;
+	h = -1;
 	t = taille / 64.0;
-	while (j++ < taille)
+	while (++h < taille)
 	{
-		i = -1;
-		while (++i < taille)
+		w = -1;
+		while (++w < taille)
 		{
-			img->data[j * taille + i] = texture.data[(int)((double)j / t) * 64 + (int)((double)i / t)];
-			// img->data[j * taille + i] = 0xFFFFFF;
+			img->data[h * taille + w] = texture.data[(int)((double)h / t) * 64 + (int)((double)w / t)];
+			// img->data[h * taille + w] = 0xFFFFFF;
 		}
 	}
 }   
@@ -49,7 +49,7 @@ int 	main(int ac, char **av)
 	int		t;
 	int		taille;
 
-	taille = 25;
+	taille = 500;
 	e.mlx.mlx = mlx_init();
 	e.mlx.win = mlx_new_window(e.mlx.mlx, WIDTH, HEIGHT, "test");
 	img.img = mlx_new_image(e.mlx.mlx, taille, taille);

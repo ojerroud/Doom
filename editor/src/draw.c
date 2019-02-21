@@ -21,6 +21,11 @@ void	change_color(t_env *e, t_img *img)
 	// if (img->name == SQUARRE)
 	// 	put_texture(img, e);
 	e->silent++;
+	if (img->name >= BUTTON1 && img->name < END)
+	{
+		scale_texture_to_img(img, e);
+		return ;
+	}
 	while (++h < img->height)
 	{
 		w = -1;
@@ -30,10 +35,10 @@ void	change_color(t_env *e, t_img *img)
 				img->data[h * img->width + w] = img->color;
 			if (img->name == SQUARRE)
 				img->data[h * img->width + w] = e->text[0].data[h * img->width + w];
-			if (img->name == SQUARRE2)
-				img->data[h * img->width + w] = e->text[1].data[h * img->width + w];
-			if (img->name >= BUTTON1 && img->name < END)
-				img->data[h * img->width + w] = img->color;
+			// if (img->name == SQUARRE2)
+			// 	img->data[h * img->width + w] = e->text[1].data[h * img->width + w];
+			// if (img->name >= BUTTON1 && img->name < END)
+				// img->data[h * img->width + w] = img->color;
 		}
 	}
 }
@@ -126,8 +131,8 @@ void	init_xy(t_img	*list)
 			img_sav_pos_n_color(tmp, WIDTH - tmp->width, HEIGHT - tmp->height - 1, 0x222222);
 		if (tmp->name == SQUARRE)
 			img_sav_pos_n_color(tmp, 0, HEIGHT - tmp->height, 0x666666);
-		if (tmp->name == SQUARRE2)
-			img_sav_pos_n_color(tmp, tmp->width, HEIGHT - tmp->height, 0x666666);
+		// if (tmp->name == SQUARRE2)
+		// 	img_sav_pos_n_color(tmp, tmp->width, HEIGHT - tmp->height, 0x666666);
 		if (tmp->name >= BUTTON1)
 		{
 			img_sav_pos_n_color(tmp, 0 + (BUTTON_W * cpt_w), 0 + (BUTTON_H * cpt_h), 0xFFFFFF);
@@ -136,6 +141,7 @@ void	init_xy(t_img	*list)
 			cpt_w = !cpt_w;
 		}
 		tmp->color_swap = 1;
+		tmp->texture_swap = 0;
 		// printf("%d %d %d || %d %d\n", tmp->name, tmp->pos.x, tmp->pos.y, tmp->width, tmp->height);
 		tmp = tmp->next;
 	}
@@ -160,9 +166,9 @@ void	create_imgs(t_env *e)
 	// create_list_img(&e->mlx.img, BUTTON13, BUTTON_W - 1, BUTTON_H - 1);
 	// create_list_img(&e->mlx.img, BUTTON14, BUTTON_W - 1, BUTTON_H - 1);
 	create_list_img(&e->mlx.img, SQUARRE, 64, 64);
-	create_list_img(&e->mlx.img, SQUARRE2, 64, 64);
+	// create_list_img(&e->mlx.img, SQUARRE2, 64, 64);
 	init_xy(e->mlx.img);
 	init_texture(e);
-	// put_img_pos(e);
+	put_img_pos(e);
 	// print_list(e->mlx.img);
 }

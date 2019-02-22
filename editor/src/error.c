@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:45:03 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/18 09:42:08 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/22 14:12:27 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int		ft_error(char *str)
 {
 	ft_putstr("error: ");
-	ft_putendl(str);
+	ft_putstr(str);
+	ft_putendl(".");
 	exit(0);
 }

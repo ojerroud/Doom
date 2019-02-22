@@ -6,15 +6,15 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 11:38:48 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/19 18:48:52 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/22 15:30:20 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_env   e;
+	t_env	e;
 
 	e.av = av;
 	e.ac = ac;

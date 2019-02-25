@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/22 15:22:15 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/25 13:22:49 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	draw_shape(t_img	*img)
 		while (++w < img->width)
 		{
 			if (!h || h == img->height - 1 || !w || w == img->width - 1)
-			img->data[h * img->width + w] = 0x000000;
+				img->data[h * img->width + w] = 0xFF0000;
 		}
 	}
 }
@@ -85,7 +85,7 @@ void	put_img_pos(t_env *e)
 void	create_imgs(t_env *e)
 {
 	e->mlx.img = NULL;
-	init_texture(e);
+	
 	create_list_img(&e->mlx.img, MAIN, 2 * WIDTH / 3 - SPACING, HEIGHT - SPACING);
 	create_list_img(&e->mlx.img, BUTTON1, BUTTON_W - SPACING, BUTTON_H - SPACING);
 	create_list_img(&e->mlx.img, BUTTON2, BUTTON_W - SPACING, BUTTON_H - SPACING);
@@ -103,7 +103,7 @@ void	create_imgs(t_env *e)
 	// create_list_img(&e->mlx.img, BUTTON14, BUTTON_W - SPACING, BUTTON_H - SPACING);
 	// create_list_img(&e->mlx.img, SQUARRE, 64, 64);
 	// create_list_img(&e->mlx.img, SQUARRE2, 64, 64);
-	init_xy(e->mlx.img);
+	init_xy(e->mlx.img, e);
 	put_img_pos(e);
 	// print_list(e->mlx.img);
 }

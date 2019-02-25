@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/22 16:41:24 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/25 17:14:57 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,19 @@
 # define MOUSE_MID			3
 # define MOUSE_SCROLLUP		4
 # define MOUSE_SCROLLDOWN	5
-# define BUTTON_W		WIDTH / 6 
+# define BUTTON_W		WIDTH / 6
 # define BUTTON_H		HEIGHT / 8
 
 # define SPACING		1
 # define GRID_SIZE		32
+# define DOTS_COLOR		0xFF0000
 
 # define WHITE			0xFFFFFF
 # define BLACK			0x000000
 # define RED			0xFF0000
 # define GREEN			0x00FF00
 # define BLUE			0x0000FF
+# define GREY			0x666666
 # define BALL1			"texture/1.xpm"
 # define BALL2			"texture/2.xpm"
 
@@ -132,17 +134,6 @@ typedef struct		s_mlx
 	t_img			*img;
 }					t_mlx;
 
-// typedef struct		s_test
-// {
-// 	void			*mlx;
-// 	void			*win;
-// 	void			*img;
-// 	int				*data;
-// 	int				bpp;
-// 	int				endian;
-// 	int				size_l;
-// }					t_test;
-
 typedef struct		s_env
 {
 	t_mlx			mlx;
@@ -155,6 +146,7 @@ typedef struct		s_env
 	int				ac;
 	t_img			*select;
 	t_img			*curr;
+	t_img			*main;
 	t_text			text[LAST - 1];
 }					t_env;
 
@@ -169,7 +161,7 @@ int					ft_error(char *str);
 */
 
 int					init_mlx(t_env *e, char *title);
-void				init_xy(t_img	*list);
+void				init_xy(t_img *list, t_env *e);
 
 /*
 **  keyboard.c
@@ -205,7 +197,7 @@ void				img_paint(t_env *e, t_img *img);
 */
 
 void				init_texture(t_env *e);
-void    			scale_texture_to_img(t_img *img, t_env *e);
+void				scale_texture_to_img(t_img *img, t_env *e);
 
 /*
 **	map.c
@@ -217,6 +209,6 @@ void				put_grid(t_env *e);
 **	list_utils.c
 */
 
-void				create_list_img(t_img **list, int name, int width, int height);
+void				create_list_img(t_img **list, int name, int w, int h);
 
 #endif

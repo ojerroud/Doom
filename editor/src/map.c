@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 11:42:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/22 16:36:37 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/25 17:10:53 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,20 @@
 
 void	put_grid(t_env *e)
 {
-	t_img	*main;
 	int		h;
 	int		w;
 
-	main = e->mlx.img;
-	while (main)
-	{
-		if (main->name == MAIN)
-			break ;
-		main = main->next;
-	}
 	h = -1;
-	while (++h < main->height)
+	while (++h < e->main->height)
 	{
 		w = -1;
-		while (++w < main->width)
+		while (++w < e->main->width)
 		{
-			if (!(w % e->grid_size) || !(h % e->grid_size))
-				main->data[h * main->width + w] = WHITE;
+			if ((!(w % e->grid_size) && w )|| (!(h % e->grid_size) && h))
+				e->main->data[h * e->main->width + w] = GREY;
 			else
-				main->data[h * main->width + w] = main->color;
+				e->main->data[h * e->main->width + w] = e->main->color;
 		}
 	}
-	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, main->img_ptr, main->pos.x, main->pos.y);
+	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->main->img_ptr, e->main->pos.x, e->main->pos.y);
 }

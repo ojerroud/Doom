@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/22 16:52:45 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/25 16:37:28 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	sizegrid_change(t_env *e)
 	e->grid_size /= 1.5;
 	if (e->grid_size < 10)
 		e->grid_size = 64;
-	put_grid(e);
+	if (e->select->name == END - 1)
+		put_grid(e);
 }
 
 int		keyhooked(int keycode, t_env *e)

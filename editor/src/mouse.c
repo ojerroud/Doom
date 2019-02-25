@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/25 17:15:02 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/25 17:28:06 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ void	t(t_img	*img, t_env *e, int x, int y)
 		mod_w++;
 	if (rest_h >= e->grid_size / 2)
 		mod_h++;
-		draw_point(img, mod_h * e->grid_size, mod_w * e->grid_size);
+	x = mod_w * e->grid_size;
+	y = mod_h * e->grid_size;
+	save_list(e, x, y);
+	draw_point(img, mod_h * e->grid_size, mod_w * e->grid_size);
 	// printf("%d %d \n", mod_w, mod_h);
 }
 

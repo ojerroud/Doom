@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/25 17:14:57 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/25 17:26:26 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct		s_ixy
 {
 	int				x;
 	int				y;
+	struct s_ixy	*next;
 }					t_ixy;
 
 typedef struct		s_map
@@ -148,6 +149,7 @@ typedef struct		s_env
 	t_img			*curr;
 	t_img			*main;
 	t_text			text[LAST - 1];
+	t_ixy			*points;
 }					t_env;
 
 /*

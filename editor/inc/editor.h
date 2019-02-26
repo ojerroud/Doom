@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/26 13:57:22 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/26 15:23:14 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,18 @@ typedef enum		e_name
 	SQUARRE2,
 }					t_name;
 
-typedef enum		e_texture
+typedef enum		e_texture_buttons
 {
 	POKEBALL1,
 	POKEBALL2,
 	LAST,
+}					t_texture_buttons;
+
+typedef enum		e_texture
+{
+	WALL,
+	WALL2,
+	LAST_TEX,
 }					t_texture;
 
 typedef struct		s_img
@@ -218,6 +225,6 @@ void				create_list_dots(t_ixy **list, int x, int y);
 **	dots.c
 */
 
-void				sav_dots(t_ixy *list, int x, int y);
+void				sav_dots(t_env *e, int x, int y);
 
 #endif

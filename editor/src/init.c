@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/26 13:13:09 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/26 15:25:26 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	init_vars(t_env *e)
 {
 	e->mlx.img = NULL;
 	e->dots = NULL;
+	e->dots = (t_ixy *)malloc(sizeof(t_ixy));
 	e->grid_size = 64;
 }
 

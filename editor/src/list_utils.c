@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:14:38 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/26 13:37:51 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/26 15:09:34 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static t_ixy	*lstnew2(int x, int y)
 		return (NULL);
 	tmp->x = x;
 	tmp->y = y;
+	tmp->next = NULL;
 	return (tmp);
 }
 
@@ -41,6 +42,7 @@ static t_img	*lstnew(int name, int width, int height)
 	tmp->name = name;
 	tmp->width = width;
 	tmp->height = height;
+	tmp->next = NULL;
 	return (tmp);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/26 15:25:26 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:12:51 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,20 @@ void	init_vars(t_env *e)
 {
 	e->mlx.img = NULL;
 	e->dots = NULL;
-	e->dots = (t_ixy *)malloc(sizeof(t_ixy));
 	e->grid_size = 64;
+	e->test = 0;
 }
 
-int		init_mlx(t_env *e, char *title)
+void	init_mlx(t_env *e, char *title)
 {
-	init_vars(e);
+	// init_vars(e);
 	e->mlx.mlx = mlx_init();
 	e->mlx.win = mlx_new_window(e->mlx.mlx, WIDTH, HEIGHT, title);
-	init_texture(e);
-	create_imgs(e);
 	if (!e->mlx.win)
 		ft_error("fail create a new window");
-	// e->select = e->mlx.img;
-	// e->select = 0;
+	init_texture(e);
+	create_imgs(e);
 	mlx_mouse_hook(e->mlx.win, mousehooked, e);
 	mlx_key_hook(e->mlx.win, keyhooked, e);
 	mlx_loop(e->mlx.mlx);
-	return (0);
 }

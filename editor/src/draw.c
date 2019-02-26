@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/26 13:16:31 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/26 16:42:34 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,23 @@ void	put_img_pos(t_env *e)
 
 void	create_imgs(t_env *e)
 {
+	int		i;
+
 	create_list_img(&e->mlx.img, MAIN, 2 * WIDTH / 3 - SPACING, HEIGHT - SPACING);
-	create_list_img(&e->mlx.img, BUTTON1, BUTTON_W - SPACING, BUTTON_H - SPACING);
-	create_list_img(&e->mlx.img, BUTTON2, BUTTON_W - SPACING, BUTTON_H - SPACING);
-	create_list_img(&e->mlx.img, BUTTON3, BUTTON_W - SPACING, BUTTON_H - SPACING);
-	create_list_img(&e->mlx.img, BUTTON4, BUTTON_W - SPACING, BUTTON_H - SPACING);
-	create_list_img(&e->mlx.img, BUTTON5, BUTTON_W - SPACING, BUTTON_H - SPACING);
-	create_list_img(&e->mlx.img, BUTTON6, BUTTON_W - SPACING, BUTTON_H - SPACING);
+	i = 0;
+	while (++i < END)
+	{
+		create_list_img(&e->mlx.img, i, BUTTON_W - SPACING, BUTTON_H - SPACING);
+	}
+	init_xy(e->mlx.img, e);
+	put_img_pos(e);
+	e->select = e->mlx.img;
+	// create_list_img(&e->mlx.img, BUTTON1, BUTTON_W - SPACING, BUTTON_H - SPACING);
+	// create_list_img(&e->mlx.img, BUTTON2, BUTTON_W - SPACING, BUTTON_H - SPACING);
+	// create_list_img(&e->mlx.img, BUTTON3, BUTTON_W - SPACING, BUTTON_H - SPACING);
+	// create_list_img(&e->mlx.img, BUTTON4, BUTTON_W - SPACING, BUTTON_H - SPACING);
+	// create_list_img(&e->mlx.img, BUTTON5, BUTTON_W - SPACING, BUTTON_H - SPACING);
+	// create_list_img(&e->mlx.img, BUTTON6, BUTTON_W - SPACING, BUTTON_H - SPACING);
 	// create_list_img(&e->mlx.img, BUTTON7, BUTTON_W - SPACING, BUTTON_H - SPACING);
 	// create_list_img(&e->mlx.img, BUTTON8, BUTTON_W - SPACING, BUTTON_H - SPACING);
 	// create_list_img(&e->mlx.img, BUTTON9, BUTTON_W - SPACING, BUTTON_H - SPACING);
@@ -103,7 +113,5 @@ void	create_imgs(t_env *e)
 	// create_list_img(&e->mlx.img, BUTTON14, BUTTON_W - SPACING, BUTTON_H - SPACING);
 	// create_list_img(&e->mlx.img, SQUARRE, 64, 64);
 	// create_list_img(&e->mlx.img, SQUARRE2, 64, 64);
-	init_xy(e->mlx.img, e);
-	put_img_pos(e);
 	// print_list(e->mlx.img);
 }

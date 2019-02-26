@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/26 15:23:14 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:10:39 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,6 @@
 # define BALL1			"texture/1.xpm"
 # define BALL2			"texture/2.xpm"
 
-typedef struct		s_ixy
-{
-	int				x;
-	int				y;
-	struct s_ixy	*next;
-}					t_ixy;
-
-typedef struct		s_map
-{
-	char			*name;
-	t_ixy			dimention;
-	int				**map;
-}					t_map;
-
 typedef enum		e_name
 {
 	MAIN,
@@ -92,19 +78,26 @@ typedef enum		e_name
 	SQUARRE2,
 }					t_name;
 
-typedef enum		e_texture_buttons
+typedef enum		e_texture
 {
 	POKEBALL1,
 	POKEBALL2,
 	LAST,
-}					t_texture_buttons;
-
-typedef enum		e_texture
-{
-	WALL,
-	WALL2,
-	LAST_TEX,
 }					t_texture;
+
+typedef struct		s_ixy
+{
+	int				x;
+	int				y;
+	struct s_ixy	*next;
+}					t_ixy;
+
+typedef struct		s_map
+{
+	char			*name;
+	t_ixy			dimention;
+	int				**map;
+}					t_map;
 
 typedef struct		s_img
 {
@@ -145,18 +138,16 @@ typedef struct		s_mlx
 typedef struct		s_env
 {
 	t_mlx			mlx;
-	int				silent;
-	int				is_title;
 	int				grid_size;
+	t_ixy			*dots;
 	char			*title;
 	t_map			map;
 	int				ac;
 	char			**av;
 	t_img			*select;
-	t_img			*curr;
 	t_img			*main;
-	t_text			text[LAST - 1];
-	t_ixy			*dots;
+	t_text			text[LAST];
+	int				test;
 }					t_env;
 
 /*
@@ -169,8 +160,9 @@ int					ft_error(char *str);
 **  init.c
 */
 
-int					init_mlx(t_env *e, char *title);
+void 				init_mlx(t_env *e, char *title);
 void				init_xy(t_img *list, t_env *e);
+void				init_vars(t_env *e);
 
 /*
 **  keyboard.c

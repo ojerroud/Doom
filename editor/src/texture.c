@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:30:13 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/25 14:12:15 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:12:42 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	scale_texture_to_img(t_img *img, t_env *e)
 {
 	int		w;
 	int		h;
-	int		i;
 	double	w_t;
 	double	h_t;
+	int		i;
 
 	h = -1;
 	i = (img->texture_swap == 1) ? 0 : 1;

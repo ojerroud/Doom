@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/26 15:30:17 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:11:21 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,6 @@ void	select_dots(t_img *img, t_env *e, int x, int y)
 
 	x -= img->pos.x;
 	y -= img->pos.y;
-	// while (e->dots)
-	// {
-	// 	printf("x = %d y = %d\n", e->dots->x, e->dots->y);
-	// 	e->dots = e->dots->next;
-	// }
 	mod_w = x / e->grid_size;
 	mod_h = y / e->grid_size;
 	rest_w = x % e->grid_size;
@@ -64,8 +59,7 @@ void	select_dots(t_img *img, t_env *e, int x, int y)
 	y = mod_h * e->grid_size;
 	// save_list(e, x, y);
 	draw_point(img, x, y);
-	// printf("pre %d %d\n", x, y);
-	// sav_dots(e, x, y);
+	sav_dots(e, x, y);
 	// printf("%d %d \n", mod_w, mod_h);
 }
 
@@ -75,8 +69,8 @@ void	paint_if_img(t_img	*img, int x, int y, t_env *e)
 	{
 		if (img->name >= BUTTON1 && img->name < END)
 			e->select = img;
-		if (img->name == SQUARRE)
-			img_paint(e, img);
+		// if (img->name == SQUARRE)
+		// 	img_paint(e, img);
 		if (img->name >= BUTTON1 && img->name < END)
 		{
 			scale_texture_to_img(img, e);
@@ -129,10 +123,23 @@ void	left_click(int x, int y, t_env *e)
 	// printf("%d\n",e->select->name);
 }
 
+void	t(t_env *e)
+{
+	printf("passage\n");
+	while (e->dots)
+	{
+		printf("x = %d y = %d\n", e->dots->x, e->dots->y);
+		e->dots = e->dots->next;
+	}
+}
+
 int		mousehooked(int button, int x, int y, t_env *e)
 {
 	if (button == MOUSE_LEFT)
 		left_click(x, y, e);
+	if (button == MOUSE_RIGHT)
+		t(e);
+		// printf("%d\n", e->test);
 	// print_click(button, x ,y);
 	return (0);
 }

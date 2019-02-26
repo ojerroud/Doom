@@ -6,16 +6,30 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:14:38 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/22 14:18:30 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/26 13:37:51 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
-static void	    lstadd(t_img **alst, t_img *new)
+static t_ixy	*lstnew2(int x, int y)
 {
-	new->next = *alst;
-	*alst = new;
+	t_ixy	*tmp;
+
+	if (!(tmp = (t_ixy *)malloc(sizeof(t_ixy))))
+		return (NULL);
+	tmp->x = x;
+	tmp->y = y;
+	return (tmp);
+}
+
+void	        create_list_dots(t_ixy **list, int x, int y)
+{
+	t_ixy	*new;
+
+	new = lstnew2(x, y);
+	new->next = *list;
+	*list = new;
 }
 
 static t_img	*lstnew(int name, int width, int height)
@@ -35,5 +49,6 @@ void	        create_list_img(t_img **list, int name, int width, int height)
 	t_img	*new;
 
 	new = lstnew(name, width, height);
-	lstadd(list, new);
+	new->next = *list;
+	*list = new;
 }

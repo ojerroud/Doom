@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/25 17:26:26 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/26 13:57:22 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ typedef enum		e_name
 	BUTTON7,
 	BUTTON8,
 	BUTTON9,
-	SQUARRE,
-	SQUARRE2,
 	BUTTON10,
 	BUTTON11,
 	BUTTON12,
 	BUTTON13,
 	BUTTON14,
+	SQUARRE,
+	SQUARRE2,
 }					t_name;
 
 typedef enum		e_texture
@@ -143,13 +143,13 @@ typedef struct		s_env
 	int				grid_size;
 	char			*title;
 	t_map			map;
-	char			**av;
 	int				ac;
+	char			**av;
 	t_img			*select;
 	t_img			*curr;
 	t_img			*main;
 	t_text			text[LAST - 1];
-	t_ixy			*points;
+	t_ixy			*dots;
 }					t_env;
 
 /*
@@ -212,5 +212,12 @@ void				put_grid(t_env *e);
 */
 
 void				create_list_img(t_img **list, int name, int w, int h);
+void				create_list_dots(t_ixy **list, int x, int y);
+
+/*
+**	dots.c
+*/
+
+void				sav_dots(t_ixy *list, int x, int y);
 
 #endif

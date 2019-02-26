@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/25 17:28:06 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/26 13:57:39 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_click(int button, int x, int y)
 	ft_putchar('\n');
 }
 
-void	draw_point(t_img *img, int h, int w)
+void	draw_point(t_img *img, int w, int h)
 {
 	int	i;
 	int	j;
@@ -38,7 +38,7 @@ void	draw_point(t_img *img, int h, int w)
 	}
 }
 
-void	t(t_img	*img, t_env *e, int x, int y)
+void	select_dots(t_img *img, t_env *e, int x, int y)
 {
 	int		mod_w;
 	int		mod_h;
@@ -57,8 +57,9 @@ void	t(t_img	*img, t_env *e, int x, int y)
 		mod_h++;
 	x = mod_w * e->grid_size;
 	y = mod_h * e->grid_size;
-	save_list(e, x, y);
-	draw_point(img, mod_h * e->grid_size, mod_w * e->grid_size);
+	// save_list(e, x, y);
+	draw_point(img, x, y);
+	// sav_dots(e->dots, x, y);
 	// printf("%d %d \n", mod_w, mod_h);
 }
 
@@ -85,7 +86,7 @@ void	paint_if_img(t_img	*img, int x, int y, t_env *e)
 			}
 		}
 		if (img->name == MAIN && e->select->name == END - 1)
-			t(img, e, x, y);
+			select_dots(img, e, x, y);
 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr, img->pos.x, img->pos.y);
 	}
 }

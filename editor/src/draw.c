@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/25 13:22:49 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/26 13:16:31 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ void	draw_shape(t_img	*img)
 		while (++w < img->width)
 		{
 			if (!h || h == img->height - 1 || !w || w == img->width - 1)
+			{
 				img->data[h * img->width + w] = 0xFF0000;
+			}
 		}
 	}
 }
@@ -84,8 +86,6 @@ void	put_img_pos(t_env *e)
 
 void	create_imgs(t_env *e)
 {
-	e->mlx.img = NULL;
-	
 	create_list_img(&e->mlx.img, MAIN, 2 * WIDTH / 3 - SPACING, HEIGHT - SPACING);
 	create_list_img(&e->mlx.img, BUTTON1, BUTTON_W - SPACING, BUTTON_H - SPACING);
 	create_list_img(&e->mlx.img, BUTTON2, BUTTON_W - SPACING, BUTTON_H - SPACING);

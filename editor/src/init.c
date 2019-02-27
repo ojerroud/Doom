@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/26 17:12:51 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/27 13:57:52 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	init_xy(t_img *list, t_env *e)
 			cpt_w = !cpt_w;
 		}
 		tmp->color_swap = 1;
-		tmp->texture_swap = 1;
+		tmp->texture_swap = 0;
 		tmp = tmp->next;
 	}
 }
@@ -56,13 +56,11 @@ void	init_vars(t_env *e)
 {
 	e->mlx.img = NULL;
 	e->dots = NULL;
-	e->grid_size = 64;
-	e->test = 0;
+	e->grid_size = GRID_SIZE;
 }
 
 void	init_mlx(t_env *e, char *title)
 {
-	// init_vars(e);
 	e->mlx.mlx = mlx_init();
 	e->mlx.win = mlx_new_window(e->mlx.mlx, WIDTH, HEIGHT, title);
 	if (!e->mlx.win)

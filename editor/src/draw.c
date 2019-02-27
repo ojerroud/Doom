@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/26 16:42:34 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/27 10:26:05 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,16 @@ void	img_paint(t_env *e, t_img *img)
 		scale_texture_to_img(img, e);
 		return ;
 	}
-	h = -1;
-	while (++h < img->height)
+	if (img->name == MAIN)
 	{
-		w = -1;
-		while (++w < img->width)
+		h = -1;
+		while (++h < img->height)
 		{
-			if (img->name == MAIN)
-				img->data[h * img->width + w] = img->color;
-			// if (img->name == SQUARRE || img->name == SQUARRE2)
-			// 	scale_texture_to_img(img, e);
-			// if (img->name == SQUARRE2)
-			// 	img->data[h * img->width + w] = e->text[1].data[h * img->width + w];
-			// if (img->name >= BUTTON1 && img->name < END)
-				// img->data[h * img->width + w] = img->color;
+			w = -1;
+			while (++w < img->width)
+			{
+					img->data[h * img->width + w] = img->color;
+			}
 		}
 	}
 	// if (img->name == MAIN)

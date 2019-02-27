@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 11:38:48 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/26 17:06:26 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/27 10:20:52 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ int	main(int ac, char **av)
 {
 	t_env	e;
 
-	e.av = av;
-	e.ac = ac;
+	// e.av = av;
+	// e.ac = ac;
+	if (av)
+		ac += 0;
 	init_vars(&e);
 	init_mlx(&e, "editor");
 	return (0);

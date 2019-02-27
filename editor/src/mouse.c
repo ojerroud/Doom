@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/26 17:11:21 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/27 16:09:49 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_click(int button, int x, int y)
 	ft_putchar('\n');
 }
 
-void	draw_point(t_img *img, int w, int h)
+void	draw_point(t_img *img, int x, int y)
 {
 	int	i;
 	int	j;
@@ -33,7 +33,7 @@ void	draw_point(t_img *img, int w, int h)
 		j = -2;
 		while (++j < 2)
 		{
-			img->data[(h + j) * img->width + (w + i)] = DOTS_COLOR;
+			img->data[(y + j) * img->width + (x + i)] = DOTS_COLOR;
 		}
 	}
 }
@@ -57,27 +57,36 @@ void	select_dots(t_img *img, t_env *e, int x, int y)
 		mod_h++;
 	x = mod_w * e->grid_size;
 	y = mod_h * e->grid_size;
-	// save_list(e, x, y);
 	draw_point(img, x, y);
-	sav_dots(e, x, y);
-	// printf("%d %d \n", mod_w, mod_h);
+	sav_dots(&e->dots, x, y);
 }
 
 void	paint_if_img(t_img	*img, int x, int y, t_env *e)
 {
+	t_ixy	*tmp;
+
 	if (img->pos.x <= x && (img->pos.x + img->width) >= x && img->pos.y <= y && (img->pos.y + img->height) >= y)
 	{
-		if (img->name >= BUTTON1 && img->name < END)
-			e->select = img;
 		// if (img->name == SQUARRE)
 		// 	img_paint(e, img);
 		if (img->name >= BUTTON1 && img->name < END)
 		{
+			e->select = img;
 			scale_texture_to_img(img, e);
 			if (img->name == END - 1)
 			{
 				if (img->texture_swap == 1)
+				{
 					put_grid(e);
+					tmp = e->dots;
+					while (e->dots)
+					{
+						draw_point(e->main, e->dots->x, e->dots->y);
+						e->dots = e->dots->next;
+					}
+					mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->main->img_ptr, e->main->pos.x, e->main->pos.y);
+					e->dots = tmp;
+				}
 				else
 				{
 					img_paint(e, e->main);
@@ -85,7 +94,7 @@ void	paint_if_img(t_img	*img, int x, int y, t_env *e)
 				}
 			}
 		}
-		if (img->name == MAIN && e->select->name == END - 1)
+		if (img->name == MAIN && e->select->name == END - 1 && img->texture_swap)
 			select_dots(img, e, x, y);
 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr, img->pos.x, img->pos.y);
 	}
@@ -123,14 +132,33 @@ void	left_click(int x, int y, t_env *e)
 	// printf("%d\n",e->select->name);
 }
 
-void	t(t_env *e)
+void	right_click(t_env *e)
 {
-	printf("passage\n");
-	while (e->dots)
+	t_ixy	*tmp;
+
+	tmp = e->dots;
+	if (!e->dots)
+		return ;
+	// printf("list : \n");
+	while (tmp && tmp->next)
 	{
-		printf("x = %d y = %d\n", e->dots->x, e->dots->y);
-		e->dots = e->dots->next;
+		tmp = tmp->next;
 	}
+	sav_dots(&e->dots, tmp->x, tmp->y);
+	tmp = e->dots;
+	while (tmp)
+	{
+		// printf("p x = %d y = %d\n", tmp->x / e->grid_size, tmp->y / e->grid_size);
+		tmp = tmp->next;
+	}
+	tmp = e->dots;
+	while (tmp)
+	{
+		// printf("a x = %d y = %d\n", tmp->x, tmp->y);
+		tmp = tmp->next;
+	}
+	// printf("test = %d\n", e->test);
+	// e->dots = tmp;
 }
 
 int		mousehooked(int button, int x, int y, t_env *e)
@@ -138,7 +166,7 @@ int		mousehooked(int button, int x, int y, t_env *e)
 	if (button == MOUSE_LEFT)
 		left_click(x, y, e);
 	if (button == MOUSE_RIGHT)
-		t(e);
+		right_click(e);
 		// printf("%d\n", e->test);
 	// print_click(button, x ,y);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/26 17:10:39 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:44:50 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,21 @@
 # define MOUSE_MID			3
 # define MOUSE_SCROLLUP		4
 # define MOUSE_SCROLLDOWN	5
-# define BUTTON_W		WIDTH / 6
-# define BUTTON_H		HEIGHT / 8
+# define BUTTON_W			WIDTH / 6
+# define BUTTON_H			HEIGHT / 8
 
-# define SPACING		1
-# define GRID_SIZE		32
-# define DOTS_COLOR		0xFF0000
+# define SPACING			1
+# define GRID_SIZE			(WIDTH + HEIGHT) / 2 / 50
+# define DOTS_COLOR			0xFF0000
 
-# define WHITE			0xFFFFFF
-# define BLACK			0x000000
-# define RED			0xFF0000
-# define GREEN			0x00FF00
-# define BLUE			0x0000FF
-# define GREY			0x666666
-# define BALL1			"texture/1.xpm"
-# define BALL2			"texture/2.xpm"
+# define WHITE				0xFFFFFF
+# define BLACK				0x000000
+# define RED				0xFF0000
+# define GREEN				0x00FF00
+# define BLUE				0x0000FF
+# define GREY				0x666666
+# define BALL1				"texture/1.xpm"
+# define BALL2				"texture/2.xpm"
 
 typedef enum		e_name
 {
@@ -63,9 +63,9 @@ typedef enum		e_name
 	BUTTON2,
 	BUTTON3,
 	BUTTON4,
+	END,
 	BUTTON5,
 	BUTTON6,
-	END,
 	BUTTON7,
 	BUTTON8,
 	BUTTON9,
@@ -135,19 +135,32 @@ typedef struct		s_mlx
 	t_img			*img;
 }					t_mlx;
 
+typedef struct		s_var
+{
+	int				dx;
+	int				dy;
+	int				i;
+	int				xinc;
+	int				yinc;
+	int				cumul;
+	int				x;
+	int				y;
+}					t_var;
+
 typedef struct		s_env
 {
 	t_mlx			mlx;
 	int				grid_size;
-	t_ixy			*dots;
 	char			*title;
-	t_map			map;
-	int				ac;
-	char			**av;
+	// t_map			map;
+	// int				ac;
+	// char			**av;
+	t_var			var;
+	t_ixy			*dots;
 	t_img			*select;
+	t_img			*curr;
 	t_img			*main;
 	t_text			text[LAST];
-	int				test;
 }					t_env;
 
 /*
@@ -183,6 +196,7 @@ void				print_list(t_img *list);
 */
 
 int					mousehooked(int button, int x, int y, t_env *e);
+void				draw_point(t_img *img, int x, int y);
 
 /*
 **	draw.c
@@ -211,12 +225,7 @@ void				put_grid(t_env *e);
 */
 
 void				create_list_img(t_img **list, int name, int w, int h);
-void				create_list_dots(t_ixy **list, int x, int y);
+void				sav_dots(t_ixy **list, int x, int y);
 
-/*
-**	dots.c
-*/
-
-void				sav_dots(t_env *e, int x, int y);
 
 #endif

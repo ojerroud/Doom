@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:30:13 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/26 17:12:42 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:06:37 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ void	scale_texture_to_img(t_img *img, t_env *e)
 	int		i;
 
 	h = -1;
-	i = (img->texture_swap == 1) ? 0 : 1;
-	// if (img->name == SQUARRE)
-	// 	i = 0;
+	i = (img->texture_swap == 1 || img->texture_swap == 0) ? 0 : 1;
 	w_t = (double)img->width / e->text[i].width;
 	h_t = (double)img->height / e->text[i].height;
 	while (++h < img->height)
@@ -33,8 +31,8 @@ void	scale_texture_to_img(t_img *img, t_env *e)
 			img->data[h * img->width + w] = e->text[i].data[(int)((double)h
 			/ h_t) * e->text[i].width + (int)(((double)w / w_t))];
 	}
-	// if (img->texture_swap == 1)
-	// 	e->select = e->main;
+	if (img->texture_swap == 2)
+		e->main->texture_swap = 1;
 	img->texture_swap = (img->texture_swap == 2) ? 1 : 2;
 }
 

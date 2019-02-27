@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/25 16:37:28 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/27 16:12:29 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,38 @@ void	key_esc(t_env *e)
 
 void	sizegrid_change(t_env *e)
 {
+	t_ixy	*tmp;
+
+	tmp = e->dots;
+	while (e->dots)
+	{
+		e->dots->x /= e->grid_size;
+		e->dots->y /= e->grid_size;
+		e->dots = e->dots->next;
+	}
+	e->dots = tmp;
 	e->grid_size /= 1.5;
-	if (e->grid_size < 10)
-		e->grid_size = 64;
+	if (e->grid_size < GRID_SIZE / (1.5 * 3))
+		e->grid_size = GRID_SIZE;
+	while (e->dots)
+	{
+		e->dots->x *= e->grid_size;
+		e->dots->y *= e->grid_size;
+		e->dots = e->dots->next;
+	}
+	e->dots = tmp;
 	if (e->select->name == END - 1)
 		put_grid(e);
+	// if (e->select->name == END - 1 && e->select->texture_swap == 1)
+	// {
+	// 	while (e->dots)
+	// 	{
+	// 		draw_point(e->main, e->dots->x, e->dots->y);
+	// 		e->dots = e->dots->next;
+	// 	}
+	// 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->main->img_ptr, e->main->pos.x, e->main->pos.y);
+	// }
+	// e->dots = tmp;
 }
 
 int		keyhooked(int keycode, t_env *e)

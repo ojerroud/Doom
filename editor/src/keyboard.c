@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/27 16:12:29 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:38:01 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,6 @@ void	sizegrid_change(t_env *e)
 	e->dots = tmp;
 	if (e->select->name == END - 1)
 		put_grid(e);
-	// if (e->select->name == END - 1 && e->select->texture_swap == 1)
-	// {
-	// 	while (e->dots)
-	// 	{
-	// 		draw_point(e->main, e->dots->x, e->dots->y);
-	// 		e->dots = e->dots->next;
-	// 	}
-	// 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->main->img_ptr, e->main->pos.x, e->main->pos.y);
-	// }
-	// e->dots = tmp;
 }
 
 int		keyhooked(int keycode, t_env *e)

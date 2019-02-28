@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/27 16:09:49 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:43:43 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	select_dots(t_img *img, t_env *e, int x, int y)
 
 void	paint_if_img(t_img	*img, int x, int y, t_env *e)
 {
-	t_ixy	*tmp;
+	// t_ixy	*tmp;
 
 	if (img->pos.x <= x && (img->pos.x + img->width) >= x && img->pos.y <= y && (img->pos.y + img->height) >= y)
 	{
@@ -78,14 +78,6 @@ void	paint_if_img(t_img	*img, int x, int y, t_env *e)
 				if (img->texture_swap == 1)
 				{
 					put_grid(e);
-					tmp = e->dots;
-					while (e->dots)
-					{
-						draw_point(e->main, e->dots->x, e->dots->y);
-						e->dots = e->dots->next;
-					}
-					mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->main->img_ptr, e->main->pos.x, e->main->pos.y);
-					e->dots = tmp;
 				}
 				else
 				{
@@ -100,12 +92,26 @@ void	paint_if_img(t_img	*img, int x, int y, t_env *e)
 	}
 }
 
+void	appli_buttons_text(t_img *list, t_env *e)
+{
+	if (list->name != e->select->name && list->name >= BUTTON1 && list->name < END)
+	{
+		list->texture_swap = 1;
+		scale_texture_to_img(list, e);
+		if (list->name == END - 1)
+		{
+			img_paint(e, e->main);
+			mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->main->img_ptr, e->main->pos.x, e->main->pos.y);
+		}
+		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, list->img_ptr, list->pos.x, list->pos.y);
+	}
+}
+
 void	left_click(int x, int y, t_env *e)
 {
 	t_img	*list;
 
 	list = e->mlx.img;
-	// printf("name = %d => ",e->select->name);
 	while (list)
 	{
 		paint_if_img(list, x, y, e);
@@ -114,17 +120,7 @@ void	left_click(int x, int y, t_env *e)
 	list = e->mlx.img;
 	while (list)
 	{
-		if (list->name != e->select->name && list->name >= BUTTON1 && list->name < END)
-		{
-			list->texture_swap = 1;
-			scale_texture_to_img(list, e);
-			if (list->name == END - 1)
-			{
-				img_paint(e, e->main);
-				mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->main->img_ptr, e->main->pos.x, e->main->pos.y);
-			}
-			mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, list->img_ptr, list->pos.x, list->pos.y);
-		}
+		appli_buttons_text(list, e);
 		list = list->next;
 	}
 	if (e->select->texture_swap == 2)
@@ -146,19 +142,6 @@ void	right_click(t_env *e)
 	}
 	sav_dots(&e->dots, tmp->x, tmp->y);
 	tmp = e->dots;
-	while (tmp)
-	{
-		// printf("p x = %d y = %d\n", tmp->x / e->grid_size, tmp->y / e->grid_size);
-		tmp = tmp->next;
-	}
-	tmp = e->dots;
-	while (tmp)
-	{
-		// printf("a x = %d y = %d\n", tmp->x, tmp->y);
-		tmp = tmp->next;
-	}
-	// printf("test = %d\n", e->test);
-	// e->dots = tmp;
 }
 
 int		mousehooked(int button, int x, int y, t_env *e)

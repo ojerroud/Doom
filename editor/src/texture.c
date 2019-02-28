@@ -6,11 +6,15 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:30:13 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/27 14:06:37 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:26:31 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
+
+/*
+**	scale textures on buttons
+*/
 
 void	scale_texture_to_img(t_img *img, t_env *e)
 {
@@ -36,7 +40,7 @@ void	scale_texture_to_img(t_img *img, t_env *e)
 	img->texture_swap = (img->texture_swap == 2) ? 1 : 2;
 }
 
-void	init_texture(t_env *e)
+void	load_buttons_texture(t_env *e)
 {
 	int	h;
 	int	w;

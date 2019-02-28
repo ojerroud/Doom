@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/28 14:43:43 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/28 19:10:29 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,12 @@ void	select_dots(t_img *img, t_env *e, int x, int y)
 	sav_dots(&e->dots, x, y);
 }
 
+/*
+**	check if click is on the img, then do what should do
+*/
+
 void	paint_if_img(t_img	*img, int x, int y, t_env *e)
 {
-	// t_ixy	*tmp;
-
 	if (img->pos.x <= x && (img->pos.x + img->width) >= x && img->pos.y <= y && (img->pos.y + img->height) >= y)
 	{
 		// if (img->name == SQUARRE)
@@ -73,18 +75,7 @@ void	paint_if_img(t_img	*img, int x, int y, t_env *e)
 		{
 			e->select = img;
 			scale_texture_to_img(img, e);
-			if (img->name == END - 1)
-			{
-				if (img->texture_swap == 1)
-				{
-					put_grid(e);
-				}
-				else
-				{
-					img_paint(e, e->main);
-					mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->main->img_ptr, e->main->pos.x, e->main->pos.y);
-				}
-			}
+			istab_draw(img, e);
 		}
 		if (img->name == MAIN && e->select->name == END - 1 && img->texture_swap)
 			select_dots(img, e, x, y);
@@ -92,15 +83,20 @@ void	paint_if_img(t_img	*img, int x, int y, t_env *e)
 	}
 }
 
+/*
+**	give texture to button
+**	add or delete grid if needed
+*/
+
 void	appli_buttons_text(t_img *list, t_env *e)
 {
 	if (list->name != e->select->name && list->name >= BUTTON1 && list->name < END)
 	{
 		list->texture_swap = 1;
 		scale_texture_to_img(list, e);
-		if (list->name == END - 1)
+		if (list->name >= END - 1)
 		{
-			img_paint(e, e->main);
+			setup_img_data(e, e->main);
 			mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->main->img_ptr, e->main->pos.x, e->main->pos.y);
 		}
 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, list->img_ptr, list->pos.x, list->pos.y);
@@ -125,7 +121,6 @@ void	left_click(int x, int y, t_env *e)
 	}
 	if (e->select->texture_swap == 2)
 		e->select = e->main;
-	// printf("%d\n",e->select->name);
 }
 
 void	right_click(t_env *e)
@@ -135,7 +130,6 @@ void	right_click(t_env *e)
 	tmp = e->dots;
 	if (!e->dots)
 		return ;
-	// printf("list : \n");
 	while (tmp && tmp->next)
 	{
 		tmp = tmp->next;

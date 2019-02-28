@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/27 15:44:50 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/28 19:11:03 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ typedef enum		e_name
 	BUTTON2,
 	BUTTON3,
 	BUTTON4,
-	END,
 	BUTTON5,
+	END,
 	BUTTON6,
 	BUTTON7,
 	BUTTON8,
@@ -199,19 +199,29 @@ int					mousehooked(int button, int x, int y, t_env *e);
 void				draw_point(t_img *img, int x, int y);
 
 /*
-**	draw.c
+**	utils.c
 */
 
 void				points(t_env *e, char **av);
+
+/*
+**	imgs.c
+*/
+
 void				create_imgs(t_env *e);
-void				put_img_pos(t_env *e);
-void				img_paint(t_env *e, t_img *img);
+
+/*
+**	init_img.c
+*/
+
+void				sav_img_pos(t_env *e);
+void				setup_img_data(t_env *e, t_img *img);
 
 /*
 **	texure.c
 */
 
-void				init_texture(t_env *e);
+void				load_buttons_texture(t_env *e);
 void				scale_texture_to_img(t_img *img, t_env *e);
 
 /*
@@ -227,5 +237,10 @@ void				put_grid(t_env *e);
 void				create_list_img(t_img **list, int name, int w, int h);
 void				sav_dots(t_ixy **list, int x, int y);
 
+/*
+**	tabdraw.c
+*/
+
+void    			istab_draw(t_img *img, t_env *e);
 
 #endif

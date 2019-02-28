@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/27 13:57:52 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:28:47 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ void	img_sav_pos_n_color(t_img *img, int x, int y, int color)
 	img->pos.y = y;
 	img->color = color;
 }
+
+/*
+**	init x, y & init texture/color swap
+*/
 
 void	init_xy(t_img *list, t_env *e)
 {
@@ -65,7 +69,7 @@ void	init_mlx(t_env *e, char *title)
 	e->mlx.win = mlx_new_window(e->mlx.mlx, WIDTH, HEIGHT, title);
 	if (!e->mlx.win)
 		ft_error("fail create a new window");
-	init_texture(e);
+	load_buttons_texture(e);
 	create_imgs(e);
 	mlx_mouse_hook(e->mlx.win, mousehooked, e);
 	mlx_key_hook(e->mlx.win, keyhooked, e);

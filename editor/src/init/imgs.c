@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/28 17:41:33 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/01 10:58:41 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	create_imgs(t_env *e)
 {
 	int		i;
 
-	create_list_img(&e->mlx.img, MAIN, 2 * WIDTH / 3 - SPACING, HEIGHT - SPACING);
+	create_list_img(&e->mlx.img, CENTRAL, 2 * WIDTH / 3 - SPACING, HEIGHT - SPACING);
 	i = BUTTON1 - 1;
 	while (++i < END)
 	{

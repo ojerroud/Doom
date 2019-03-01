@@ -6,32 +6,35 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 17:39:49 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/28 18:17:23 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:57:28 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
-/*
-**	maybe to see which button is selected
-*/
-
-void	draw_shape(t_img	*img)
+void	load_buttons_texture(t_env *e)
 {
 	int	h;
 	int	w;
+	int i;
 
-	h = -1;
-	while (++h < img->height)
+	i = -1;
+	e->text[0].name = (char *)malloc(sizeof(char) * (ft_strlen(BALL1) + 1));
+	e->text[1].name = (char *)malloc(sizeof(char) * (ft_strlen(BALL2) + 1));
+	if (!e->text[0].name || !e->text[1].name)
+		ft_error("malloc fail at texture's name");
+	ft_strcpy(e->text[0].name, BALL1);
+	ft_strcpy(e->text[1].name, BALL2);
+	while (++i < LAST)
 	{
-		w = -1;
-		while (++w < img->width)
-		{
-			if (!h || h == img->height - 1 || !w || w == img->width - 1)
-			{
-				img->data[h * img->width + w] = 0xFF0000;
-			}
-		}
+		e->text[i].img_ptr = mlx_xpm_file_to_image(e->mlx.mlx,
+		e->text[i].name, &w, &h);
+		if (!e->text[i].img_ptr)
+			ft_error("wrong texture");
+		e->text[i].data = (int *)mlx_get_data_addr(e->text[i].img_ptr,
+		&(e->text[i].bpp), &(e->text[i].size_l), &(e->text[i].endian));
+		e->text[i].width = w;
+		e->text[i].height = h;
 	}
 }
 
@@ -49,7 +52,7 @@ void	setup_img_data(t_env *e, t_img *img)
 		scale_texture_to_img(img, e);
 		return ;
 	}
-	if (img->name == MAIN)
+	if (img->name == CENTRAL)
 	{
 		h = -1;
 		while (++h < img->height)
@@ -84,7 +87,7 @@ void	sav_img_pos(t_env *e)
 	// mlx_clear_window(e->mlx.mlx, e->mlx.win);
 	while (tmp)
 	{
-		if (tmp->name >= MAIN && tmp->name < END)
+		if (tmp->name >= CENTRAL && tmp->name < END)
 			create_mlx_img(e, tmp);
 		tmp = tmp->next;
 	}

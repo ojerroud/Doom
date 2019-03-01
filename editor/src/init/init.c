@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/28 17:28:47 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/01 10:57:42 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	init_xy(t_img *list, t_env *e)
 	cpt_h = 0;
 	while (tmp)
 	{
-		if (tmp->name == MAIN)
+		if (tmp->name == CENTRAL)
 		{
 			img_sav_pos_n_color(tmp, WIDTH - tmp->width, HEIGHT - tmp->height - 1, 0x222222);
-			e->main = tmp;
+			e->central = tmp;
 		}
 		if (tmp->name == SQUARRE)
 			img_sav_pos_n_color(tmp, 0, HEIGHT - tmp->height, 0x666666);

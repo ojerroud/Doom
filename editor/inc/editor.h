@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/28 19:11:03 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/01 15:40:01 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 
 typedef enum		e_name
 {
-	MAIN,
+	CENTRAL,
 	BUTTON1,
 	BUTTON2,
 	BUTTON3,
@@ -147,100 +147,116 @@ typedef struct		s_var
 	int				y;
 }					t_var;
 
+/*
+**	t_map			map;
+**	int				ac;
+**	char			**av;
+*/
+
 typedef struct		s_env
 {
 	t_mlx			mlx;
 	int				grid_size;
 	char			*title;
-	// t_map			map;
-	// int				ac;
-	// char			**av;
 	t_var			var;
 	t_ixy			*dots;
 	t_img			*select;
 	t_img			*curr;
-	t_img			*main;
+	t_img			*central;
 	t_text			text[LAST];
 }					t_env;
 
 /*
-**  error.c
+**	draw.c
+*/
+
+void				put_grid(t_env *e);
+void				draw_point(t_img *img, int x, int y);
+void				draw_shape(t_img *img);
+void				select_dots(t_img *img, t_env *e, int x, int y);
+void				scale_texture_to_img(t_img *img, t_env *e);
+
+/*
+**	error.c
 */
 
 int					ft_error(char *str);
 
 /*
-**  init.c
+**	keyboard.c
 */
 
-void 				init_mlx(t_env *e, char *title);
-void				init_xy(t_img *list, t_env *e);
-void				init_vars(t_env *e);
-
-/*
-**  keyboard.c
-*/
-
-int					keyhooked(int keycode, t_env *e);
 void				key_esc(t_env *e);
-
-/*
-**  reader.c
-*/
-
-void				read_file(t_env *e, char *file);
-void				print_list(t_img *list);
-
-/*
-**	mouse.c
-*/
-
-int					mousehooked(int button, int x, int y, t_env *e);
-void				draw_point(t_img *img, int x, int y);
-
-/*
-**	utils.c
-*/
-
-void				points(t_env *e, char **av);
-
-/*
-**	imgs.c
-*/
-
-void				create_imgs(t_env *e);
-
-/*
-**	init_img.c
-*/
-
-void				sav_img_pos(t_env *e);
-void				setup_img_data(t_env *e, t_img *img);
-
-/*
-**	texure.c
-*/
-
-void				load_buttons_texture(t_env *e);
-void				scale_texture_to_img(t_img *img, t_env *e);
-
-/*
-**	map.c
-*/
-
-void				put_grid(t_env *e);
+void				sizegrid_change(t_env *e);
+int					keyhooked(int keycode, t_env *e);
 
 /*
 **	list_utils.c
 */
 
-void				create_list_img(t_img **list, int name, int w, int h);
+t_ixy				*lstnew2(int x, int y);
+void				add_img2(t_ixy *new, t_ixy **list);
 void				sav_dots(t_ixy **list, int x, int y);
+
+/*
+**	mouse.c
+*/
+
+void				paint_if_img(t_img *img, int x, int y, t_env *e);
+void				appli_buttons_text(t_img *list, t_env *e);
+void				left_click(int x, int y, t_env *e);
+void				right_click(t_env *e);
+int					mousehooked(int button, int x, int y, t_env *e);
+
+/*
+**	utils.c
+*/
+
+void				print_click(int button, int x, int y);
+void				ligne(int xi,int yi,int xf,int yf, t_env *e);
+void				ligne2(t_ixy *dots1, t_ixy *dots2, t_env *e);
+void				points(t_env *e, char **av);
+void				print_list(t_img *list);
+
+/*
+**  ---------------- INIT ----------------
+*/
+
+/*
+**	init_img.c
+*/
+
+void				load_buttons_texture(t_env *e);
+void				setup_img_data(t_env *e, t_img *img);
+void				create_mlx_img(t_env *e, t_img *img);
+void				sav_img_pos(t_env *e);
+
+/*
+**	init.c
+*/
+
+void				img_sav_pos_n_color(t_img *img, int x, int y, int color);
+void				init_xy(t_img *list, t_env *e);
+void				init_vars(t_env *e);
+void				init_mlx(t_env *e, char *title);
+
+/*
+**	imgs.c
+*/
+
+t_img				*lstnew(int name, int width, int height);
+void				add_img(t_img *new, t_img **list);
+void				create_list_img(t_img **list, int name, int width, int height);
+void				create_imgs(t_env *e);
+
+/*
+**	---------------- TABDRAW ----------------
+*/
 
 /*
 **	tabdraw.c
 */
 
-void    			istab_draw(t_img *img, t_env *e);
+void				istab_draw(t_img *img, t_env *e);
 
 #endif

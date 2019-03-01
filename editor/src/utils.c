@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:35:02 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/27 15:40:42 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/01 15:14:33 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,4 +127,14 @@ void	print_list(t_img *list)
 		printf("|%d| %d %d\n", tmp->name, tmp->width, tmp->height);
 		tmp = tmp->next;
 	}
+}
+
+void	print_click(int button, int x, int y)
+{
+	ft_putnbr(button);
+	ft_putchar(' ');
+	ft_putnbr(x);
+	ft_putchar(' ');
+	ft_putnbr(y);
+	ft_putchar('\n');
 }

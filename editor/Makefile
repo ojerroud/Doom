@@ -6,7 +6,7 @@
 #    By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 11:55:28 by ojerroud          #+#    #+#              #
-#    Updated: 2019/02/28 19:12:51 by ojerroud         ###   ########.fr        #
+#    Updated: 2019/03/01 12:19:40 by ojerroud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,15 @@ MINI_PATH = ../minilibx/
 LIBFT_PATH = ../libft/
 HEADER = inc/editor.h
 FLAGS = -Wall -Wextra -Werror -g
-vpath %.c src src/button1 src/tabdraw src/tabtexture
+vpath %.c src src/tabdraw src/tabtexture src/init
 vpath_h = -I $(INC_PATH) -I $(MINI_PATH) -I $(LIBFT_PATH)includes
 LIBS = -L $(LIBFT_PATH) -lft -L $(MINI_PATH) -lmlx
 
 MINIFLAGS = -framework OpenGL -framework AppKit
 
 OBJDIR := obj
-OBJS := $(addprefix $(OBJDIR)/,main.o init.o draw.o error.o keyboard.o mouse.o texture.o map.o list_utils.o imgs.o init_img.o tabdraw.o)
+OBJS := $(addprefix $(OBJDIR)/,main.o init.o draw.o error.o keyboard.o mouse.o\
+texture.o central.o list_utils.o imgs.o init_img.o tabdraw.o)
 
 
 

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:35:02 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/01 15:14:33 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/21 16:55:57 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void    ligne(int xi,int yi,int xf,int yf, t_env *e)
 	yinc = (dy > 0) ? 1 : -1;
 	dx = abs(dx);
 	dy = abs(dy);
-	mlx_pixel_put(e->mlx.mlx, e->mlx.win, x, y , 0xFFFFFF);
+	e->central->data[y * e->central->width + x] = DOTS_COLOR;
+	// e->mlx.data[y * 400 + x] = DOTS_COLOR;
+	// mlx_pixel_put(e->mlx.mlx, e->mlx.win, x, y , 0xFFFFFF);
 	if (dx > dy)
 	{
 		cumul = dx / 2;
@@ -37,7 +39,9 @@ void    ligne(int xi,int yi,int xf,int yf, t_env *e)
 				cumul -= dx;
 				y += yinc;
 			}
-			mlx_pixel_put(e->mlx.mlx, e->mlx.win, x, y , 0xFFFFFF);
+			e->central->data[y * e->central->width + x] = DOTS_COLOR;
+			// e->mlx.data[y * 400 + x] = DOTS_COLOR;
+			// mlx_pixel_put(e->mlx.mlx, e->mlx.win, x, y , 0xFFFFFF);
 		}
 	}
 	else
@@ -53,7 +57,9 @@ void    ligne(int xi,int yi,int xf,int yf, t_env *e)
 				cumul -= dy;
 				x += xinc;
 			}
-			mlx_pixel_put(e->mlx.mlx, e->mlx.win, x, y , 0xFFFFFF);
+			e->central->data[y * e->central->width + x] = DOTS_COLOR;
+			// e->mlx.data[y * 400 + x] = DOTS_COLOR;
+			// mlx_pixel_put(e->mlx.mlx, e->mlx.win, x, y , 0xFFFFFF);
 		}
 	}
 }

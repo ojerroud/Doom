@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/01 15:40:01 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/21 16:38:26 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-# define WIDTH	1800
+# define WIDTH	1000
 # define HEIGHT	1000
 
 # define ESC				53
@@ -132,6 +132,11 @@ typedef struct		s_mlx
 {
 	void			*mlx;
 	void			*win;
+	void			*img_ptr;
+	int				*data;
+	int				size_l;
+	int				bpp;
+	int				endian;
 	t_img			*img;
 }					t_mlx;
 

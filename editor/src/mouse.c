@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/01 16:58:31 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/21 16:08:17 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 {
 	if (img->pos.x <= x && (img->pos.x + img->width) >= x && img->pos.y <= y && (img->pos.y + img->height) >= y)
 	{
-		// if (img->name == SQUARRE)
-		// 	img_paint(e, img);
 		if (img->name >= BUTTON1 && img->name < END)
 		{
 			e->select = img;
@@ -83,9 +81,7 @@ void	right_click(t_env *e)
 	if (!e->dots)
 		return ;
 	while (tmp && tmp->next)
-	{
 		tmp = tmp->next;
-	}
 	sav_dots(&e->dots, tmp->x, tmp->y);
 	tmp = e->dots;
 }

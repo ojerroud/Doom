@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 19:07:34 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/01 16:22:39 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/21 16:12:50 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,6 @@
 void	istab_draw(t_img *img, t_env *e)
 {
 	if (img->name == END - 1)
-	{
-		if (img->texture_swap == 1)
-		{
-			put_grid(e);
-		}
-		else
-		{
-			setup_img_data(e, e->central);
-			mlx_put_image_to_window(e->mlx.mlx, e->mlx.win,
-			e->central->img_ptr, e->central->pos.x, e->central->pos.y);
-		}
-	}
-	if (img->name == END - 2)
 	{
 		if (img->texture_swap == 1)
 		{

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/01 16:44:00 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/21 17:20:11 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ void	put_grid(t_env *e)
 	while (e->dots)
 	{
 		draw_point(e->central, e->dots->x, e->dots->y);
+		if (e->dots->next)
+			ligne(e->dots->x, e->dots->y, e->dots->next->x, e->dots->next->y, e);
 		e->dots = e->dots->next;
 	}
 	e->dots = tmp;

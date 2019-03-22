@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/21 16:08:17 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:49:18 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,16 @@ void	right_click(t_env *e)
 	tmp = e->dots;
 	if (!e->dots)
 		return ;
-	while (tmp && tmp->next)
+	while (tmp && tmp->next && tmp->next->index == e->index)
+	{
+		printf("index->curr = %d  index->next = %d\n", tmp->index, tmp->next->index);
 		tmp = tmp->next;
-	sav_dots(&e->dots, tmp->x, tmp->y);
+	}
+	sav_dots(e, &e->dots, tmp->x, tmp->y);
+	draw_ligne(e->dots->x, e->dots->y, e->dots->next->x, e->dots->next->y, e);
+	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr, e->central->pos.x, e->central->pos.y);
+	if (tmp->index == e->index)
+		e->index++;
 	tmp = e->dots;
 }
 
@@ -92,7 +99,5 @@ int		mousehooked(int button, int x, int y, t_env *e)
 		left_click(x, y, e);
 	if (button == MOUSE_RIGHT)
 		right_click(e);
-		// printf("%d\n", e->test);
-	// print_click(button, x ,y);
 	return (0);
 }

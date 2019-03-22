@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/21 16:38:26 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:14:04 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct		s_ixy
 {
 	int				x;
 	int				y;
+	int				index;
 	struct s_ixy	*next;
 }					t_ixy;
 
@@ -152,6 +153,13 @@ typedef struct		s_var
 	int				y;
 }					t_var;
 
+typedef struct		s_portal
+{
+	t_ixy			*dots;
+	struct s_portal	*next;
+}					t_portal;
+
+
 /*
 **	t_map			map;
 **	int				ac;
@@ -161,10 +169,13 @@ typedef struct		s_var
 typedef struct		s_env
 {
 	t_mlx			mlx;
+	int				silent;
 	int				grid_size;
+	int				index;
 	char			*title;
 	t_var			var;
 	t_ixy			*dots;
+	t_portal		*portal;
 	t_img			*select;
 	t_img			*curr;
 	t_img			*central;
@@ -199,9 +210,9 @@ int					keyhooked(int keycode, t_env *e);
 **	list_utils.c
 */
 
-t_ixy				*lstnew2(int x, int y);
+t_ixy				*lstnew2(t_env *e, int x, int y);
 void				add_img2(t_ixy *new, t_ixy **list);
-void				sav_dots(t_ixy **list, int x, int y);
+void				sav_dots(t_env *e, t_ixy **list, int x, int y);
 
 /*
 **	mouse.c
@@ -218,7 +229,7 @@ int					mousehooked(int button, int x, int y, t_env *e);
 */
 
 void				print_click(int button, int x, int y);
-void				ligne(int xi,int yi,int xf,int yf, t_env *e);
+void				draw_ligne(int xi,int yi,int xf,int yf, t_env *e);
 void				ligne2(t_ixy *dots1, t_ixy *dots2, t_env *e);
 void				points(t_env *e, char **av);
 void				print_list(t_img *list);

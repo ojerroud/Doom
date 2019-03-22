@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/21 17:20:11 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:14:52 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	put_grid(t_env *e)
 	{
 		draw_point(e->central, e->dots->x, e->dots->y);
 		if (e->dots->next)
-			ligne(e->dots->x, e->dots->y, e->dots->next->x, e->dots->next->y, e);
+			draw_ligne(e->dots->x, e->dots->y, e->dots->next->x, e->dots->next->y, e);
 		e->dots = e->dots->next;
 	}
 	e->dots = tmp;
@@ -142,5 +142,7 @@ void	select_dots(t_img *img, t_env *e, int x, int y)
 	x = mod_w * e->grid_size;
 	y = mod_h * e->grid_size;
 	draw_point(img, x, y);
-	sav_dots(&e->dots, x, y);
+	sav_dots(e, &e->dots, x, y);
+	if (e->dots->next)
+		draw_ligne(e->dots->x, e->dots->y, e->dots->next->x, e->dots->next->y, e);
 }

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/21 16:25:16 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:07:27 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ void	init_vars(t_env *e)
 {
 	e->mlx.img = NULL;
 	e->dots = NULL;
+	e->portal = NULL;
 	e->grid_size = GRID_SIZE;
+	e->index = 0;
 }
 
 void	init_mlx(t_env *e, char *title)

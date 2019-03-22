@@ -6,13 +6,13 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:35:02 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/21 16:55:57 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/22 12:12:51 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
-void    ligne(int xi,int yi,int xf,int yf, t_env *e)
+void    draw_ligne(int xi,int yi,int xf,int yf, t_env *e)
 {
 	int dx,dy,i,xinc,yinc,cumul,x,y;
 	x = xi;
@@ -120,7 +120,7 @@ void    ligne2(t_ixy *dots1, t_ixy *dots2, t_env *e)
 
 void    points(t_env *e, char **av)
 {
-	ligne(ft_atoi(av[1]), ft_atoi(av[2]), ft_atoi(av[3]), ft_atoi(av[4]), e);
+	draw_ligne(ft_atoi(av[1]), ft_atoi(av[2]), ft_atoi(av[3]), ft_atoi(av[4]), e);
 }
 
 void	print_list(t_img *list)

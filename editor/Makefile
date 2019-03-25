@@ -6,7 +6,7 @@
 #    By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 11:55:28 by ojerroud          #+#    #+#              #
-#    Updated: 2019/03/21 16:03:33 by ojerroud         ###   ########.fr        #
+#    Updated: 2019/03/25 11:51:06 by ojerroud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ MINI_PATH = ../minilibx/
 LIBFT_PATH = ../libft/
 HEADER = inc/editor.h
 FLAGS = -Wall -Wextra -Werror -g
-vpath %.c src src/tabdraw src/tabtexture src/init
+vpath %.c src
 vpath_h = -I $(INC_PATH) -I $(MINI_PATH) -I $(LIBFT_PATH)includes
 LIBS = -L $(LIBFT_PATH) -lft -L $(MINI_PATH) -lmlx
 

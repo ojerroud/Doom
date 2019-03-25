@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 11:38:48 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/22 14:14:43 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/25 12:11:51 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	mouse(int keyword, int x, int y, t_env *e)
 	if (keyword == MOUSE_RIGHT)
 	{
 		e->mlx.data[y * 400 + x] = 0xFFFFFF;
-		sav_dots(e, &e->dots, x ,y);	
+		sav_dots(&e->dots, x ,y);	
 	}
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.img_ptr, 0, 0);
 	return (0);

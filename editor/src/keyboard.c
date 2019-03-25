@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/01 16:58:39 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/25 17:07:31 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,26 @@ void	sizegrid_change(t_env *e)
 		put_grid(e);
 }
 
+void	print_sector(t_env *e)
+{
+	t_sector	*tmp;
+	t_ixy		*tmp2;
+
+	tmp = e->sector;
+	while (tmp)
+	{
+		printf("index : %d\n", tmp->index);
+		tmp2 = tmp->dots;
+		while (tmp2)
+		{
+			printf("%d %d\n", tmp2->x, tmp2->y);
+			tmp2 = tmp2->next;
+		}
+		tmp = tmp->next;
+	}
+	tmp = e->sector;
+}
+
 int		keyhooked(int keycode, t_env *e)
 {
 	if (keycode == ESC)
@@ -56,5 +76,7 @@ int		keyhooked(int keycode, t_env *e)
 		sizegrid_change(e);
 	if (keycode == W)
 		mlx_clear_window(e->mlx.mlx, e->mlx.win);
+	if (keycode == A)
+		print_sector(e);
 	return (0);
 }

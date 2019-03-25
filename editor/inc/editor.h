@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/22 14:14:04 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/25 17:07:31 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ typedef struct		s_ixy
 {
 	int				x;
 	int				y;
-	int				index;
 	struct s_ixy	*next;
 }					t_ixy;
 
@@ -153,11 +152,12 @@ typedef struct		s_var
 	int				y;
 }					t_var;
 
-typedef struct		s_portal
+typedef struct		s_sector
 {
 	t_ixy			*dots;
-	struct s_portal	*next;
-}					t_portal;
+	int				index;
+	struct s_sector	*next;
+}					t_sector;
 
 
 /*
@@ -171,11 +171,11 @@ typedef struct		s_env
 	t_mlx			mlx;
 	int				silent;
 	int				grid_size;
-	int				index;
 	char			*title;
+	int				index;
 	t_var			var;
 	t_ixy			*dots;
-	t_portal		*portal;
+	t_sector		*sector;
 	t_img			*select;
 	t_img			*curr;
 	t_img			*central;
@@ -210,9 +210,12 @@ int					keyhooked(int keycode, t_env *e);
 **	list_utils.c
 */
 
-t_ixy				*lstnew2(t_env *e, int x, int y);
+t_ixy				*lstnew2(int x, int y);
 void				add_img2(t_ixy *new, t_ixy **list);
-void				sav_dots(t_env *e, t_ixy **list, int x, int y);
+void				sav_dots(t_ixy **list, int x, int y);
+t_sector			*lstnew_sector(int index);
+void				add_sector(t_sector **list, t_sector *new);
+void				sav_sector(t_sector **list, int index);
 
 /*
 **	mouse.c
@@ -220,7 +223,7 @@ void				sav_dots(t_env *e, t_ixy **list, int x, int y);
 
 void				paint_if_img(t_img *img, int x, int y, t_env *e);
 void				appli_buttons_text(t_img *list, t_env *e);
-void				left_click(int x, int y, t_env *e);
+void				left_click(t_env *e, int x, int y);
 void				right_click(t_env *e);
 int					mousehooked(int button, int x, int y, t_env *e);
 
@@ -229,14 +232,10 @@ int					mousehooked(int button, int x, int y, t_env *e);
 */
 
 void				print_click(int button, int x, int y);
-void				draw_ligne(int xi,int yi,int xf,int yf, t_env *e);
+void    			draw_ligne(t_ixy *dots1, t_ixy *dots2, t_env *e);
 void				ligne2(t_ixy *dots1, t_ixy *dots2, t_env *e);
 void				points(t_env *e, char **av);
 void				print_list(t_img *list);
-
-/*
-**  ---------------- INIT ----------------
-*/
 
 /*
 **	init_img.c
@@ -264,10 +263,6 @@ t_img				*lstnew(int name, int width, int height);
 void				add_img(t_img *new, t_img **list);
 void				create_list_img(t_img **list, int name, int width, int height);
 void				create_imgs(t_env *e);
-
-/*
-**	---------------- TABDRAW ----------------
-*/
 
 /*
 **	tabdraw.c

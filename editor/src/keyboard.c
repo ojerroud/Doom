@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/25 17:07:31 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/25 17:48:25 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,40 @@ void	key_esc(t_env *e)
 
 void	sizegrid_change(t_env *e)
 {
-	t_ixy	*tmp;
+	t_ixy		*tmp;
+	t_sector	*sector;
 
-	tmp = e->dots;
-	while (e->dots)
+	sector = e->sector;
+	while (e->sector)
 	{
-		e->dots->x /= e->grid_size;
-		e->dots->y /= e->grid_size;
-		e->dots = e->dots->next;
+		tmp = e->sector->dots;
+		while (e->sector->dots)
+		{
+			e->sector->dots->x /= e->grid_size;
+			e->sector->dots->y /= e->grid_size;
+			e->sector->dots = e->sector->dots->next;
+		}
+		e->sector->dots = tmp;
+		e->sector = e->sector->next;
 	}
-	e->dots = tmp;
+	e->sector = sector;
 	e->grid_size /= 1.5;
 	if (e->grid_size < GRID_SIZE / (1.5 * 3))
 		e->grid_size = GRID_SIZE;
-	while (e->dots)
+	sector = e->sector;
+	while (e->sector)
 	{
-		e->dots->x *= e->grid_size;
-		e->dots->y *= e->grid_size;
-		e->dots = e->dots->next;
+		tmp = e->sector->dots;
+		while (e->sector->dots)
+		{
+			e->sector->dots->x *= e->grid_size;
+			e->sector->dots->y *= e->grid_size;
+			e->sector->dots = e->sector->dots->next;
+		}
+		e->sector->dots = tmp;
+		e->sector = e->sector->next;
 	}
-	e->dots = tmp;
+	e->sector = sector;
 	if (e->select->name == END - 1)
 		put_grid(e);
 }

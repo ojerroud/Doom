@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/25 17:07:31 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/25 17:51:19 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,10 @@ void	draw_shape(t_img *img)
 
 void	put_grid(t_env *e)
 {
-	int		h;
-	int		w;
-	t_ixy	*tmp;
+	int			h;
+	int			w;
+	t_ixy		*tmp;
+	t_sector	*sector;
 
 	h = -1;
 	while (++h < e->central->height)
@@ -105,15 +106,22 @@ void	put_grid(t_env *e)
 				e->central->data[h * e->central->width + w] = e->central->color;
 		}
 	}
-	tmp = e->dots;
-	while (e->dots)
+	sector = e->sector;
+	while (sector)
 	{
-		draw_point(e->central, e->dots->x, e->dots->y);
-		if (e->dots->next)
-			draw_ligne(e->sector->dots, e->sector->dots->next, e);
-		e->dots = e->dots->next;
+		tmp = sector->dots;
+		while (sector->dots)
+		{
+			// printf("%d %d\n", sector->dots->x, sector->dots->y);
+			draw_point(e->central, sector->dots->x, sector->dots->y);
+			if (sector->dots->next)
+				draw_ligne(sector->dots, sector->dots->next, e);
+			sector->dots = sector->dots->next;
+		}
+		sector->dots = tmp;
+		sector = sector->next;
 	}
-	e->dots = tmp;
+	sector = e->sector;
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr,
 	e->central->pos.x, e->central->pos.y);
 }

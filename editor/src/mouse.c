@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/25 17:07:31 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:02:34 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,21 +73,79 @@ void	left_click(t_env *e, int x, int y)
 		e->select = e->central;
 }
 
+void	is_portal(t_env *e, t_ixy *to_check)
+{
+	if ((to_check->x == e->sector->dots->x
+	&& to_check->y == e->sector->dots->y
+	&& to_check->next->x == e->sector->dots->next->x
+	&& to_check->next->y == e->sector->dots->next->y)
+	|| (to_check->x == e->sector->dots->next->x
+	&& to_check->y == e->sector->dots->next->y
+	&& to_check->next->x == e->sector->dots->x
+	&& to_check->next->y == e->sector->dots->y))
+		printf("%d %d %d = %d %d\n\n", e->sector->index, e->sector->dots->x, e->sector->dots->y, to_check->x, to_check->y);
+}
+
+void	check_portails(t_env *e)
+{
+	t_sector	*sector;
+	t_ixy		*dots;
+	t_ixy		*to_check;
+	t_sector	*tmp_sector;
+	t_ixy		*tmp_dots;
+
+	sector = e->sector;
+	while (sector)
+	{
+		dots = sector->dots;
+		while (dots)
+		{
+			if (dots->next)
+				to_check = dots;
+			else
+				break ;
+			tmp_sector = e->sector;
+			// e->sector = sector->next;
+			while (e->sector)
+			{
+				if (sector->index == e->sector->index)
+				{
+					e->sector = e->sector->next;
+					continue ;
+				}
+				tmp_dots = e->sector->dots;
+				while (e->sector->dots && e->sector->dots->next)
+				{
+					is_portal(e, to_check);
+					e->sector->dots = e->sector->dots->next;
+				}
+				e->sector->dots = tmp_dots;
+				e->sector = e->sector->next;
+			}
+			e->sector = tmp_sector;
+			dots = dots->next;
+		}
+		dots = e->sector->dots;
+		sector = sector->next;
+	}
+	sector = e->sector;
+}
+
 void	right_click(t_env *e)
 {
-	t_ixy	*tmp;
+	t_ixy	*dots;
 
-	tmp = e->sector->dots;
+	dots = e->sector->dots;
 	if (!e->sector->dots)
 		return ;
-	while (tmp && tmp->next)
-	{
-		tmp = tmp->next;
-	}
-	sav_dots(&e->sector->dots, tmp->x, tmp->y);
+	while (dots && dots->next)
+		dots = dots->next;
+	sav_dots(&e->sector->dots, dots->x, dots->y);
 	draw_ligne(e->sector->dots, e->sector->dots->next, e);
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr, e->central->pos.x, e->central->pos.y);
-	tmp = e->sector->dots;
+	dots = e->sector->dots;
+	check_portails(e);
+	printf("passage\n");
 	e->index++;
 	sav_sector(&e->sector, e->index);
 }

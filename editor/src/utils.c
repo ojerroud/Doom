@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:35:02 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/25 11:58:05 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/27 15:10:12 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void    draw_ligne(t_ixy *dots1, t_ixy *dots2, t_env *e)
 	yinc = (dy > 0) ? 1 : -1;
 	dx = abs(dx);
 	dy = abs(dy);
-	e->central->data[y * e->central->width + x] = DOTS_COLOR;
+	e->central->data[y * e->central->width + x] = dots1->color;
 	// e->mlx.data[y * 400 + x] = DOTS_COLOR;
 	// mlx_pixel_put(e->mlx.mlx, e->mlx.win, x, y , 0xFFFFFF);
 	if (dx > dy)
@@ -46,7 +46,7 @@ void    draw_ligne(t_ixy *dots1, t_ixy *dots2, t_env *e)
 				cumul -= dx;
 				y += yinc;
 			}
-			e->central->data[y * e->central->width + x] = DOTS_COLOR;
+			e->central->data[y * e->central->width + x] = dots1->color;
 			// e->mlx.data[y * 400 + x] = DOTS_COLOR;
 			// mlx_pixel_put(e->mlx.mlx, e->mlx.win, x, y , 0xFFFFFF);
 		}
@@ -64,7 +64,7 @@ void    draw_ligne(t_ixy *dots1, t_ixy *dots2, t_env *e)
 				cumul -= dy;
 				x += xinc;
 			}
-			e->central->data[y * e->central->width + x] = DOTS_COLOR;
+			e->central->data[y * e->central->width + x] = dots1->color;
 			// e->mlx.data[y * 400 + x] = DOTS_COLOR;
 			// mlx_pixel_put(e->mlx.mlx, e->mlx.win, x, y , 0xFFFFFF);
 		}

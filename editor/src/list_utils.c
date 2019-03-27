@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:14:38 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/25 17:07:55 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/27 15:08:39 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_ixy	*lstnew2(int x, int y)
 		ft_error("malloc fail");
 	tmp->x = x;
 	tmp->y = y;
+	tmp->color = DOTS_COLOR;
 	return (tmp);
 }
 
@@ -61,23 +62,3 @@ void	sav_sector(t_sector **list, int index)
 	new = lstnew_sector(index);
 	add_sector(list, new);
 }
-
-
-
-// void	select_sector(t_env *e, int x, int y)
-// {
-// 	t_sector	*port;
-// 	t_ixy		*tmp;
-
-// 	port = e->sector;
-// 	tmp = e->dots;
-// 	while (port)
-// 	{
-// 		if (port->index == e->index)
-// 		{
-// 			sav_dots(e->sector->dots, x, y);
-// 			break ;
-// 		}
-// 		port = port->next;
-// 	}
-// }

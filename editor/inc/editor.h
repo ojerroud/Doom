@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/25 17:37:05 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/27 14:48:59 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct		s_ixy
 {
 	int				x;
 	int				y;
+	int				color;
 	struct s_ixy	*next;
 }					t_ixy;
 
@@ -205,6 +206,7 @@ int					ft_error(char *str);
 void				key_esc(t_env *e);
 void				sizegrid_change(t_env *e);
 int					keyhooked(int keycode, t_env *e);
+void				print_sector(t_env *e);
 
 /*
 **	list_utils.c

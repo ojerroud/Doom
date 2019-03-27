@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/25 17:48:25 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/27 11:46:24 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,14 @@ void	print_sector(t_env *e)
 	tmp = e->sector;
 	while (tmp)
 	{
-		printf("index : %d\n", tmp->index);
+		ft_putstr("index : ");
+		ft_putendl(ft_itoa(tmp->index));
 		tmp2 = tmp->dots;
 		while (tmp2)
 		{
-			printf("%d %d\n", tmp2->x, tmp2->y);
+			ft_putnbr(tmp2->x);
+			ft_putchar(' ');
+			ft_putendl(ft_itoa(tmp2->y));
 			tmp2 = tmp2->next;
 		}
 		tmp = tmp->next;

@@ -83,7 +83,12 @@ void	is_portal(t_env *e, t_ixy *to_check)
 	&& to_check->y == e->sector->dots->next->y
 	&& to_check->next->x == e->sector->dots->x
 	&& to_check->next->y == e->sector->dots->y))
+    {
+        draw_ligne(to_check, to_check->next, e);
+        e->sector->dots->color = 0x0000FF;
 		printf("%d %d %d = %d %d\n\n", e->sector->index, e->sector->dots->x, e->sector->dots->y, to_check->x, to_check->y);
+        mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr, e->central->pos.x, e->central->pos.y);
+    }
 }
 
 void	check_portails(t_env *e)

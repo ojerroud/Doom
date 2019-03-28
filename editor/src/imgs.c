@@ -6,11 +6,34 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/01 10:58:41 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/28 17:09:13 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
+
+/*
+**	check if click is on the img, then draw
+*/
+
+void	paint_if_img(t_img *img, int x, int y, t_env *e)
+{
+	if (img->pos.x <= x && (img->pos.x + img->width) >= x
+	&& img->pos.y <= y && (img->pos.y + img->height) >= y)
+	{
+		if (img->name >= BUTTON1 && img->name < END)
+		{
+			e->select = img;
+			scale_texture_to_img(img, e);
+			istab_draw(img, e);
+		}
+		if (img->name == CENTRAL && e->select->name == END - 1
+		&& img->texture_swap)
+			select_dots(img, e, x, y);
+		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr
+		, img->pos.x, img->pos.y);
+	}
+}
 
 t_img	*lstnew(int name, int width, int height)
 {
@@ -24,25 +47,21 @@ t_img	*lstnew(int name, int width, int height)
 	return (tmp);
 }
 
-void	add_img(t_img *new, t_img **list)
-{
-	new->next = *list;
-	*list = new;
-}
-
 void	create_list_img(t_img **list, int name, int width, int height)
 {
 	t_img	*new;
 
 	new = lstnew(name, width, height);
-	add_img(new, list);
+	new->next = *list;
+	*list = new;
 }
 
 void	create_imgs(t_env *e)
 {
 	int		i;
 
-	create_list_img(&e->mlx.img, CENTRAL, 2 * WIDTH / 3 - SPACING, HEIGHT - SPACING);
+	create_list_img(&e->mlx.img, CENTRAL, 2 * WIDTH
+	/ 3 - SPACING, HEIGHT - SPACING);
 	i = BUTTON1 - 1;
 	while (++i < END)
 	{
@@ -51,7 +70,4 @@ void	create_imgs(t_env *e)
 	init_xy(e->mlx.img, e);
 	sav_img_pos(e);
 	e->select = e->mlx.img;
-	// create_list_img(&e->mlx.img, SQUARRE, 64, 64);
-	// create_list_img(&e->mlx.img, SQUARRE2, 64, 64);
-	// print_list(e->mlx.img);
 }

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/27 11:46:24 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/28 16:24:18 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,7 @@ void	key_esc(t_env *e)
 	exit(0);
 }
 
-/*
-**	change scale of grid if G pressed
-*/
-
-void	sizegrid_change(t_env *e)
+void	t(t_env *e, double grid)
 {
 	t_ixy		*tmp;
 	t_sector	*sector;
@@ -33,31 +29,27 @@ void	sizegrid_change(t_env *e)
 		tmp = e->sector->dots;
 		while (e->sector->dots)
 		{
-			e->sector->dots->x /= e->grid_size;
-			e->sector->dots->y /= e->grid_size;
+			e->sector->dots->x /= grid;
+			e->sector->dots->y /= grid;
 			e->sector->dots = e->sector->dots->next;
 		}
 		e->sector->dots = tmp;
 		e->sector = e->sector->next;
 	}
 	e->sector = sector;
+}
+
+/*
+**	change scale of grid if G pressed
+*/
+
+void	sizegrid_change(t_env *e)
+{
+	t(e, (double)(e->grid_size));
 	e->grid_size /= 1.5;
 	if (e->grid_size < GRID_SIZE / (1.5 * 3))
 		e->grid_size = GRID_SIZE;
-	sector = e->sector;
-	while (e->sector)
-	{
-		tmp = e->sector->dots;
-		while (e->sector->dots)
-		{
-			e->sector->dots->x *= e->grid_size;
-			e->sector->dots->y *= e->grid_size;
-			e->sector->dots = e->sector->dots->next;
-		}
-		e->sector->dots = tmp;
-		e->sector = e->sector->next;
-	}
-	e->sector = sector;
+	t(e, (double)(1) / (double)(e->grid_size));
 	if (e->select->name == END - 1)
 		put_grid(e);
 }

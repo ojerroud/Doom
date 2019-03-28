@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/25 17:51:19 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/28 15:51:43 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void	scale_texture_to_img(t_img *img, t_env *e)
 
 void	draw_point(t_img *img, int x, int y)
 {
-	int	i;
-	int	j;
-	
+	int i;
+	int j;
+
 	i = -2;
 	while (++i < 2)
 	{
@@ -60,27 +60,26 @@ void	draw_point(t_img *img, int x, int y)
 	}
 }
 
-/*
-**	maybe to see which button is selected
-*/
-
-void	draw_shape(t_img *img)
+void	draw_points_on_list(t_env *e)
 {
-	int	h;
-	int	w;
+	t_ixy		*dots;
+	t_sector	*sector;
 
-	h = -1;
-	while (++h < img->height)
+	sector = e->sector;
+	while (sector)
 	{
-		w = -1;
-		while (++w < img->width)
+		dots = sector->dots;
+		while (sector->dots)
 		{
-			if (!h || h == img->height - 1 || !w || w == img->width - 1)
-			{
-				img->data[h * img->width + w] = 0xFF0000;
-			}
+			draw_point(e->central, sector->dots->x, sector->dots->y);
+			if (sector->dots->next)
+				draw_ligne(sector->dots, sector->dots->next, e);
+			sector->dots = sector->dots->next;
 		}
+		sector->dots = dots;
+		sector = sector->next;
 	}
+	sector = e->sector;
 }
 
 /*
@@ -91,37 +90,16 @@ void	put_grid(t_env *e)
 {
 	int			h;
 	int			w;
-	t_ixy		*tmp;
-	t_sector	*sector;
 
 	h = -1;
 	while (++h < e->central->height)
 	{
 		w = -1;
 		while (++w < e->central->width)
-		{
-			if (!(w % e->grid_size) || !(h % e->grid_size))
-				e->central->data[h * e->central->width + w] = GREY;
-			else
-				e->central->data[h * e->central->width + w] = e->central->color;
-		}
+			e->central->data[h * e->central->width + w] = (!(w % e->grid_size)
+			|| !(h % e->grid_size)) ? GREY : e->central->color;
 	}
-	sector = e->sector;
-	while (sector)
-	{
-		tmp = sector->dots;
-		while (sector->dots)
-		{
-			// printf("%d %d\n", sector->dots->x, sector->dots->y);
-			draw_point(e->central, sector->dots->x, sector->dots->y);
-			if (sector->dots->next)
-				draw_ligne(sector->dots, sector->dots->next, e);
-			sector->dots = sector->dots->next;
-		}
-		sector->dots = tmp;
-		sector = sector->next;
-	}
-	sector = e->sector;
+	draw_points_on_list(e);
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr,
 	e->central->pos.x, e->central->pos.y);
 }

@@ -6,13 +6,13 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/25 17:07:31 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:12:52 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
-void	img_sav_pos_n_color(t_img *img, int x, int y, int color)
+void	img_param(t_img *img, int x, int y, int color)
 {
 	img->pos.x = x;
 	img->pos.y = y;
@@ -36,18 +36,14 @@ void	init_xy(t_img *list, t_env *e)
 	{
 		if (tmp->name == CENTRAL)
 		{
-			img_sav_pos_n_color(tmp, WIDTH - tmp->width, HEIGHT - tmp->height - 1, 0x222222);
+			img_param(tmp, WIDTH - tmp->width, HEIGHT - tmp->height - 1, GREY2);
 			e->central = tmp;
 		}
-		if (tmp->name == SQUARRE)
-			img_sav_pos_n_color(tmp, 0, HEIGHT - tmp->height, 0x666666);
-		if (tmp->name == SQUARRE2)
-			img_sav_pos_n_color(tmp, tmp->width, HEIGHT - tmp->height, 0x666666);
 		if (tmp->name >= BUTTON1 && tmp->name < END)
 		{
-			img_sav_pos_n_color(tmp, 0 + (BUTTON_W * cpt_w), 0 + (BUTTON_H * cpt_h), 0xFFFFFF);
-			if (cpt_w)
-				cpt_h++;
+			img_param(tmp, 0 + (BUTTON_W * cpt_w), 0 + (BUTTON_H * cpt_h)
+			, 0xFFFFFF);
+			(cpt_w) ? cpt_h++ : 0;
 			cpt_w = !cpt_w;
 		}
 		tmp->color_swap = 1;
@@ -64,6 +60,7 @@ void	init_vars(t_env *e)
 	e->index = 0;
 	sav_sector(&e->sector, e->index);
 	e->grid_size = GRID_SIZE;
+	e->var.swap = 0;
 }
 
 void	init_mlx(t_env *e, char *title)

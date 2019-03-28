@@ -6,69 +6,60 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:35:02 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/27 15:10:12 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:31:19 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
-void    draw_ligne(t_ixy *dots1, t_ixy *dots2, t_env *e)
+void	swap_vars(t_var *var)
 {
-	int		dx;
-	int		dy;
-	int		i;
-	int		xinc;
-	int		yinc;
-	int		cumul;
-	int		x;
-	int		y;
-	x = dots1->x;
-	y = dots1->y;
-	dx = dots2->x - dots1->x;
-	dy = dots2->y - dots1->y;
-	xinc = (dx > 0) ? 1 : -1;
-	yinc = (dy > 0) ? 1 : -1;
-	dx = abs(dx);
-	dy = abs(dy);
-	e->central->data[y * e->central->width + x] = dots1->color;
-	// e->mlx.data[y * 400 + x] = DOTS_COLOR;
-	// mlx_pixel_put(e->mlx.mlx, e->mlx.win, x, y , 0xFFFFFF);
-	if (dx > dy)
+	int	tmp;
+
+	tmp = var->dx;
+	var->dx = var->dy;
+	var->dy = tmp;
+	tmp = var->x;
+	var->x = var->y;
+	var->y = tmp;
+	tmp = var->xinc;
+	var->xinc = var->yinc;
+	var->yinc = tmp;
+}
+
+void	boucle_dots1_to_dots2(t_env *e, t_ixy *dot)
+{
+	while (++(e->var.i) <= e->var.dx)
 	{
-		cumul = dx / 2;
-		i = 0;
-		while (++i <= dx)
+		e->var.x += e->var.xinc;
+		e->var.cumul += e->var.dy;
+		if (e->var.cumul >= e->var.dx)
 		{
-			x += xinc;
-			cumul += dy;
-			if (cumul >= dx)
-			{
-				cumul -= dx;
-				y += yinc;
-			}
-			e->central->data[y * e->central->width + x] = dots1->color;
-			// e->mlx.data[y * 400 + x] = DOTS_COLOR;
-			// mlx_pixel_put(e->mlx.mlx, e->mlx.win, x, y , 0xFFFFFF);
+			e->var.cumul -= e->var.dx;
+			e->var.y += e->var.yinc;
 		}
+		(e->var.swap == 1) ? swap_vars(&e->var) : 0;
+		e->central->data[e->var.y * e->central->width + e->var.x] = dot->color;
+		(e->var.swap == 1) ? swap_vars(&e->var) : 0;
 	}
-	else
-	{
-		cumul = dy / 2;
-		i = 0;
-		while (++i <= dy)
-		{
-			y += yinc;
-			cumul += dx;
-			if (cumul >= dy)
-			{
-				cumul -= dy;
-				x += xinc;
-			}
-			e->central->data[y * e->central->width + x] = dots1->color;
-			// e->mlx.data[y * 400 + x] = DOTS_COLOR;
-			// mlx_pixel_put(e->mlx.mlx, e->mlx.win, x, y , 0xFFFFFF);
-		}
-	}
+}
+
+void	draw_ligne(t_ixy *dots1, t_ixy *dots2, t_env *e)
+{
+	e->var.x = dots1->x;
+	e->var.y = dots1->y;
+	e->var.dx = dots2->x - dots1->x;
+	e->var.dy = dots2->y - dots1->y;
+	e->var.xinc = (e->var.dx > 0) ? 1 : -1;
+	e->var.yinc = (e->var.dy > 0) ? 1 : -1;
+	e->var.dx = abs(e->var.dx);
+	e->var.dy = abs(e->var.dy);
+	e->central->data[e->var.y * e->central->width + e->var.x] = dots1->color;
+	e->var.swap = (e->var.dx <= e->var.dy) ? 1 : 0;
+	(e->var.dx <= e->var.dy) ? swap_vars(&e->var) : 0;
+	e->var.cumul = e->var.dx / 2;
+	e->var.i = 0;
+	boucle_dots1_to_dots2(e, dots1);
 }
 
 void	print_list(t_img *list)

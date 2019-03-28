@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/27 14:48:59 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:10:32 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
 # define GREEN				0x00FF00
 # define BLUE				0x0000FF
 # define GREY				0x666666
+# define GREY2				0x222222
 # define BALL1				"texture/1.xpm"
 # define BALL2				"texture/2.xpm"
 
@@ -74,8 +75,6 @@ typedef enum		e_name
 	BUTTON12,
 	BUTTON13,
 	BUTTON14,
-	SQUARRE,
-	SQUARRE2,
 }					t_name;
 
 typedef enum		e_texture
@@ -151,6 +150,7 @@ typedef struct		s_var
 	int				cumul;
 	int				x;
 	int				y;
+	int				swap;
 }					t_var;
 
 typedef struct		s_sector
@@ -159,7 +159,6 @@ typedef struct		s_sector
 	int				index;
 	struct s_sector	*next;
 }					t_sector;
-
 
 /*
 **	t_map			map;
@@ -170,6 +169,8 @@ typedef struct		s_sector
 typedef struct		s_env
 {
 	t_mlx			mlx;
+	int				ac;
+	char			**av;
 	int				silent;
 	int				grid_size;
 	char			*title;
@@ -220,11 +221,15 @@ void				add_sector(t_sector **list, t_sector *new);
 void				sav_sector(t_sector **list, int index);
 
 /*
+**	texture.c
+*/
+
+void				appli_buttons_text(t_img *list, t_env *e);
+
+/*
 **	mouse.c
 */
 
-void				paint_if_img(t_img *img, int x, int y, t_env *e);
-void				appli_buttons_text(t_img *list, t_env *e);
 void				left_click(t_env *e, int x, int y);
 void				right_click(t_env *e);
 int					mousehooked(int button, int x, int y, t_env *e);
@@ -252,7 +257,7 @@ void				sav_img_pos(t_env *e);
 **	init.c
 */
 
-void				img_sav_pos_n_color(t_img *img, int x, int y, int color);
+void				img_param(t_img *img, int x, int y, int color);
 void				init_xy(t_img *list, t_env *e);
 void				init_vars(t_env *e);
 void				init_mlx(t_env *e, char *title);
@@ -261,8 +266,8 @@ void				init_mlx(t_env *e, char *title);
 **	imgs.c
 */
 
+void				paint_if_img(t_img *img, int x, int y, t_env *e);
 t_img				*lstnew(int name, int width, int height);
-void				add_img(t_img *new, t_img **list);
 void				create_list_img(t_img **list, int name, int width, int height);
 void				create_imgs(t_env *e);
 
@@ -271,5 +276,13 @@ void				create_imgs(t_env *e);
 */
 
 void				istab_draw(t_img *img, t_env *e);
+
+/*
+**	portal.c
+*/
+
+void				is_portal(t_env *e, t_ixy *to_check);
+void				compare_with_others(t_env *e, t_ixy *to_check, t_sector *sector);
+void				check_portals(t_env *e);
 
 #endif

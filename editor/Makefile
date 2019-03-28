@@ -6,7 +6,7 @@
 #    By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 11:55:28 by ojerroud          #+#    #+#              #
-#    Updated: 2019/03/25 11:51:06 by ojerroud         ###   ########.fr        #
+#    Updated: 2019/03/28 16:58:37 by ojerroud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ MINIFLAGS = -framework OpenGL -framework AppKit
 
 OBJDIR := obj
 OBJS := $(addprefix $(OBJDIR)/,main.o init.o draw.o error.o keyboard.o mouse.o\
-texture.o central.o list_utils.o imgs.o init_img.o tabdraw.o utils.o)
+texture.o list_utils.o imgs.o init_img.o tabdraw.o utils.o portal.o)
 
 
 

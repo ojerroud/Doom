@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 17:39:49 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/01 16:57:28 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/28 16:08:07 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ void	setup_img_data(t_env *e, t_img *img)
 void	create_mlx_img(t_env *e, t_img *img)
 {
 	img->img_ptr = mlx_new_image(e->mlx.mlx, img->width, img->height);
-	img->data = (int *)mlx_get_data_addr(img->img_ptr, &(img->bpp), &(img->size_l), &(img->endian));
+	img->data = (int *)mlx_get_data_addr(img->img_ptr, &(img->bpp)
+	, &(img->size_l), &(img->endian));
 	setup_img_data(e, img);
-	// draw_shape(img);
-	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr, img->pos.x, img->pos.y);
+	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr
+	, img->pos.x, img->pos.y);
 }
 
 /*
@@ -84,7 +85,6 @@ void	sav_img_pos(t_env *e)
 	t_img	*tmp;
 
 	tmp = e->mlx.img;
-	// mlx_clear_window(e->mlx.mlx, e->mlx.win);
 	while (tmp)
 	{
 		if (tmp->name >= CENTRAL && tmp->name < END)

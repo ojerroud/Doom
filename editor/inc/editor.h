@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/28 18:10:32 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:34:39 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,7 @@ int					mousehooked(int button, int x, int y, t_env *e);
 */
 
 void				print_click(int button, int x, int y);
-void    			draw_ligne(t_ixy *dots1, t_ixy *dots2, t_env *e);
+void				draw_ligne(t_ixy *dots1, t_ixy *dots2, t_env *e);
 void				ligne2(t_ixy *dots1, t_ixy *dots2, t_env *e);
 void				points(t_env *e, char **av);
 void				print_list(t_img *list);
@@ -268,7 +268,8 @@ void				init_mlx(t_env *e, char *title);
 
 void				paint_if_img(t_img *img, int x, int y, t_env *e);
 t_img				*lstnew(int name, int width, int height);
-void				create_list_img(t_img **list, int name, int width, int height);
+void				create_list_img(t_img **list, int name
+, int width, int height);
 void				create_imgs(t_env *e);
 
 /*
@@ -282,7 +283,8 @@ void				istab_draw(t_img *img, t_env *e);
 */
 
 void				is_portal(t_env *e, t_ixy *to_check);
-void				compare_with_others(t_env *e, t_ixy *to_check, t_sector *sector);
+void				compare_with_others(t_env *e, t_ixy *to_check
+, t_sector *sector);
 void				check_portals(t_env *e);
 
 #endif

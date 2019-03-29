@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 16:58:42 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/28 17:06:04 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/29 15:07:10 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,7 @@ void	is_portal(t_env *e, t_ixy *to_check)
 	&& to_check->y == e->sector->dots->next->y
 	&& to_check->next->x == e->sector->dots->x
 	&& to_check->next->y == e->sector->dots->y))
-	{
-		draw_ligne(to_check, to_check->next, e);
 		e->sector->dots->color = 0x0000FF;
-		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win
-		, e->central->img_ptr, e->central->pos.x, e->central->pos.y);
-	}
 }
 
 /*

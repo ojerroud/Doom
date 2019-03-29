@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/28 18:34:39 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/29 18:27:17 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 
 # define WIDTH	1000
 # define HEIGHT	1000
+
+/*
+**	a mettre dans un typedef /!\
+*/
 
 # define ESC				53
 # define W					13
@@ -40,11 +44,11 @@
 # define MOUSE_MID			3
 # define MOUSE_SCROLLUP		4
 # define MOUSE_SCROLLDOWN	5
-# define BUTTON_W			WIDTH / 6
-# define BUTTON_H			HEIGHT / 8
+# define BUTTON_W			(WIDTH / 6)
+# define BUTTON_H			(HEIGHT / 8)
 
 # define SPACING			1
-# define GRID_SIZE			(WIDTH + HEIGHT) / 2 / 50
+# define GRID_SIZE			((WIDTH + HEIGHT) / 2 / 50)
 # define DOTS_COLOR			0xFF0000
 
 # define WHITE				0xFFFFFF
@@ -76,6 +80,36 @@ typedef enum		e_name
 	BUTTON13,
 	BUTTON14,
 }					t_name;
+
+// typedef enum		e_keycode
+// {
+// 	A = 0,
+// 	B = 11,
+// 	C = 8,
+// 	D = 2,
+// 	E = 17,
+// 	F = 3,
+// 	G = 5,
+// 	H = 4,
+// 	I = 34,
+// 	J = 38,
+// 	K = 40,
+// 	L = 37,
+// 	M = 46,
+// 	N = 45,
+// 	O = 31,
+// 	P = 35,
+// 	Q = 12,
+// 	R = 15,
+// 	S = 1,
+// 	T = 17,
+// 	U = 32,
+// 	V = 9,
+// 	W = 13,
+// 	X = 7,
+// 	Y = 16,
+// 	Z = 6,
+// }					t_keycode;
 
 typedef enum		e_texture
 {
@@ -171,6 +205,7 @@ typedef struct		s_env
 	t_mlx			mlx;
 	int				ac;
 	char			**av;
+	char			*file_name;
 	int				silent;
 	int				grid_size;
 	char			*title;
@@ -286,5 +321,11 @@ void				is_portal(t_env *e, t_ixy *to_check);
 void				compare_with_others(t_env *e, t_ixy *to_check
 , t_sector *sector);
 void				check_portals(t_env *e);
+
+/*
+**	central.c
+*/
+
+void    			delete_all_sectors(t_env *e);
 
 #endif

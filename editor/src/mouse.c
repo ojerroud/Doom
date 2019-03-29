@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/28 17:02:06 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/29 10:33:48 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ void	right_click(t_env *e)
 		dots = dots->next;
 	sav_dots(&e->sector->dots, dots->x, dots->y);
 	draw_ligne(e->sector->dots, e->sector->dots->next, e);
+	check_portals(e);
+	put_grid(e);
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win
 	, e->central->img_ptr, e->central->pos.x, e->central->pos.y);
 	dots = e->sector->dots;
-	check_portals(e);
 	e->index++;
 	sav_sector(&e->sector, e->index);
 }

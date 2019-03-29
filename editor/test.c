@@ -6,123 +6,78 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 15:26:32 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/25 14:22:31 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/29 18:26:34 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
-t_ixy	*mew(int x, int y)
+void	color_img(int *data, int width, int height)
 {
-	t_ixy	*new;
+	int w;
+	int h;
+	int i;
 
-	new = malloc(sizeof(t_ixy));
-	new->x = x;
-	new->y = y;
-	return (new);
-}
-
-void	add(t_ixy **list, t_ixy	*new)
-{
-	new->next = *list;
-	*list = new;
-}
-
-void	merge(t_env *e, int x, int y)
-{
-	t_ixy	*new;
-
-	new = mew(x, y);
-	add(&e->dots, new);
-}
-
-void	t(t_env *e, int i)
-{
-	e->dots = NULL;
-	merge(e, 1+i, 1+i);
-	merge(e, 2+i, 2+i);
-	merge(e, 3+i, 3+i);
-	merge(e, 4+i, 4+i);
-
-}
-
-void	print_(t_env *e)
-{
-	t_ixy		*tmp;
-
-	tmp = e->dots;
-	while (tmp)
+	h = -1;
+	while (++h < height)
 	{
-		printf("%d %d\n" ,tmp->x, tmp->y);
-		tmp = tmp->next;
+		w = -1;
+		while (++w < width)
+		// i = 0;
+			data[h * width + w] = 0xFFFFFF;
 	}
 }
 
-void	print2_(t_env *e)
+int		keyboard(int keycode, t_env *e)
 {
-	t_portal	*port;
-	t_ixy		*tmp;
+	int		i;
+	int		pressed;
 
-	port = e->portal;
-	while (port)
-	{
-		printf("index : %d\n", port->index);
-		tmp = port->dots;
-		while (tmp)
-		{
-			printf("%d %d\n", tmp->x, tmp->y);
-			tmp = tmp->next;
-		}
-		port = port->next;
-	}
+	if (keycode == ESC)
+		exit (0);
+	i = -1;
+	while (++i <= 46)
+		if (i == keycode)
+			pressed = keycode;
+	printf("%c\n", pressed);
+	// if (keycode == A)
+	// {
+	// 	e->file_name = strcat(e->file_name, "a");
+	// 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.img_ptr, 5, 5);
+	// 	mlx_string_put(e->mlx.mlx, e->mlx.win, 5, 5, 0xFF0000, e->file_name);
+	// }
+	return (0);
 }
 
-// void	merge2(t_env *e)
-// {
-
-// }
-
-
-t_portal *mewtwo(t_ixy *dots, int index)
+int		mouse(int keycode, int x, int y, t_env *e)
 {
-	t_portal	*new;
 
-	new = malloc(sizeof(t_portal));
-	new->index = index;
-	new->dots = dots;
-	return (new);
+	return (0);
 }
 
-void	addtwo(t_portal **list, t_portal *new)
+void	t(t_env *e)
 {
-	new->next = *list;
-	*list = new;
+	int img_width;
+	int img_height;
+
+	img_width = 80;
+	img_height = 20;
+	e->mlx.mlx = mlx_init();
+	e->mlx.win = mlx_new_window(e->mlx.mlx, WIDTH, HEIGHT, "test");
+	e->mlx.img_ptr = mlx_new_image(e->mlx.mlx, img_width, img_height);
+	e->mlx.data = (int *)mlx_get_data_addr(e->mlx.img_ptr, &e->mlx.bpp, &e->mlx.size_l, &e->mlx.endian);
+	e->file_name = ft_strnew(0);
+	color_img(e->mlx.data, img_width, img_height);
+	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.img_ptr, 5, 5);
+	mlx_key_hook(e->mlx.win, keyboard, e);
+	mlx_mouse_hook(e->mlx.win, mouse, e);
+	mlx_loop(e->mlx.mlx);
 }
 
-void	t2(t_env *e)
-{
-	t_portal	*new;
-
-	e->portal = NULL;
-	t(e, 0);
-	new = mewtwo(e->dots, 0);
-	addtwo(&e->portal, new);
-	t(e, 1);
-	new = mewtwo(e->dots, 1);
-	addtwo(&e->portal, new);
-	t(e, 2);
-	new = mewtwo(e->dots, 2);
-	addtwo(&e->portal, new);
-	t(e, 3);
-	new = mewtwo(e->dots, 3);
-	addtwo(&e->portal, new);
-}
-
-int main(int ac, char **av)
+int 	main(int ac, char **av)
 {
 	t_env		e;
 	
-	t2(&e);
-	print2_(&e);
+	t(&e);
 	return (0);
 }

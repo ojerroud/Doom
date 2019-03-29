@@ -6,13 +6,13 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:35:02 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/28 18:31:19 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/29 10:23:48 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
-void	swap_vars(t_var *var)
+void	draw_ligne_point_to_point_swap_vars(t_var *var)
 {
 	int	tmp;
 
@@ -27,7 +27,7 @@ void	swap_vars(t_var *var)
 	var->yinc = tmp;
 }
 
-void	boucle_dots1_to_dots2(t_env *e, t_ixy *dot)
+void	draw_ligne_point_to_point(t_env *e, t_ixy *dot)
 {
 	while (++(e->var.i) <= e->var.dx)
 	{
@@ -38,9 +38,9 @@ void	boucle_dots1_to_dots2(t_env *e, t_ixy *dot)
 			e->var.cumul -= e->var.dx;
 			e->var.y += e->var.yinc;
 		}
-		(e->var.swap == 1) ? swap_vars(&e->var) : 0;
+		(e->var.swap == 1) ? draw_ligne_point_to_point_swap_vars(&e->var) : 0;
 		e->central->data[e->var.y * e->central->width + e->var.x] = dot->color;
-		(e->var.swap == 1) ? swap_vars(&e->var) : 0;
+		(e->var.swap == 1) ? draw_ligne_point_to_point_swap_vars(&e->var) : 0;
 	}
 }
 
@@ -56,10 +56,10 @@ void	draw_ligne(t_ixy *dots1, t_ixy *dots2, t_env *e)
 	e->var.dy = abs(e->var.dy);
 	e->central->data[e->var.y * e->central->width + e->var.x] = dots1->color;
 	e->var.swap = (e->var.dx <= e->var.dy) ? 1 : 0;
-	(e->var.dx <= e->var.dy) ? swap_vars(&e->var) : 0;
+	(e->var.dx <= e->var.dy) ? draw_ligne_point_to_point_swap_vars(&e->var) : 0;
 	e->var.cumul = e->var.dx / 2;
 	e->var.i = 0;
-	boucle_dots1_to_dots2(e, dots1);
+	draw_ligne_point_to_point(e, dots1);
 }
 
 void	print_list(t_img *list)

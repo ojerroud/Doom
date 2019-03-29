@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/28 16:24:18 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/03/29 16:44:39 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,24 @@ void	print_sector(t_env *e)
 	t_ixy		*tmp2;
 
 	tmp = e->sector;
-	while (tmp)
+	while (e->sector)
 	{
 		ft_putstr("index : ");
-		ft_putendl(ft_itoa(tmp->index));
-		tmp2 = tmp->dots;
-		while (tmp2)
+		ft_putnbr(e->sector->index);
+		ft_putchar('\n');
+		tmp2 = e->sector->dots;
+		while (e->sector->dots)
 		{
-			ft_putnbr(tmp2->x);
+			ft_putnbr(e->sector->dots->x);
 			ft_putchar(' ');
-			ft_putendl(ft_itoa(tmp2->y));
-			tmp2 = tmp2->next;
+			ft_putnbr(e->sector->dots->y);
+			ft_putchar('\n');
+			e->sector->dots = e->sector->dots->next;
 		}
-		tmp = tmp->next;
+		e->sector->dots = tmp2;
+		e->sector = e->sector->next;
 	}
-	tmp = e->sector;
+	e->sector = tmp;
 }
 
 int		keyhooked(int keycode, t_env *e)
@@ -83,9 +86,9 @@ int		keyhooked(int keycode, t_env *e)
 		key_esc(e);
 	if (keycode == G)
 		sizegrid_change(e);
-	if (keycode == W)
-		mlx_clear_window(e->mlx.mlx, e->mlx.win);
 	if (keycode == A)
 		print_sector(e);
+	if (keycode == R)
+		delete_all_sectors(e);
 	return (0);
 }

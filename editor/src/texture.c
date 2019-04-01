@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:30:13 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/28 17:06:30 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/01 17:57:21 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	appli_buttons_text(t_img *list, t_env *e)
 	{
 		list->texture_swap = 1;
 		scale_texture_to_img(list, e);
-		if (list->name >= END - 1)
+		if (list->name == END - 1)
 		{
+			printf("passage\n");
 			setup_img_data(e, e->central);
 			mlx_put_image_to_window(e->mlx.mlx, e->mlx.win
 			, e->central->img_ptr, e->central->pos.x, e->central->pos.y);

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/29 18:27:17 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/01 17:53:55 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,18 @@
 # define BALL1				"texture/1.xpm"
 # define BALL2				"texture/2.xpm"
 
+#define FILENAME_SIZE		200
+
 typedef enum		e_name
 {
 	CENTRAL,
+	SAV,
 	BUTTON1,
 	BUTTON2,
 	BUTTON3,
 	BUTTON4,
-	BUTTON5,
 	END,
+	BUTTON5,
 	BUTTON6,
 	BUTTON7,
 	BUTTON8,
@@ -109,6 +112,9 @@ typedef enum		e_name
 // 	X = 7,
 // 	Y = 16,
 // 	Z = 6,
+// 	DEL = 51,
+// 	PREMIER = A,
+// 	DERNIER = DEL,
 // }					t_keycode;
 
 typedef enum		e_texture
@@ -194,6 +200,13 @@ typedef struct		s_sector
 	struct s_sector	*next;
 }					t_sector;
 
+typedef struct 		s_file
+{
+	char			file_name[FILENAME_SIZE];
+	t_ixy			pos;
+}					t_file;
+
+
 /*
 **	t_map			map;
 **	int				ac;
@@ -205,7 +218,6 @@ typedef struct		s_env
 	t_mlx			mlx;
 	int				ac;
 	char			**av;
-	char			*file_name;
 	int				silent;
 	int				grid_size;
 	char			*title;
@@ -214,7 +226,8 @@ typedef struct		s_env
 	t_ixy			*dots;
 	t_sector		*sector;
 	t_img			*select;
-	t_img			*curr;
+	t_file			file;
+	// t_img			*curr;
 	t_img			*central;
 	t_text			text[LAST];
 }					t_env;
@@ -327,5 +340,11 @@ void				check_portals(t_env *e);
 */
 
 void    			delete_all_sectors(t_env *e);
+
+/*
+**	sav_map.c
+*/
+
+// void        		put_sav_values(t_env *e);
 
 #endif

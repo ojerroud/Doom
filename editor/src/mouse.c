@@ -6,11 +6,29 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/29 10:33:48 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/01 17:53:16 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
+
+void	reset_texture_buttons(t_env *e, t_img *img)
+{
+	t_img	*list;
+
+	list = img;
+	while (img)
+	{
+		if (img->name != e->select->name && img->name >= BUTTON1 && img->name < END)
+		{
+			img->texture_swap = 2;
+			scale_texture_to_img(img, e);
+			mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr
+		, img->pos.x, img->pos.y);
+		}
+		img = img->next;
+	}
+}
 
 void	left_click(t_env *e, int x, int y)
 {
@@ -28,6 +46,17 @@ void	left_click(t_env *e, int x, int y)
 		appli_buttons_text(list, e);
 		list = list->next;
 	}
+	// if (e->select->name == END - 2)
+	// {
+	// 	if (e->select->texture_swap <= 1)
+	// 		put_sav_values(e);
+	// 	else
+	// 	{
+	// 		setup_img_data(e, e->central);
+	// 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win,
+	// 		e->central->img_ptr, e->central->pos.x, e->central->pos.y);
+	// 	}	
+	// }
 	if (e->select->texture_swap == 2)
 		e->select = e->central;
 }

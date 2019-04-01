@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/28 15:51:43 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/01 18:00:32 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,22 @@ void	put_grid(t_env *e)
 	e->central->pos.x, e->central->pos.y);
 }
 
+void	put_file_sav(t_env *e, t_img *central)
+{
+	int		w;
+	int		h;
+
+	h = -1;
+	while (++h < 20)
+	{
+		w = -1;
+		while (++w < FILENAME_SIZE)
+		{
+			central->data[h * FILENAME_SIZE + w] = WHITE;
+		}
+	}
+}
+
 /*
 **	draw & sav dots at position
 */
@@ -131,4 +147,5 @@ void	select_dots(t_img *img, t_env *e, int x, int y)
 	sav_dots(&e->sector->dots, x, y);
 	if (e->sector->dots->next)
 		draw_ligne(e->sector->dots, e->sector->dots->next, e);
+	put_file_sav(e, e->centra);
 }

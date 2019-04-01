@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/28 17:09:13 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/01 16:17:01 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr
 		, img->pos.x, img->pos.y);
 	}
+	
 }
 
 t_img	*lstnew(int name, int width, int height)

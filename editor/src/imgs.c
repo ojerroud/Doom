@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/01 16:17:01 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/02 17:57:24 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 		if (img->name >= BUTTON1 && img->name < END)
 		{
 			e->select = img;
-			scale_texture_to_img(img, e);
+			scale_texture_to_buttons(img, e);
 			istab_draw(img, e);
 		}
 		if (img->name == CENTRAL && e->select->name == END - 1
@@ -63,6 +63,8 @@ void	create_imgs(t_env *e)
 
 	create_list_img(&e->mlx.img, CENTRAL, 2 * WIDTH
 	/ 3 - SPACING, HEIGHT - SPACING);
+	create_list_img(&e->mlx.img, WRITE, FILENAME_SIZE_W, FILENAME_SIZE_H);
+	create_list_img(&e->mlx.img, SAV, FILENAME_SIZE_W, FILENAME_SIZE_H);
 	i = BUTTON1 - 1;
 	while (++i < END)
 	{

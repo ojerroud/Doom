@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/01 17:02:33 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:15:35 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ void	init_xy(t_img *list, t_env *e)
 			img_param(tmp, WIDTH - tmp->width, HEIGHT - tmp->height - 1, GREY2);
 			e->central = tmp;
 		}
+		if (tmp->name == WRITE)
+			img_param(tmp, WIDTH - FILENAME_SIZE_W, HEIGHT - FILENAME_SIZE_H - 1, WHITE);
+		if (tmp->name == SAV)
+			img_param(tmp, WIDTH - tmp->width, HEIGHT - tmp->height - 1, 0x005555);
 		if (tmp->name >= BUTTON1 && tmp->name < END)
 		{
 			img_param(tmp, 0 + (BUTTON_W * cpt_w), 0 + (BUTTON_H * cpt_h)
@@ -61,7 +65,10 @@ void	init_vars(t_env *e)
 	sav_sector(&e->sector, e->index);
 	e->grid_size = GRID_SIZE;
 	e->var.swap = 0;
-	ft_bzero(e->file.file_name, FILENAME_SIZE);
+	ft_bzero(e->sav_button.file_name, FILENAME_SIZE_W);
+	ft_bzero(e->sav_button.validate, FILENAME_SIZE_W);
+	ft_bzero(e->write_zone.file_name, FILENAME_SIZE_W);
+	ft_bzero(e->write_zone.validate, FILENAME_SIZE_W);
 }
 
 void	init_mlx(t_env *e, char *title)

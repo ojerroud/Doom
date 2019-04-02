@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/01 14:35:22 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:08:38 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,26 @@ void	print_sector(t_env *e)
 	t_sector	*tmp;
 	t_ixy		*tmp2;
 
-	tmp = e->sector;
-	while (e->sector)
+	tmp = e->sector->next;
+	while (tmp)
 	{
-		ft_putstr("index : ");
-		ft_putnbr(e->sector->index);
+		ft_putstr("sector : ");
+		ft_putnbr(tmp->index);
 		ft_putchar('\n');
-		tmp2 = e->sector->dots;
-		while (e->sector->dots)
+		tmp2 = tmp->dots;
+		while (tmp2 && tmp2->next)
 		{
-			ft_putnbr(e->sector->dots->x);
-			ft_putchar(' ');
-			ft_putnbr(e->sector->dots->y);
-			ft_putchar('\n');
-			e->sector->dots = e->sector->dots->next;
+			printf("a(%d,%d) b(%d,%d)\n", tmp2->x, tmp2->y, tmp2->next->x, tmp2->next->y);
+			// ft_putnbr(tmp2->x);
+			// ft_putchar(' ');
+			// ft_putnbr(tmp2->y);
+			// ft_putchar('\n');
+			tmp2 = tmp2->next;
 		}
-		e->sector->dots = tmp2;
-		e->sector = e->sector->next;
+		tmp2 = tmp->dots;
+		tmp = tmp->next;
 	}
-	e->sector = tmp;
+	tmp = e->sector;
 }
 
 int		keyhooked(int keycode, t_env *e)
@@ -90,5 +91,7 @@ int		keyhooked(int keycode, t_env *e)
 		print_sector(e);
 	if (keycode == R)
 		delete_all_sectors(e);
+	// if (e->select->name == END - 1 && e->select->texture_swap)
+	// 	sav_area(e->central, e);
 	return (0);
 }

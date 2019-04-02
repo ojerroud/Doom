@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 14:04:52 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/01 17:53:34 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/02 16:59:01 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		put_str_on_window(t_env *e, char *entry, int nbr)
 	str = ft_strnew(ft_strlen(entry) + nbr);
 	str = ft_strcat(ft_strcpy(str, entry), itoa);
 	ft_strdel(&itoa);
-	mlx_string_put(e->mlx.mlx, e->mlx.win, e->file.pos.x, e->file.pos.y
+	mlx_string_put(e->mlx.mlx, e->mlx.win, e->sav_button.pos.x, e->sav_button.pos.y
 	, WHITE, str);
 }
 

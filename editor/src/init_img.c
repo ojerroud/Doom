@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 17:39:49 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/29 10:44:30 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/02 14:59:12 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	setup_img_data(t_env *e, t_img *img)
 
 	if (img->name >= BUTTON1 && img->name < END)
 	{
-		scale_texture_to_img(img, e);
+		scale_texture_to_buttons(img, e);
 		return ;
 	}
 	if (img->name == CENTRAL)

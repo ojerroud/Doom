@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/01 17:53:55 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/02 17:56:44 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,13 @@
 # define BALL2				"texture/2.xpm"
 
 #define FILENAME_SIZE		200
+#define FILENAME_SIZE_W		200
+#define FILENAME_SIZE_H		20
 
 typedef enum		e_name
 {
 	CENTRAL,
+	WRITE,
 	SAV,
 	BUTTON1,
 	BUTTON2,
@@ -90,7 +93,7 @@ typedef enum		e_name
 // 	B = 11,
 // 	C = 8,
 // 	D = 2,
-// 	E = 17,
+// 	E = 14,
 // 	F = 3,
 // 	G = 5,
 // 	H = 4,
@@ -129,6 +132,7 @@ typedef struct		s_ixy
 	int				x;
 	int				y;
 	int				color;
+	int				is_sector;
 	struct s_ixy	*next;
 }					t_ixy;
 
@@ -202,7 +206,8 @@ typedef struct		s_sector
 
 typedef struct 		s_file
 {
-	char			file_name[FILENAME_SIZE];
+	char			file_name[FILENAME_SIZE_W + 1];
+	char			validate[FILENAME_SIZE_W + 1];
 	t_ixy			pos;
 }					t_file;
 
@@ -218,6 +223,7 @@ typedef struct		s_env
 	t_mlx			mlx;
 	int				ac;
 	char			**av;
+	char			*file_name;
 	int				silent;
 	int				grid_size;
 	char			*title;
@@ -226,7 +232,8 @@ typedef struct		s_env
 	t_ixy			*dots;
 	t_sector		*sector;
 	t_img			*select;
-	t_file			file;
+	t_file			sav_button;
+	t_file			write_zone;
 	// t_img			*curr;
 	t_img			*central;
 	t_text			text[LAST];
@@ -236,11 +243,11 @@ typedef struct		s_env
 **	draw.c
 */
 
+void				sav_area(t_img *central, t_env *e);
 void				put_grid(t_env *e);
 void				draw_point(t_img *img, int x, int y);
 void				draw_shape(t_img *img);
 void				select_dots(t_img *img, t_env *e, int x, int y);
-void				scale_texture_to_img(t_img *img, t_env *e);
 
 /*
 **	error.c
@@ -272,6 +279,8 @@ void				sav_sector(t_sector **list, int index);
 **	texture.c
 */
 
+void				scale_texture_to_buttons(t_img *img, t_env *e);
+// void				scale_texture_to_img(t_img *img, t_env *e);
 void				appli_buttons_text(t_img *list, t_env *e);
 
 /*

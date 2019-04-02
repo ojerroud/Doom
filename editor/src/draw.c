@@ -6,39 +6,11 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/01 18:00:32 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:12:18 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
-
-/*
-**	scale textures on buttons
-*/
-
-void	scale_texture_to_img(t_img *img, t_env *e)
-{
-	int		w;
-	int		h;
-	double	w_t;
-	double	h_t;
-	int		i;
-
-	h = -1;
-	i = (img->texture_swap == 1 || img->texture_swap == 0) ? 0 : 1;
-	w_t = (double)img->width / e->text[i].width;
-	h_t = (double)img->height / e->text[i].height;
-	while (++h < img->height)
-	{
-		w = -1;
-		while (++w < img->width)
-			img->data[h * img->width + w] = e->text[i].data[(int)((double)h
-			/ h_t) * e->text[i].width + (int)(((double)w / w_t))];
-	}
-	if (img->texture_swap == 2)
-		e->central->texture_swap = 1;
-	img->texture_swap = (img->texture_swap == 2) ? 1 : 2;
-}
 
 /*
 **	draw points on draw-tab
@@ -104,20 +76,51 @@ void	put_grid(t_env *e)
 	e->central->pos.x, e->central->pos.y);
 }
 
-void	put_file_sav(t_env *e, t_img *central)
+void	writing_area(t_img *central, t_env *e)
 {
 	int		w;
 	int		h;
 
-	h = -1;
-	while (++h < 20)
+	h = central->height - (FILENAME_SIZE_H * 2) - SPACING;
+	while (++h < central->height - FILENAME_SIZE_H - SPACING)
 	{
-		w = -1;
-		while (++w < FILENAME_SIZE)
+		w = central->width - FILENAME_SIZE_W - SPACING;
+		while (++w < central->width - SPACING)
 		{
-			central->data[h * FILENAME_SIZE + w] = WHITE;
+			central->data[h * central->width + w] = WHITE;
 		}
 	}
+	ft_strcpy(e->write_zone.file_name, "ya");
+	e->write_zone.pos.x = e->sav_button.pos.x;
+	e->write_zone.pos.y = e->sav_button.pos.y - 20;
+}
+
+void	button_sav_area(t_img *central, t_env *e)
+{
+	int		w;
+	int		h;
+
+	h = central->height - FILENAME_SIZE_H - SPACING;
+	while (++h < central->height - SPACING)
+	{
+		w = central->width - FILENAME_SIZE_W - SPACING;
+		while (++w < central->width - SPACING)
+		{
+			central->data[h * central->width + w] = 0x005555;
+		}
+	}
+	ft_strcpy(e->sav_button.validate, "Valider");
+	e->sav_button.pos.x = central->pos.x + central->width - FILENAME_SIZE_W - SPACING + (FILENAME_SIZE_W - ft_strlen(e->sav_button.validate) * 10) / 2;
+	e->sav_button.pos.y = central->pos.y + central->height - FILENAME_SIZE_H - SPACING;
+}
+
+void	sav_area(t_img *central, t_env *e)
+{
+	writing_area(central, e);
+	button_sav_area(central, e);
+	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, central->img_ptr, central->pos.x, central->pos.y);
+	mlx_string_put(e->mlx.mlx, e->mlx.win, e->write_zone.pos.x, e->write_zone.pos.y, RED, e->write_zone.validate);
+	mlx_string_put(e->mlx.mlx, e->mlx.win, e->sav_button.pos.x, e->sav_button.pos.y, WHITE, e->sav_button.validate);
 }
 
 /*
@@ -147,5 +150,5 @@ void	select_dots(t_img *img, t_env *e, int x, int y)
 	sav_dots(&e->sector->dots, x, y);
 	if (e->sector->dots->next)
 		draw_ligne(e->sector->dots, e->sector->dots->next, e);
-	put_file_sav(e, e->centra);
+	// sav_area(e->central, e);
 }

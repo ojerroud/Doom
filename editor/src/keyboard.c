@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/02 18:08:38 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/03 16:00:36 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,18 @@ int		keyhooked(int keycode, t_env *e)
 {
 	if (keycode == ESC)
 		key_esc(e);
-	if (keycode == G)
-		sizegrid_change(e);
-	if (keycode == A)
-		print_sector(e);
-	if (keycode == R)
-		delete_all_sectors(e);
-	// if (e->select->name == END - 1 && e->select->texture_swap)
-	// 	sav_area(e->central, e);
+	if (!e->sav_zone_bool)
+	{
+		if (keycode == G)
+			sizegrid_change(e);
+		if (keycode == A)
+			print_sector(e);
+		if (keycode == R)
+			delete_all_sectors(e);
+	}
+	else
+		fill_write_zone(e, keycode);
+	if (e->select->name == END - 1 && e->select->texture_swap)
+		put_sav_on_window(e);
 	return (0);
 }

@@ -6,11 +6,35 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/02 17:57:24 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/03 16:59:56 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
+
+void	create_file(t_env *e)
+{
+	int 	fd;
+	char	str[FILENAME_SIZE_W + 1 + 5];
+
+	ft_bzero(str, ft_strlen(str));
+	ft_strcpy(str, "maps/");
+	ft_strcat(str, e->write_zone.str);
+	ft_strcat(str,".doom");
+	fd = open(str, O_CREAT | O_WRONLY , S_IWUSR);
+	if (fd == -1)
+		printf("error!\n");
+	close(fd);
+}
+
+void	put_data_on_file(t_env *e)
+{
+	// ft_putstr("file ");
+	// ft_putstr(e->write_zone.str);
+	// ft_putendl(" done!!");
+	create_file(e);
+	ft_bzero(e->write_zone.str, ft_strlen(e->write_zone.str));
+}
 
 /*
 **	check if click is on the img, then draw
@@ -21,6 +45,10 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 	if (img->pos.x <= x && (img->pos.x + img->width) >= x
 	&& img->pos.y <= y && (img->pos.y + img->height) >= y)
 	{
+		if (e->sector->next && ft_strlen(e->write_zone.str) && img->name == SAV)
+			put_data_on_file(e);
+		if (img->name == WRITE || img->name == SAV)
+			e->sav_zone_bool = 1;
 		if (img->name >= BUTTON1 && img->name < END)
 		{
 			e->select = img;
@@ -28,7 +56,7 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 			istab_draw(img, e);
 		}
 		if (img->name == CENTRAL && e->select->name == END - 1
-		&& img->texture_swap)
+		&& img->texture_swap && !e->sav_zone_bool)
 			select_dots(img, e, x, y);
 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr
 		, img->pos.x, img->pos.y);
@@ -62,7 +90,7 @@ void	create_imgs(t_env *e)
 	int		i;
 
 	create_list_img(&e->mlx.img, CENTRAL, 2 * WIDTH
-	/ 3 - SPACING, HEIGHT - SPACING);
+	/ 3, HEIGHT);
 	create_list_img(&e->mlx.img, WRITE, FILENAME_SIZE_W, FILENAME_SIZE_H);
 	create_list_img(&e->mlx.img, SAV, FILENAME_SIZE_W, FILENAME_SIZE_H);
 	i = BUTTON1 - 1;

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 15:26:32 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/01 14:28:20 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/03 15:56:05 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	color_img(int *data, int width, int height)
 int		keyboard(int keycode, t_env *e)
 {
 	int		i;
-	int		pressed;
 	int		len;
 
 	if (keycode == ESC)

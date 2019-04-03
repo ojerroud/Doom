@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/02 17:56:44 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/03 16:53:43 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,6 @@
 
 # define WIDTH	1000
 # define HEIGHT	1000
-
-/*
-**	a mettre dans un typedef /!\
-*/
-
-# define ESC				53
-# define W					13
-# define D					2
-# define A					0
-# define S					1
-# define C					8
-# define R					15
-# define G					5
-# define LEFT				123
-# define RIGHT				124
-# define DOWN				125
-# define UP					126
-# define SPACE				49
 
 # define MOUSE_LEFT			1
 # define MOUSE_RIGHT		2
@@ -87,38 +69,42 @@ typedef enum		e_name
 	BUTTON14,
 }					t_name;
 
-// typedef enum		e_keycode
-// {
-// 	A = 0,
-// 	B = 11,
-// 	C = 8,
-// 	D = 2,
-// 	E = 14,
-// 	F = 3,
-// 	G = 5,
-// 	H = 4,
-// 	I = 34,
-// 	J = 38,
-// 	K = 40,
-// 	L = 37,
-// 	M = 46,
-// 	N = 45,
-// 	O = 31,
-// 	P = 35,
-// 	Q = 12,
-// 	R = 15,
-// 	S = 1,
-// 	T = 17,
-// 	U = 32,
-// 	V = 9,
-// 	W = 13,
-// 	X = 7,
-// 	Y = 16,
-// 	Z = 6,
-// 	DEL = 51,
-// 	PREMIER = A,
-// 	DERNIER = DEL,
-// }					t_keycode;
+typedef enum		e_keycode
+{
+	A = 0,
+	B = 11,
+	C = 8,
+	D = 2,
+	E = 14,
+	F = 3,
+	G = 5,
+	H = 4,
+	I = 34,
+	J = 38,
+	K = 40,
+	L = 37,
+	M = 46,
+	N = 45,
+	O = 31,
+	P = 35,
+	Q = 12,
+	R = 15,
+	S = 1,
+	T = 17,
+	U = 32,
+	V = 9,
+	W = 13,
+	X = 7,
+	Y = 16,
+	Z = 6,
+	DEL = 51,
+	ESC = 53,
+	LEFT = 123,
+	RIGHT = 124,
+	DOWN = 125,
+	UP = 126,
+	SPACE = 49,
+}					t_keycode;
 
 typedef enum		e_texture
 {
@@ -206,8 +192,7 @@ typedef struct		s_sector
 
 typedef struct 		s_file
 {
-	char			file_name[FILENAME_SIZE_W + 1];
-	char			validate[FILENAME_SIZE_W + 1];
+	char			str[FILENAME_SIZE_W + 1];
 	t_ixy			pos;
 }					t_file;
 
@@ -228,12 +213,14 @@ typedef struct		s_env
 	int				grid_size;
 	char			*title;
 	int				index;
+	int				fd;
 	t_var			var;
 	t_ixy			*dots;
 	t_sector		*sector;
 	t_img			*select;
 	t_file			sav_button;
 	t_file			write_zone;
+	int				sav_zone_bool;
 	// t_img			*curr;
 	t_img			*central;
 	t_text			text[LAST];
@@ -243,7 +230,7 @@ typedef struct		s_env
 **	draw.c
 */
 
-void				sav_area(t_img *central, t_env *e);
+// void				sav_area(t_img *central, t_env *e);
 void				put_grid(t_env *e);
 void				draw_point(t_img *img, int x, int y);
 void				draw_shape(t_img *img);
@@ -354,6 +341,8 @@ void    			delete_all_sectors(t_env *e);
 **	sav_map.c
 */
 
+void				put_sav_on_window(t_env *e);
+void				fill_write_zone(t_env *e, int keycode);
 // void        		put_sav_values(t_env *e);
 
 #endif

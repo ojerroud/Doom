@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/02 18:15:21 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/03 16:22:50 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	left_click(t_env *e, int x, int y)
 {
 	t_img	*list;
 
+	e->sav_zone_bool = 0;
 	list = e->mlx.img;
 	while (list)
 	{
@@ -57,6 +58,11 @@ void	left_click(t_env *e, int x, int y)
 	// 		e->central->img_ptr, e->central->pos.x, e->central->pos.y);
 	// 	}	
 	// }
+	// printf("|%s|\n", e->write_zone.str);
+	// if (e->sector->next)
+	// 	printf("pas vide\n");
+	// else
+	// 	printf("vide\n");
 	if (e->select->texture_swap == 2)
 		e->select = e->central;
 }
@@ -71,34 +77,24 @@ void	right_click(t_env *e)
 	while (dots && dots->next)
 		dots = dots->next;
 	sav_dots(&e->sector->dots, dots->x, dots->y);
+	dots = e->sector->dots;
 	draw_ligne(e->sector->dots, e->sector->dots->next, e);
 	check_portals(e);
 	put_grid(e);
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win
 	, e->central->img_ptr, e->central->pos.x, e->central->pos.y);
-	dots = e->sector->dots;
 	e->index++;
 	sav_sector(&e->sector, e->index);
 }
 
 int		mousehooked(int button, int x, int y, t_env *e)
 {
-	t_img	*list;
-
-	list = e->mlx.img;
 	if (button == MOUSE_LEFT)
 		left_click(e, x, y);
 	if (button == MOUSE_RIGHT)
 		right_click(e);
-	while (list)
-	{
-		if (list->name == WRITE || list->name == SAV)
-			if (e->select->name == END - 1 && e->select->texture_swap)
-			{
-				mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, list->img_ptr, list->pos.x, list->pos.y);
-			}
-		list = list->next;
-	}
-	list = e->mlx.img;
+	if ((e->select->name == END - 1 && e->select->texture_swap) || (e->select->name >= WRITE && e->select->name < BUTTON1))
+		put_sav_on_window(e);
+	// printf("%d\n", e->sav_zone_bool);
 	return (0);
 }

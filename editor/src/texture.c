@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:30:13 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/02 17:00:19 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/03 14:49:07 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	scale_texture_to_buttons(t_img *img, t_env *e)
 		w = -1;
 		while (++w < img->width)
 			img->data[h * img->width + w] = e->text[i].data[(int)((double)h
-			/ h_t) * e->text[i].width + (int)(((double)w / w_t))];
+			/ h_t) * e->text[i].width + (int)((double)w / w_t)];
 	}
 	if (img->texture_swap == 2)
 		e->central->texture_swap = 1;

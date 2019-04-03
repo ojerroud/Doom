@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/02 18:12:18 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:36:05 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,53 +74,6 @@ void	put_grid(t_env *e)
 	draw_points_on_list(e);
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr,
 	e->central->pos.x, e->central->pos.y);
-}
-
-void	writing_area(t_img *central, t_env *e)
-{
-	int		w;
-	int		h;
-
-	h = central->height - (FILENAME_SIZE_H * 2) - SPACING;
-	while (++h < central->height - FILENAME_SIZE_H - SPACING)
-	{
-		w = central->width - FILENAME_SIZE_W - SPACING;
-		while (++w < central->width - SPACING)
-		{
-			central->data[h * central->width + w] = WHITE;
-		}
-	}
-	ft_strcpy(e->write_zone.file_name, "ya");
-	e->write_zone.pos.x = e->sav_button.pos.x;
-	e->write_zone.pos.y = e->sav_button.pos.y - 20;
-}
-
-void	button_sav_area(t_img *central, t_env *e)
-{
-	int		w;
-	int		h;
-
-	h = central->height - FILENAME_SIZE_H - SPACING;
-	while (++h < central->height - SPACING)
-	{
-		w = central->width - FILENAME_SIZE_W - SPACING;
-		while (++w < central->width - SPACING)
-		{
-			central->data[h * central->width + w] = 0x005555;
-		}
-	}
-	ft_strcpy(e->sav_button.validate, "Valider");
-	e->sav_button.pos.x = central->pos.x + central->width - FILENAME_SIZE_W - SPACING + (FILENAME_SIZE_W - ft_strlen(e->sav_button.validate) * 10) / 2;
-	e->sav_button.pos.y = central->pos.y + central->height - FILENAME_SIZE_H - SPACING;
-}
-
-void	sav_area(t_img *central, t_env *e)
-{
-	writing_area(central, e);
-	button_sav_area(central, e);
-	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, central->img_ptr, central->pos.x, central->pos.y);
-	mlx_string_put(e->mlx.mlx, e->mlx.win, e->write_zone.pos.x, e->write_zone.pos.y, RED, e->write_zone.validate);
-	mlx_string_put(e->mlx.mlx, e->mlx.win, e->sav_button.pos.x, e->sav_button.pos.y, WHITE, e->sav_button.validate);
 }
 
 /*

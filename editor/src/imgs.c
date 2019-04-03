@@ -6,25 +6,47 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/03 16:59:56 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/03 17:28:34 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
+void	write_params(t_env *e)
+{
+	t_sector	*sector;
+	// t_ixy		*dots;
+
+	sector = e->sector->next;
+	// printf("%d\n", e->fd);
+	// ft_putstr_fd("sectors : ", e->fd);
+	// ft_putnbr_fd(e->sector->index, e->fd);
+	// ft_putchar_fd('\n', e->fd);
+	// e->sector = e->sector->next;
+	while (sector)
+	{
+		// while (sector->dots && sector->dots->next)
+		// {
+			printf("%d\n", sector->index);
+		// 	sector->dots = sector->dots->next;
+		// }
+		sector = sector->next;
+	}
+	e->sector = sector;
+}
+
 void	create_file(t_env *e)
 {
-	int 	fd;
 	char	str[FILENAME_SIZE_W + 1 + 5];
 
 	ft_bzero(str, ft_strlen(str));
 	ft_strcpy(str, "maps/");
 	ft_strcat(str, e->write_zone.str);
 	ft_strcat(str,".doom");
-	fd = open(str, O_CREAT | O_WRONLY , S_IWUSR);
-	if (fd == -1)
+	e->fd = open(str, O_CREAT | O_WRONLY | O_APPEND, S_IWUSR | S_IRUSR);
+	// printf("%d\n", e->fd);
+	if (e->fd == -1)
 		printf("error!\n");
-	close(fd);
 }
 
 void	put_data_on_file(t_env *e)
@@ -33,7 +55,9 @@ void	put_data_on_file(t_env *e)
 	// ft_putstr(e->write_zone.str);
 	// ft_putendl(" done!!");
 	create_file(e);
-	ft_bzero(e->write_zone.str, ft_strlen(e->write_zone.str));
+	write_params(e);
+	// ft_bzero(e->write_zone.str, ft_strlen(e->write_zone.str));
+	// close(e->fd);
 }
 
 /*

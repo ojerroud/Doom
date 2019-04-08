@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:14:38 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/03/28 16:26:23 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/08 18:14:18 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_ixy		*lstnew2(int x, int y)
 		ft_error("malloc fail");
 	tmp->x = x;
 	tmp->y = y;
+	tmp->is_sector = 0;
 	tmp->color = DOTS_COLOR;
 	return (tmp);
 }

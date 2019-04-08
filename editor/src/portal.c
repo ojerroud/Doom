@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 16:58:42 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/02 14:41:40 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/08 18:14:23 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	is_portal(t_env *e, t_ixy *to_check)
 		e->sector->dots->is_sector = 1;
 		e->sector->dots->color = 0x0000FF;
 	}
-	else
-		e->sector->dots->is_sector = 0;
+
 }
 
 /*

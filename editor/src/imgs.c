@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/08 14:42:13 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/08 18:08:10 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,8 @@ void	write_params(t_env *e)
 	t_sector	*sector;
 	t_ixy		*dots;
 
+	ft_putstr_fd("WALLS\n\n", e->fd);
 	sector = e->sector->next;
-	// printf("%d\n", e->fd);
-	// ft_putstr_fd("sectors : ", e->fd);
-	// ft_putnbr_fd(e->sector->index, e->fd);
-	// ft_putchar_fd('\n', e->fd);
-	// e->sector = e->sector->next;
 	while (sector)
 	{
 		dots = sector->dots;
@@ -40,6 +36,30 @@ void	write_params(t_env *e)
 			ft_putstr_fd(",", e->fd);
 			ft_putnbr_fd(dots->next->y, e->fd);
 			ft_putstr_fd(")\n", e->fd);
+			dots = dots->next;
+		}
+		dots = sector->dots;
+		sector = sector->next;
+	}
+	ft_putstr_fd("\n\nPORTAILS\n\n", e->fd);
+	sector = e->sector->next;
+	while (sector)
+	{
+		dots = sector->dots;
+		while (dots && dots->next)
+		{
+			if (dots->is_sector == 1)
+			{
+				ft_putstr_fd("x(", e->fd);
+				ft_putnbr_fd(dots->x, e->fd);
+				ft_putstr_fd(",", e->fd);
+				ft_putnbr_fd(dots->y, e->fd);
+				ft_putstr_fd(") y(", e->fd);
+				ft_putnbr_fd(dots->next->x, e->fd);
+				ft_putstr_fd(",", e->fd);
+				ft_putnbr_fd(dots->next->y, e->fd);
+				ft_putstr_fd(")\n", e->fd);
+			}
 			dots = dots->next;
 		}
 		dots = sector->dots;

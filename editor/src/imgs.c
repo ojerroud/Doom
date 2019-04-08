@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/03 17:28:34 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/04/08 14:42:13 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	write_params(t_env *e)
 {
 	t_sector	*sector;
-	// t_ixy		*dots;
+	t_ixy		*dots;
 
 	sector = e->sector->next;
 	// printf("%d\n", e->fd);
@@ -25,14 +25,27 @@ void	write_params(t_env *e)
 	// e->sector = e->sector->next;
 	while (sector)
 	{
-		// while (sector->dots && sector->dots->next)
-		// {
-			printf("%d\n", sector->index);
-		// 	sector->dots = sector->dots->next;
-		// }
+		dots = sector->dots;
+		ft_putstr_fd("sector : ", e->fd);
+		ft_putnbr_fd(sector->index, e->fd);
+		ft_putstr_fd("\n", e->fd);
+		while (dots && dots->next)
+		{
+			ft_putstr_fd("x(", e->fd);
+			ft_putnbr_fd(dots->x, e->fd);
+			ft_putstr_fd(",", e->fd);
+			ft_putnbr_fd(dots->y, e->fd);
+			ft_putstr_fd(") y(", e->fd);
+			ft_putnbr_fd(dots->next->x, e->fd);
+			ft_putstr_fd(",", e->fd);
+			ft_putnbr_fd(dots->next->y, e->fd);
+			ft_putstr_fd(")\n", e->fd);
+			dots = dots->next;
+		}
+		dots = sector->dots;
 		sector = sector->next;
 	}
-	e->sector = sector;
+	sector = e->sector;
 }
 
 void	create_file(t_env *e)
@@ -55,8 +68,9 @@ void	put_data_on_file(t_env *e)
 	// ft_putstr(e->write_zone.str);
 	// ft_putendl(" done!!");
 	create_file(e);
+	print_sector(e);
 	write_params(e);
-	// ft_bzero(e->write_zone.str, ft_strlen(e->write_zone.str));
+	ft_bzero(e->write_zone.str, ft_strlen(e->write_zone.str));
 	// close(e->fd);
 }
 

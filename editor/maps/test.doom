@@ -1,0 +1,13 @@
+Walls (2 entries) : 
+==========
+sector : 1
+[(20,60);(20,40)] , nextsector = -1
+[(20,40);(40,40)] , nextsector = 1
+[(40,40);(40,60)] , nextsector = 1
+[(40,60);(20,60)] , nextsector = -1
+sector : 0
+[(20,20);(20,40)] , nextsector = -1
+[(20,40);(40,40)] , nextsector = 0
+[(40,40);(40,20)] , nextsector = 0
+[(40,20);(20,20)] , nextsector = -1
+1

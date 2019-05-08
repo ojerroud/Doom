@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/03 16:53:43 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/05/08 18:32:53 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define SPACING			1
 # define GRID_SIZE			((WIDTH + HEIGHT) / 2 / 50)
 # define DOTS_COLOR			0xFF0000
+# define PORTAL_COLOR		0x0000FF
 
 # define WHITE				0xFFFFFF
 # define BLACK				0x000000
@@ -118,7 +119,7 @@ typedef struct		s_ixy
 	int				x;
 	int				y;
 	int				color;
-	int				is_sector;
+	int				next_sector;
 	struct s_ixy	*next;
 }					t_ixy;
 
@@ -326,7 +327,7 @@ void				istab_draw(t_img *img, t_env *e);
 **	portal.c
 */
 
-void				is_portal(t_env *e, t_ixy *to_check);
+void				is_portal(t_env *e, t_ixy *to_check, int index);
 void				compare_with_others(t_env *e, t_ixy *to_check
 , t_sector *sector);
 void				check_portals(t_env *e);

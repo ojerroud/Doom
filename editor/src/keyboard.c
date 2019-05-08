@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/08 18:12:44 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/05/08 17:47:57 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void	print_sector(t_env *e)
 		tmp2 = tmp->dots;
 		while (tmp2 && tmp2->next)
 		{
-			printf("%d\n", tmp2->is_sector);
-			if (tmp2->is_sector == 1)
+			printf("%d\n", tmp2->next_sector);
+			if (tmp2->next_sector == 1)
 				printf("a(%d,%d) b(%d,%d)\n", tmp2->x, tmp2->y, tmp2->next->x, tmp2->next->y);
 			tmp2 = tmp2->next;
 		}

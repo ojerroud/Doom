@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/02/18 10:44:01 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/05/14 17:36:32 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define DOOMNUKEN_H
 
 # include "libft.h"
+# include <stdio.h>
+# include <math.h>
 # include <mlx.h>
 # include <fcntl.h>
 
@@ -28,6 +30,13 @@
 
 
 # define ESC 53
+# define LEFT 123
+# define RIGHT 124
+# define DOWN 125
+# define UP 126
+# define ESC 53
+# define ESC 53
+# define ESC 53
 # define W 13
 # define D 2
 # define A 0
@@ -36,7 +45,7 @@
 
 typedef enum	e_texture
 {
-	floor = 0,
+	floors = 0,
 	wall = 1,
 	water = 2,
 	house = 3,
@@ -78,34 +87,47 @@ typedef struct		s_img
 	char			*name;
 	int				width;
 	int				height;
-	struct s_img	*next;
+	// struct s_img	*next;
 }					t_img;
+
+typedef struct		s_var
+{
+	int				dx;
+	int				dy;
+	int				i;
+	int				xinc;
+	int				yinc;
+	int				cumul;
+	int				x;
+	int				y;
+	int				swap;
+}					t_var;
 
 typedef struct		s_mlx
 {
     void			*mlx;
     void			*win;
-	t_img			*img;
+	t_img			img;
 }					t_mlx;
 
-typedef struct		s_parse
-{
-	char			*title;
-	int				begin_line;
-	int				end_line;
-	struct s_parse	*next;
-}					t_parse;
+// typedef struct		s_parse
+// {
+// 	char			*title;
+// 	int				begin_line;
+// 	int				end_line;
+// 	struct s_parse	*next;
+// }					t_parse;
 
 typedef struct		s_env
 {
     t_mlx			mlx;
-	t_parse			*list;
-    int				silent;
 	int				is_title;
 	char			*title;
-	t_map			map;
-	char			**av;
-	int				ac;
+	t_var			var;
+	t_ixy			map[5];
+	t_ixy			character;
+	t_ixy			ray;
+	int				dir;
 }					t_env;
 
 /*
@@ -118,6 +140,8 @@ int     ft_error(char *str);
 **  init.c
 */
 
+void	color_img(t_env *e);
+void	map(t_env *e);
 int     init_mlx(t_env *e, char *title);
 
 /*
@@ -125,6 +149,7 @@ int     init_mlx(t_env *e, char *title);
 */
 
 int     keyhooked(int keycode, t_env *e);
+int     mouvment(int keycode, t_env *e);
 void    key_esc(t_env *e);
 
 /*
@@ -132,7 +157,7 @@ void    key_esc(t_env *e);
 */
 
 void    read_file(t_env *e, char *file);
-void	print_list(t_parse *list);
+// void	print_list(t_parse *list);
 
 /*
 **	mouse.c

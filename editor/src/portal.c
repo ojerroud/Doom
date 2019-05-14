@@ -6,40 +6,11 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 16:58:42 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/05/08 18:41:06 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/05/09 16:34:31 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
-
-
-// TO DO : CREATE WALL LIST & PUT WHAT NEEDED INSIDE
-
-// void	get_next_sector(t_env *e, t_ixy *to_check, int index)
-// {
-// 	t_sector	*sector;
-// 	t_ixy		*dots;
-
-// 	sector = e->sector;
-// 	while (e->sector)
-// 	{
-// 		if (sector->index == e->sector->index)
-// 		{
-// 			e->sector = e->sector->next;
-// 			continue ;
-// 		}
-// 		dots = e->sector->dots;
-// 		while (e->sector->dots && e->sector->dots->next)
-// 		{
-// 			if (to_check->x == e->sector->dots->x)
-// 				index += 0;
-// 			e->sector->dots = e->sector->dots->next;
-// 		}
-// 		e->sector->dots = dots;
-// 		e->sector = e->sector->next;
-// 	}
-// 	e->sector = sector;	
-// }
 
 /*
 **	check on sector if walls match with other sectors, then portal
@@ -56,7 +27,8 @@ void	is_portal(t_env *e, t_ixy *to_check, int index)
 	&& to_check->next->x == e->sector->dots->x
 	&& to_check->next->y == e->sector->dots->y))
 	{
-		get_next_sector(e, to_check, index);
+		index += 0;
+		// get_next_sector(e, to_check, index);
 		e->sector->dots->next_sector = e->sector->index;
 		e->sector->dots->next->next_sector = e->sector->index;
 		e->sector->dots->color = PORTAL_COLOR;

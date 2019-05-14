@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/05/08 18:32:53 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/05/09 16:40:35 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,8 +195,17 @@ typedef struct 		s_file
 {
 	char			str[FILENAME_SIZE_W + 1];
 	t_ixy			pos;
+
 }					t_file;
 
+typedef struct 		s_wall
+{
+	t_ixy			a;
+	t_ixy			b;
+	int				sector;
+	int				next_sector;
+	struct s_wall	*next;				
+}					t_wall;
 
 /*
 **	t_map			map;
@@ -219,6 +228,7 @@ typedef struct		s_env
 	t_ixy			*dots;
 	t_sector		*sector;
 	t_img			*select;
+	t_wall			*walls;
 	t_file			sav_button;
 	t_file			write_zone;
 	int				sav_zone_bool;

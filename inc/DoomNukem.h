@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/05/14 17:36:32 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/06 17:21:37 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <mlx.h>
 # include <fcntl.h>
 
-# define HEIGHT 600
+# define HEIGHT 800
 # define WIDTH 800
 
 # define DASHES "--------------------"
@@ -43,6 +43,8 @@
 # define S 1
 # define SPACE 49
 
+# define ROTATION M_PI / 12
+
 typedef enum	e_texture
 {
 	floors = 0,
@@ -62,6 +64,12 @@ typedef enum	e_texture
 	bed = 14,
 	plant = 15,
 }				t_texture;
+
+typedef struct		s_dxy
+{
+	double				x;
+	double				y;
+}					t_dxy;
 
 typedef struct		s_ixy
 {
@@ -124,10 +132,10 @@ typedef struct		s_env
 	int				is_title;
 	char			*title;
 	t_var			var;
-	t_ixy			map[5];
-	t_ixy			character;
-	t_ixy			ray;
-	int				dir;
+	t_dxy			map[9];
+	t_dxy			character;
+	t_dxy			ray;
+	t_dxy			dir;
 }					t_env;
 
 /*
@@ -143,6 +151,7 @@ int     ft_error(char *str);
 void	color_img(t_env *e);
 void	map(t_env *e);
 int     init_mlx(t_env *e, char *title);
+void	draw_ligne(t_dxy dots1, t_dxy dots2, int color, t_env *e);
 
 /*
 **  keyboard.c
@@ -171,5 +180,8 @@ int		mousehooked(int button, int x, int y, t_env *e);
 
 void    points(t_env *e, char **av);
 void	draw_imgs(t_env *e);
+
+
+void	test(t_env *e);
 
 #endif

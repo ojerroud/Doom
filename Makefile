@@ -6,7 +6,7 @@
 #    By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 11:55:28 by ojerroud          #+#    #+#              #
-#    Updated: 2019/02/18 10:37:04 by ojerroud         ###   ########.fr        #
+#    Updated: 2019/06/06 13:57:29 by ojerroud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIB = -L $(LIBFT_PATH) -lft -L $(MINI_PATH) -lmlx
 MINIFLAGS = -framework OpenGL -framework AppKit
 
 OBJDIR := obj
-OBJS := $(addprefix $(OBJDIR)/,main.o error.o init.o keyboard.o reader.o mouse.o)
+OBJS := $(addprefix $(OBJDIR)/,main.o error.o init.o keyboard.o reader.o mouse.o test.o)
 
 $(OBJDIR)/%.o : %.c $(HEADER)
 	$(CC) $(FLAGS) $(vpath_h) -c \

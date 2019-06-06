@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/05/14 17:39:26 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/06 17:13:23 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_ligne_point_to_point(t_env *e, int color)
 	}
 }
 
-void	draw_ligne(t_ixy dots1, t_ixy dots2, int color, t_env *e)
+void	draw_ligne(t_dxy dots1, t_dxy dots2, int color, t_env *e)
 {
 	e->var.x = dots1.x;
 	e->var.y = dots1.y;
@@ -67,10 +67,9 @@ void	map(t_env *e)
 	int i;
 
 	i = -1;
-	while (++i < 4)
+	while (++i < 8)
 		draw_ligne(e->map[i], e->map[i + 1], 0xFFFFFF, e);
 	draw_ligne(e->ray, e->character, 0xAAAAAA , e);
-	e->mlx.img.data[e->character.y * WIDTH + e->character.x] = 0xFF0000;
 }
 
 void	color_img(t_env *e)
@@ -89,7 +88,6 @@ void	color_img(t_env *e)
 
 int		init_mlx(t_env *e, char *title)
 {
-	ft_strcmp(title, "");
 	e->mlx.mlx = mlx_init();
 	e->mlx.win = mlx_new_window(e->mlx.mlx, WIDTH, HEIGHT, title);
 	e->mlx.img.img_ptr = mlx_new_image(e->mlx.mlx, WIDTH, HEIGHT);

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/06 17:21:37 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/11 17:52:42 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct		s_mlx
     void			*mlx;
     void			*win;
 	t_img			img;
+	t_img			texture;
 }					t_mlx;
 
 // typedef struct		s_parse
@@ -131,6 +132,7 @@ typedef struct		s_env
     t_mlx			mlx;
 	int				is_title;
 	char			*title;
+	char			*texture;
 	t_var			var;
 	t_dxy			map[9];
 	t_dxy			character;

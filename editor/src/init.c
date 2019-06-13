@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 15:00:11 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:48:46 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ void	init_xy(t_img *list, t_env *e)
 			img_param(tmp, WIDTH - tmp->width, HEIGHT - tmp->height, 0x005555);
 		if (tmp->name >= BUTTON1 && tmp->name < END)
 		{
-			img_param(tmp, 0 + (BUTTON_W * cpt_w), 0 + (BUTTON_H * cpt_h)
-			, WHITE);
+			img_param(tmp, BUTTON_W * cpt_w, BUTTON_H * cpt_h, WHITE);
 			(cpt_w) ? cpt_h++ : 0;
 			cpt_w = !cpt_w;
 		}
+		if (tmp->name == SPAWN)
+			img_param(tmp, BUTTON_W * cpt_w, BUTTON_H * cpt_h, WHITE);
 		tmp->color_swap = 1;
 		tmp->texture_swap = 0;
 		tmp = tmp->next;
@@ -66,9 +67,9 @@ void	init_vars(t_env *e)
 	sav_sector(&e->sector, e->index);
 	e->grid_size = GRID_SIZE;
 	e->var.swap = 0;
-	ft_bzero(e->sav_button.str, FILENAME_SIZE_W);
+	ft_bzero(e->sav_button.str, FILENAME_SIZE_W / 10);
 	ft_strcpy(e->sav_button.str, "Valider");
-	ft_bzero(e->write_zone.str, FILENAME_SIZE_W);
+	ft_bzero(e->write_zone.str, FILENAME_SIZE_W / 10);
 }
 
 void	init_mlx(t_env *e, char *title)
@@ -78,6 +79,7 @@ void	init_mlx(t_env *e, char *title)
 	if (!e->mlx.win)
 		ft_error("fail create a new window");
 	load_buttons_texture(e);
+	load_textures(e);
 	create_imgs(e);
 	mlx_mouse_hook(e->mlx.win, mousehooked, e);
 	mlx_key_hook(e->mlx.win, keyhooked, e);

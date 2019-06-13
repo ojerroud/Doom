@@ -1,6 +1,0 @@
-Walls (1 entries) : 
-==========
-sector : 0
-[(360,200);(180,340)], nextsector = -1
-[(180,340);(400,340)], nextsector = -1
-[(400,340);(360,200)], nextsector = -1

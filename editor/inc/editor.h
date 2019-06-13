@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 15:05:01 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:21:13 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define GREY2				0x222222
 # define BALL1				"texture/1.xpm"
 # define BALL2				"texture/2.xpm"
+# define SASHA				"texture/sasha.xpm"
 
 #define FILENAME_SIZE		200
 #define FILENAME_SIZE_W		200
@@ -53,9 +54,10 @@ typedef enum		e_name
 	CENTRAL,
 	WRITE,
 	SAV,
+	SPAWN,
 	BUTTON1,
 	BUTTON2,
-	BUTTON3,
+	BUTTON3, 
 	BUTTON4,
 	END,
 	BUTTON5,
@@ -69,7 +71,7 @@ typedef enum		e_name
 	BUTTON13,
 	BUTTON14,
 }					t_name;
-
+//3 == 0, 7 == 7, 0 != 0 , 0 == 0
 typedef enum		e_keycode
 {
 	A = 0,
@@ -193,10 +195,16 @@ typedef struct		s_sector
 
 typedef struct 		s_file
 {
-	char			str[21];
+	char			str[FILENAME_SIZE_W / 10 + 1];
 	t_ixy			pos;
 
 }					t_file;
+
+typedef struct 		s_sprite
+{
+	t_ixy			pos;
+
+}					t_sprite;
 
 // typedef struct 		s_wall
 // {
@@ -228,13 +236,15 @@ typedef struct		s_env
 	t_ixy			*dots;
 	t_sector		*sector;
 	t_img			*select;
-	// t_wall			*walls;
+	t_img			*curr;
 	t_file			sav_button;
 	t_file			write_zone;
 	int				sav_zone_bool;
-	// t_img			*curr;
 	t_img			*central;
 	t_text			text[LAST];
+	t_text			sasha;
+	int				next;
+	t_sprite		sasha;
 }					t_env;
 
 /*
@@ -278,8 +288,9 @@ void				sav_sector(t_sector **list, int index);
 */
 
 void				scale_texture_to_buttons(t_img *img, t_env *e);
-// void				scale_texture_to_img(t_img *img, t_env *e);
+void				scale_texture_to_img(t_img *img, t_text texture);
 void				appli_buttons_text(t_img *list, t_env *e);
+void				put_texture(t_img *img, t_text texture, int x, int y);
 
 /*
 **	mouse.c
@@ -303,6 +314,7 @@ void				print_list(t_img *list);
 **	init_img.c
 */
 
+void				load_textures(t_env *e);
 void				load_buttons_texture(t_env *e);
 void				setup_img_data(t_env *e, t_img *img);
 void				create_mlx_img(t_env *e, t_img *img);

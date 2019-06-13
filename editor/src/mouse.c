@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 13:08:49 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/13 16:48:22 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	left_click(t_env *e, int x, int y)
 		paint_if_img(list, x, y, e);
 		list = list->next;
 	}
+	// printf("select %d curr %d\n" ,e->select->name ,list->name);
 	list = e->mlx.img;
 	while (list)
 	{

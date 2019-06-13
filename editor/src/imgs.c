@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 13:44:48 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:18:36 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,21 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 	if (img->pos.x <= x && (img->pos.x + img->width) >= x
 	&& img->pos.y <= y && (img->pos.y + img->height) >= y)
 	{
+		if (e->next == 1 && img->name == CENTRAL)
+		{
+			e->next = 0;
+			// printf("%d %d\n", e->select->name, img->name);
+			put_texture(img, e->sasha, x - img->pos.x , y - img->pos.y);
+			mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr, e->central->pos.x, e->central->pos.y);
+			return ;
+		}
+		if (img->name == SPAWN && e->select->name == END - 1)
+		{
+			e->next = 1;
+			return ;
+		}
+		else
+			e->next = 0;
 		if (e->sector->next && ft_strlen(e->write_zone.str) && img->name == SAV)
 			put_data_on_file(e);
 		if (img->name == WRITE || img->name == SAV)
@@ -133,6 +148,8 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 			scale_texture_to_buttons(img, e);
 			istab_draw(img, e);
 		}
+		if (img->name == SPAWN)
+			img->texture_swap = 1;
 		if (img->name == CENTRAL && e->select->name == END - 1
 		&& img->texture_swap && !e->sav_zone_bool)
 			select_dots(img, e, x, y);
@@ -169,6 +186,7 @@ void	create_imgs(t_env *e)
 
 	create_list_img(&e->mlx.img, CENTRAL, 2 * WIDTH
 	/ 3, HEIGHT);
+	create_list_img(&e->mlx.img, SPAWN, 64, 64);
 	create_list_img(&e->mlx.img, WRITE, FILENAME_SIZE_W, FILENAME_SIZE_H);
 	create_list_img(&e->mlx.img, SAV, FILENAME_SIZE_W, FILENAME_SIZE_H);
 	i = BUTTON1 - 1;

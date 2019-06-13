@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/05/08 15:46:32 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/13 13:08:49 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		mousehooked(int button, int x, int y, t_env *e)
 {
 	if (button == MOUSE_LEFT)
 		left_click(e, x, y);
-	if (button == MOUSE_RIGHT)
+	else if (button == MOUSE_RIGHT)
 		right_click(e);
 	if ((e->select->name == END - 1 && e->select->texture_swap) || (e->select->name >= WRITE && e->select->name < BUTTON1))
 		put_sav_on_window(e);

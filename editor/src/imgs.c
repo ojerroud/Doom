@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/05/08 17:49:48 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/13 13:44:48 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	write_params(t_env *e)
 			ft_putnbr_fd(dots->next->x, e->fd);
 			ft_putstr_fd(",", e->fd);
 			ft_putnbr_fd(dots->next->y, e->fd);
-			ft_putstr_fd(")] , nextsector = ", e->fd);
+			ft_putstr_fd(")], nextsector = ", e->fd);
 			ft_putnbr_fd(dots->next_sector, e->fd);
 			ft_putchar_fd('\n', e->fd);
 			dots = dots->next;
@@ -74,39 +74,39 @@ void	write_params(t_env *e)
 
 void	create_file(t_env *e)
 {
-	char	str[FILENAME_SIZE_W + 1 + 5];
+	char	str[31];
 
-	ft_bzero(str, ft_strlen(str));
+	ft_bzero(str, 31);
 	ft_strcpy(str, "maps/");
 	ft_strcat(str, e->write_zone.str);
 	ft_strcat(str,".doom");
-	e->fd = open(str, O_CREAT | O_WRONLY, S_IWUSR | S_IRUSR);
+	e->fd = open(str, O_CREAT | O_WRONLY | O_TRUNC, S_IWUSR | S_IRUSR);
 
 }
 
-static void	t(t_env *e)
-{
-	t_sector	*sector;
-	t_ixy		*dots;
+// static void	t(t_env *e)
+// {
+// 	t_sector	*sector;
+// 	t_ixy		*dots;
 
-	sector = e->sector;
-	while (sector)
-	{
-		dots = sector->dots;
-		while (dots)
-		{
-			printf("(%d %d) : %d\n", dots->x, dots->y, dots->next_sector);
-			dots = dots->next;
-		}
-		dots = e->sector->dots;
-		sector = sector->next;
-	}
-	sector = e->sector;
-}
+// 	sector = e->sector;
+// 	while (sector)
+// 	{
+// 		dots = sector->dots;
+// 		while (dots)
+// 		{
+// 			printf("(%d %d) : %d\n", dots->x, dots->y, dots->next_sector);
+// 			dots = dots->next;
+// 		}
+// 		dots = e->sector->dots;
+// 		sector = sector->next;
+// 	}
+// 	sector = e->sector;
+// }
 
 void	put_data_on_file(t_env *e)
 {
-	t(e);
+	// t(e);
 	create_file(e);
 	// print_sector(e);
 	write_params(e);

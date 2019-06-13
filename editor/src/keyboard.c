@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/05/08 17:47:57 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/13 14:55:58 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	key_esc(t_env *e)
 	exit(0);
 }
 
-void	t(t_env *e, double grid)
+void	scale_dots_grid(t_env *e, double grid)
 {
 	t_ixy		*tmp;
 	t_sector	*sector;
@@ -45,11 +45,11 @@ void	t(t_env *e, double grid)
 
 void	sizegrid_change(t_env *e)
 {
-	t(e, (double)(e->grid_size));
+	scale_dots_grid(e, (double)(e->grid_size));
 	e->grid_size /= 1.5;
 	if (e->grid_size < GRID_SIZE / (1.5 * 3))
 		e->grid_size = GRID_SIZE;
-	t(e, (double)(1) / (double)(e->grid_size));
+	scale_dots_grid(e, (double)(1) / (double)(e->grid_size));
 	if (e->select->name == END - 1)
 		put_grid(e);
 }

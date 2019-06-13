@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 16:58:42 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 14:05:54 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/13 14:49:29 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ void	is_portal(t_env *e, t_ixy *to_check, int index)
 	&& to_check->next->x == e->sector->dots->x
 	&& to_check->next->y == e->sector->dots->y))
 	{
-		index += 0;
-		printf("index, %d , sector index %d\n", index, e->sector->index);
-		// get_next_sector(e, to_check, index);
 		e->sector->dots->next_sector = index;
-		// e->sector->dots->next->next_sector = index;
 		e->sector->dots->color = PORTAL_COLOR;
 	}
 }
@@ -91,6 +87,5 @@ void	check_portals(t_env *e)
 		dots = e->sector->dots;
 		sector = sector->next;
 	}
-	printf("\n");
 	sector = e->sector;
 }

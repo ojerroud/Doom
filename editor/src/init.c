@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 13:56:18 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:00:11 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	init_vars(t_env *e)
 	e->mlx.img = NULL;
 	e->dots = NULL;
 	e->sector = NULL;
-	// e->walls = NULL;
 	e->index = 0;
 	e->sav_zone_bool = 0;
 	sav_sector(&e->sector, e->index);

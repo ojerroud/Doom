@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 13:56:06 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:05:01 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,16 +191,9 @@ typedef struct		s_sector
 	struct s_sector	*next;
 }					t_sector;
 
-typedef struct		s_portal
-{
-	t_ixy			dots;
-	int				index;
-	struct s_portal	*next;
-}					t_portal;
-
 typedef struct 		s_file
 {
-	char			str[FILENAME_SIZE_W + 1];
+	char			str[21];
 	t_ixy			pos;
 
 }					t_file;

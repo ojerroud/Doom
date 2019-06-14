@@ -6,13 +6,13 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:02:59 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/11 17:47:34 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:27:38 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "DoomNukem.h"
 
-void	init_vars(t_env *e)
+void	init_var(t_env *e)
 {
 	e->character.x = 70;
 	e->character.y = 70;

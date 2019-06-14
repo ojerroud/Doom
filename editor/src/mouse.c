@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/14 16:35:14 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/14 16:43:15 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	reset_texture_buttons(t_env *e, t_img *img)
 		{
 			img->texture_swap = 2;
 			scale_texture_to_buttons(img, e);
-			mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr
-		, img->pos.x, img->pos.y);
+		// 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr
+		// , img->pos.x, img->pos.y);
 		}
 		img = img->next;
 	}
@@ -81,8 +81,8 @@ void	right_click(t_env *e)
 	dots = e->sector->dots;
 	check_portals(e);
 	put_grid(e);
-	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win
-	, e->central->img_ptr, e->central->pos.x, e->central->pos.y);
+	// mlx_put_image_to_window(e->mlx.mlx, e->mlx.win
+	// , e->central->img_ptr, e->central->pos.x, e->central->pos.y);
 	e->index++;
 	sav_sector(&e->sector, e->index);
 }

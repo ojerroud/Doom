@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/14 16:36:26 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/14 16:40:31 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 			e->spawn.pos.y = y - img->pos.y;
 			e->spawn.compteur++;
 			put_texture_transparency(e, img, e->spawn);
-			mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr, e->central->pos.x, e->central->pos.y);
+			// mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr, e->central->pos.x, e->central->pos.y);
 			return ;
 		}
 		if (img->name == SPAWN && e->select->name == END - 1)

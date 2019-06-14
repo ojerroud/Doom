@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:57:00 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/11 18:02:07 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:27:20 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,5 @@ void    nlx(t_env *e)
 void    test(t_env *e)
 {
     // i(e);
-    printf("alou %s\n", e->texture);
     nlx(e);
 }

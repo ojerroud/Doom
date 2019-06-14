@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 17:39:49 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 15:56:47 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/14 10:29:20 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	load_textures(t_env *e)
 {
-	e->sasha.img_ptr = mlx_xpm_file_to_image(e->mlx.mlx, SASHA, &e->sasha.width, &e->sasha.height);
-	if (!e->sasha.img_ptr)
+	e->spawn.texture.img_ptr = mlx_xpm_file_to_image(e->mlx.mlx, SASHA, &e->spawn.texture.width, &e->spawn.texture.height);
+	if (!e->spawn.texture.img_ptr)
 		ft_error("wrong texture");
-	e->sasha.data = (int *)mlx_get_data_addr(e->sasha.img_ptr, &e->sasha.bpp, &e->sasha.size_l, &e->sasha.endian);
+	e->spawn.texture.data = (int *)mlx_get_data_addr(e->spawn.texture.img_ptr, &e->spawn.texture.bpp, &e->spawn.texture.size_l, &e->spawn.texture.endian);
 }
 
 void	load_buttons_texture(t_env *e)
@@ -58,7 +58,7 @@ void	setup_img_data(t_env *e, t_img *img)
 	}
 	if (img->name == SPAWN)
 	{
-		scale_texture_to_img(img, e->sasha);
+		scale_texture_to_img(img, e->spawn.texture);
 		return ;
 	}
 	if (img->name >= CENTRAL && img->name < BUTTON1)

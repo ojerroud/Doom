@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 16:48:22 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/14 16:35:14 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	left_click(t_env *e, int x, int y)
 	// 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win,
 	// 		e->central->img_ptr, e->central->pos.x, e->central->pos.y);
 	// 	}	
-	// }
+	// } 
 	// printf("|%s|\n", e->write_zone.str);
 	// if (e->sector->next)
 	// 	printf("pas vide\n");
@@ -79,7 +79,6 @@ void	right_click(t_env *e)
 		dots = dots->next;
 	sav_dots(&e->sector->dots, dots->x, dots->y);
 	dots = e->sector->dots;
-	draw_ligne(e->sector->dots, e->sector->dots->next, e);
 	check_portals(e);
 	put_grid(e);
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win
@@ -94,7 +93,8 @@ int		mousehooked(int button, int x, int y, t_env *e)
 		left_click(e, x, y);
 	else if (button == MOUSE_RIGHT)
 		right_click(e);
-	if ((e->select->name == END - 1 && e->select->texture_swap) || (e->select->name >= WRITE && e->select->name < BUTTON1))
+	if ((e->select->name == END - 1 && e->select->texture_swap) 
+	|| (e->select->name >= WRITE && e->select->name < BUTTON1))
 		put_sav_on_window(e);
 	// printf("%d\n", e->sav_zone_bool);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:30:13 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 17:10:55 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/14 16:37:54 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,23 @@ void	scale_texture_to_buttons(t_img *img, t_env *e)
 	}
 	if (img->texture_swap == 2)
 		e->central->texture_swap = 1;
-	// printf("texture_swap =  %d\n", img->texture_swap);
 	img->texture_swap = (img->texture_swap == 2) ? 1 : 2;
 }
 
-void	put_texture(t_img *img, t_text texture, int x, int y)
+void	put_texture_transparency(t_env *e, t_img *img, t_sprite list)
 {
 	int w;
 	int h;
 
 	h = -1;
-	while (++h < texture.height)
+	while (++h < list.texture.height)
 	{
 		w = -1;
-		while (++w < texture.width)
-			img->data[(h + y) * img->width + w + x] = texture.data[h * texture.width + w];
+		while (++w < list.texture.width)
+			if (list.texture.data[h * list.texture.width + w] != 0xFFFFFF)
+				img->data[((h * e->grid_size / 20) + list.pos.y) * img->width + ((w * e->grid_size / 20)+ list.pos.x)] = list.texture.data[h * list.texture.width + w];
 	}
+	draw_cross(e, e->spawn.pos.x, e->spawn.pos.y);
 }
 /*
 **	give texture to button

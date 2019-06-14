@@ -6,11 +6,24 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 16:50:31 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/14 16:27:27 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
+
+void	draw_cross(t_env *e, int x, int y)
+{
+	int i;
+	// int j;
+
+	i = -3;
+	while (++i < 3)
+	{
+		e->central->data[y * e->central->width + x + i] = 0x00FFFF;
+		e->central->data[(y + i) * e->central->width + x] = 0x00FFFF;
+	}
+}	
 
 /*
 **	draw points on draw-tab
@@ -72,6 +85,8 @@ void	put_grid(t_env *e)
 			|| !(h % e->grid_size)) ? GREY : e->central->color;
 	}
 	draw_points_on_list(e);
+	if (e->spawn.compteur)
+		put_texture_transparency(e, e->central, e->spawn);
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr,
 	e->central->pos.x, e->central->pos.y);
 }

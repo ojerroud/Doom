@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 14:04:52 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/03 16:14:44 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/14 16:09:32 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void		put_sav_on_window(t_env *e)
 {
 	t_img	*list;
 
+	put_grid(e);
 	list = e->mlx.img;
 	while (list)
 	{

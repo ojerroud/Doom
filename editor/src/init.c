@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 15:48:46 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/14 10:47:31 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	init_vars(t_env *e)
 	e->sector = NULL;
 	e->index = 0;
 	e->sav_zone_bool = 0;
+	e->spawn.compteur = 0;
 	sav_sector(&e->sector, e->index);
 	e->grid_size = GRID_SIZE;
 	e->var.swap = 0;

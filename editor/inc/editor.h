@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 17:21:13 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/14 16:25:40 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,23 +203,9 @@ typedef struct 		s_file
 typedef struct 		s_sprite
 {
 	t_ixy			pos;
-
+	t_text			texture;
+	int				compteur;
 }					t_sprite;
-
-// typedef struct 		s_wall
-// {
-// 	t_ixy			a;
-// 	t_ixy			b;
-// 	int				sector;
-// 	int				next_sector;
-// 	struct s_wall	*next;				
-// }					t_wall;
-
-/*
-**	t_map			map;
-**	int				ac;
-**	char			**av;
-*/
 
 typedef struct		s_env
 {
@@ -242,16 +228,16 @@ typedef struct		s_env
 	int				sav_zone_bool;
 	t_img			*central;
 	t_text			text[LAST];
-	t_text			sasha;
+	// t_text			sasha;
 	int				next;
-	t_sprite		sasha;
+	t_sprite		spawn;
 }					t_env;
 
 /*
 **	draw.c
 */
 
-// void				sav_area(t_img *central, t_env *e);
+void				draw_cross(t_env *e, int x, int y);
 void				put_grid(t_env *e);
 void				draw_point(t_img *img, int x, int y);
 void				draw_shape(t_img *img);
@@ -290,7 +276,7 @@ void				sav_sector(t_sector **list, int index);
 void				scale_texture_to_buttons(t_img *img, t_env *e);
 void				scale_texture_to_img(t_img *img, t_text texture);
 void				appli_buttons_text(t_img *list, t_env *e);
-void				put_texture(t_img *img, t_text texture, int x, int y);
+void				put_texture_transparency(t_env *e, t_img *img, t_sprite list);
 
 /*
 **	mouse.c

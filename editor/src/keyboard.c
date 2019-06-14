@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/13 14:55:58 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/14 14:30:57 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void	scale_dots_grid(t_env *e, double grid)
 	t_ixy		*tmp;
 	t_sector	*sector;
 
+	e->spawn.pos.x /= grid;
+	e->spawn.pos.y /= grid;
+	// e->spawn.texture.width /= grid;
+	// e->spawn.texture.height /= grid;
 	sector = e->sector;
 	while (e->sector)
 	{

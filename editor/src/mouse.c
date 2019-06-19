@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/14 16:43:15 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:01:35 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	left_click(t_env *e, int x, int y)
 		paint_if_img(list, x, y, e);
 		list = list->next;
 	}
-	// printf("select %d curr %d\n" ,e->select->name ,list->name);
 	list = e->mlx.img;
 	while (list)
 	{
@@ -81,11 +80,13 @@ void	right_click(t_env *e)
 	dots = e->sector->dots;
 	check_portals(e);
 	put_grid(e);
-	// mlx_put_image_to_window(e->mlx.mlx, e->mlx.win
-	// , e->central->img_ptr, e->central->pos.x, e->central->pos.y);
 	e->index++;
 	sav_sector(&e->sector, e->index);
 }
+
+/*
+**	put draw on put_sav_on_window, it draw the central image.
+*/
 
 int		mousehooked(int button, int x, int y, t_env *e)
 {
@@ -96,6 +97,5 @@ int		mousehooked(int button, int x, int y, t_env *e)
 	if ((e->select->name == END - 1 && e->select->texture_swap) 
 	|| (e->select->name >= WRITE && e->select->name < BUTTON1))
 		put_sav_on_window(e);
-	// printf("%d\n", e->sav_zone_bool);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/14 14:30:57 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:11:45 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,19 @@ void	scale_dots_grid(t_env *e, double grid)
 {
 	t_ixy		*tmp;
 	t_sector	*sector;
+	t_sprite	*sprite;
 
-	e->spawn.pos.x /= grid;
-	e->spawn.pos.y /= grid;
-	// e->spawn.texture.width /= grid;
-	// e->spawn.texture.height /= grid;
+	sprite = e->sprite;
+	while (e->sprite)
+	{
+		if (e->sprite->pos.x != -1 && e->sprite->pos.y)
+		{
+			e->sprite->pos.x /= grid;
+			e->sprite->pos.y /= grid;
+		}
+		e->sprite = e->sprite->next;
+	}
+	e->sprite = sprite;
 	sector = e->sector;
 	while (e->sector)
 	{
@@ -103,17 +111,32 @@ void	print_sector(t_env *e)
 	tmp = e->sector;
 }
 
+void	positioning_sprite(t_env *e)
+{
+	t_sprite	*sprite;
+
+	sprite = e->sprite;
+	while (e->sprite)
+	{
+		e->sprite->click = 0;
+		e->sprite = e->sprite->next;
+	}
+	e->sprite = sprite;
+}
+
 int		keyhooked(int keycode, t_env *e)
 {
 	if (keycode == ESC)
 		key_esc(e);
 	if (!e->sav_zone_bool)
 	{
-		if (keycode == G)
+		if (keycode == G && e->select->name == END - 1)
 			sizegrid_change(e);
 		if (keycode == A)
 			print_sector(e);
-		if (keycode == R)
+		if (keycode == P)
+			positioning_sprite(e);
+		if (keycode == R && e->select->name == END - 1)
 			delete_all_sectors(e);
 	}
 	else

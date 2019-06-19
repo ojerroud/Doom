@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/14 16:25:40 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:13:24 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define MOUSE_MID			3
 # define MOUSE_SCROLLUP		4
 # define MOUSE_SCROLLDOWN	5
-# define BUTTON_W			(WIDTH / 6)
-# define BUTTON_H			(HEIGHT / 8)
+# define BUTTON_W			(64)
+# define BUTTON_H			(64)
 
 # define SPACING			1
 # define GRID_SIZE			((WIDTH + HEIGHT) / 2 / 50)
@@ -43,7 +43,8 @@
 # define GREY2				0x222222
 # define BALL1				"texture/1.xpm"
 # define BALL2				"texture/2.xpm"
-# define SASHA				"texture/sasha.xpm"
+# define PATH_SASHA			"texture/sasha.xpm"
+# define PATH_MISTY			"texture/misty.xpm"
 
 #define FILENAME_SIZE		200
 #define FILENAME_SIZE_W		200
@@ -54,7 +55,8 @@ typedef enum		e_name
 	CENTRAL,
 	WRITE,
 	SAV,
-	SPAWN,
+	SASHA,
+	MISTY,
 	BUTTON1,
 	BUTTON2,
 	BUTTON3, 
@@ -71,7 +73,7 @@ typedef enum		e_name
 	BUTTON13,
 	BUTTON14,
 }					t_name;
-//3 == 0, 7 == 7, 0 != 0 , 0 == 0
+
 typedef enum		e_keycode
 {
 	A = 0,
@@ -124,6 +126,13 @@ typedef struct		s_ixy
 	int				next_sector;
 	struct s_ixy	*next;
 }					t_ixy;
+
+typedef struct		s_dxy
+{
+	double				x;
+	double				y;
+	// struct s_dxy		*next;
+}					t_dxy;
 
 typedef struct		s_map
 {
@@ -202,9 +211,11 @@ typedef struct 		s_file
 
 typedef struct 		s_sprite
 {
-	t_ixy			pos;
+	t_dxy			pos;
 	t_text			texture;
-	int				compteur;
+	char			*name;
+	int				click;
+	struct s_sprite	*next;
 }					t_sprite;
 
 typedef struct		s_env
@@ -231,6 +242,7 @@ typedef struct		s_env
 	// t_text			sasha;
 	int				next;
 	t_sprite		spawn;
+	t_sprite		*sprite;
 }					t_env;
 
 /*
@@ -276,7 +288,7 @@ void				sav_sector(t_sector **list, int index);
 void				scale_texture_to_buttons(t_img *img, t_env *e);
 void				scale_texture_to_img(t_img *img, t_text texture);
 void				appli_buttons_text(t_img *list, t_env *e);
-void				put_texture_transparency(t_env *e, t_img *img, t_sprite list);
+void				put_texture_transparency(t_env *e, t_img *img, t_sprite *list);
 
 /*
 **	mouse.c
@@ -300,7 +312,7 @@ void				print_list(t_img *list);
 **	init_img.c
 */
 
-void				load_textures(t_env *e);
+void				load_textures(t_env *e, char *path);
 void				load_buttons_texture(t_env *e);
 void				setup_img_data(t_env *e, t_img *img);
 void				create_mlx_img(t_env *e, t_img *img);
@@ -353,5 +365,14 @@ void    			delete_all_sectors(t_env *e);
 void				put_sav_on_window(t_env *e);
 void				fill_write_zone(t_env *e, int keycode);
 // void        		put_sav_values(t_env *e);
+
+/*
+**	sprite.c
+*/
+
+void    			get_sprites(t_env *e);
+void				create_sprites_img(t_env *e, t_sprite **list, char *name, char *path);
+t_sprite			*lstnew_sprite(t_env *e, char *name, char *path);
+void				get_texture(t_env *e, t_text *texture, char *path);
 
 #endif

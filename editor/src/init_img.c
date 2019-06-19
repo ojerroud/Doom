@@ -6,15 +6,15 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 17:39:49 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/14 16:42:21 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/18 16:32:23 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
-void	load_textures(t_env *e)
+void	load_textures(t_env *e, char *path)
 {
-	e->spawn.texture.img_ptr = mlx_xpm_file_to_image(e->mlx.mlx, SASHA, &e->spawn.texture.width, &e->spawn.texture.height);
+	e->spawn.texture.img_ptr = mlx_xpm_file_to_image(e->mlx.mlx, path, &e->spawn.texture.width, &e->spawn.texture.height);
 	if (!e->spawn.texture.img_ptr)
 		ft_error("wrong texture");
 	e->spawn.texture.data = (int *)mlx_get_data_addr(e->spawn.texture.img_ptr, &e->spawn.texture.bpp, &e->spawn.texture.size_l, &e->spawn.texture.endian);
@@ -54,14 +54,14 @@ void	setup_img_data(t_env *e, t_img *img)
 	if (img->name >= BUTTON1 && img->name < END)
 	{
 		scale_texture_to_buttons(img, e);
-		return ;
 	}
-	if (img->name == SPAWN)
+	else if (img->name >= SASHA && img->name < BUTTON1)
 	{
-		scale_texture_to_img(img, e->spawn.texture);
-		return ;
+		scale_texture_to_img(img, e->sprite->texture);
+		if (e->sprite->next)
+			e->sprite = e->sprite->next;
 	}
-	if (img->name >= CENTRAL && img->name < BUTTON1)
+	else if (img->name >= CENTRAL && img->name < BUTTON1)
 	{
 		h = -1;
 		while (++h < img->height)
@@ -91,13 +91,16 @@ void	create_mlx_img(t_env *e, t_img *img)
 
 void	sav_img_pos(t_env *e)
 {
-	t_img	*tmp;
+	t_img		*tmp;
+	t_sprite	*sprite;
 
 	tmp = e->mlx.img;
+	sprite = e->sprite;
 	while (tmp)
 	{
 		if (tmp->name >= CENTRAL && tmp->name < END)
 			create_mlx_img(e, tmp);
 		tmp = tmp->next;
 	}
+	e->sprite = sprite;
 }

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/14 16:39:57 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:11:51 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,22 @@ void	draw_points_on_list(t_env *e)
 	sector = e->sector;
 }
 
+void	put_sprite(t_env *e)
+{
+	t_sprite	*sprite;
+
+	sprite = e->sprite;
+	while (e->sprite)
+	{
+		if (e->sprite->pos.x != -1 && e->sprite->pos.y != -1)
+		{
+			put_texture_transparency(e, e->central, e->sprite);
+		}
+		e->sprite = e->sprite->next;
+	}
+	e->sprite = sprite;
+}
+
 /*
 **	put grid & points on img central
 */
@@ -85,8 +101,7 @@ void	put_grid(t_env *e)
 			|| !(h % e->grid_size)) ? GREY : e->central->color;
 	}
 	draw_points_on_list(e);
-	if (e->spawn.compteur)
-		put_texture_transparency(e, e->central, e->spawn);
+	put_sprite(e);
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr,
 	e->central->pos.x, e->central->pos.y);
 }

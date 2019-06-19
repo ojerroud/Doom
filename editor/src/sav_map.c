@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 14:04:52 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/14 16:45:12 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 12:38:26 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		button_sav_area(t_env *e, t_img *img)
 
 void		sav_area(t_env *e)
 {
-	t_img	*list;
+	t_img		*list;
 
 	list = e->mlx.img;
 	while (list)

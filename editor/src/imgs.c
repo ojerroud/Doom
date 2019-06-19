@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/14 16:40:31 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:11:48 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,33 +114,52 @@ void	put_data_on_file(t_env *e)
 	// close(e->fd);
 }
 
+void	sprite_build(t_env *e, t_sprite *sprite, int x, int y)
+{
+	e->index +=0;
+	sprite->pos.x = x;
+	sprite->pos.y = y;
+	if (sprite->pos.x != -1 && sprite->pos.y != -1)
+	{
+		put_texture_transparency(e, e->central, sprite);
+		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr, e->central->pos.x, e->central->pos.y);
+	}
+}
+
 /*
 **	check if click is on the img, then draw
 */
 
 void	paint_if_img(t_img *img, int x, int y, t_env *e)
 {
+	t_sprite	*sprite;
+	char		*str;
+	
+
 	if (img->pos.x <= x && (img->pos.x + img->width) >= x
 	&& img->pos.y <= y && (img->pos.y + img->height) >= y)
 	{
-		if (e->next == 1 && img->name == CENTRAL)
+		str = ft_strnew(5);
+		if (img->name == SASHA)
+			str = ft_strcpy(str, "sasha");
+		if (img->name == MISTY)
+			str = ft_strcpy(str, "misty");
+		sprite = e->sprite;
+		while (e->sprite)
 		{
-			e->next = 0;
-			// printf("%d %d\n", e->select->name, img->name);
-			e->spawn.pos.x = x - img->pos.x;
-			e->spawn.pos.y = y - img->pos.y;
-			e->spawn.compteur++;
-			put_texture_transparency(e, img, e->spawn);
-			// mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr, e->central->pos.x, e->central->pos.y);
-			return ;
+			if (e->sprite->click == 1 && img->name == CENTRAL && e->select->name == END - 1)
+			{
+				sprite_build(e, e->sprite, x - e->central->pos.x, y - e->central->pos.y);
+				// e->sprite->click = 0;
+				e->sprite = sprite;
+				return ;
+			}
+			e->sprite->click = (img->name >= SASHA && img->name < BUTTON1 
+			&& e->select->name == END -1 && !ft_strcmp(e->sprite->name, str))
+			? 1 : 0;
+			e->sprite = e->sprite->next;
 		}
-		if (img->name == SPAWN && e->select->name == END - 1)
-		{
-			e->next = 1;
-			return ;
-		}
-		else
-			e->next = 0;
+		e->sprite = sprite;
 		if (e->sector->next && ft_strlen(e->write_zone.str) && img->name == SAV)
 			put_data_on_file(e);
 		if (img->name == WRITE || img->name == SAV)
@@ -151,8 +170,6 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 			scale_texture_to_buttons(img, e);
 			istab_draw(img, e);
 		}
-		if (img->name == SPAWN)
-			img->texture_swap = 1;
 		if (img->name == CENTRAL && e->select->name == END - 1
 		&& img->texture_swap && !e->sav_zone_bool)
 			select_dots(img, e, x, y);
@@ -166,7 +183,7 @@ t_img	*lstnew(int name, int width, int height)
 	t_img	*tmp;
 
 	if (!(tmp = (t_img *)malloc(sizeof(t_img))))
-		return (NULL);
+		ft_error("malloc fail");
 	tmp->name = name;
 	tmp->width = width;
 	tmp->height = height;
@@ -186,9 +203,12 @@ void	create_imgs(t_env *e)
 {
 	int		i;
 
-	create_list_img(&e->mlx.img, CENTRAL, 2 * WIDTH
-	/ 3, HEIGHT);
-	create_list_img(&e->mlx.img, SPAWN, 64, 64);
+	create_list_img(&e->mlx.img, CENTRAL, WIDTH - 2 * BUTTON_W, HEIGHT);
+	i = SASHA - 1;
+	while (++i < BUTTON1)
+	{
+		create_list_img(&e->mlx.img, i, 64, 64);
+	}
 	create_list_img(&e->mlx.img, WRITE, FILENAME_SIZE_W, FILENAME_SIZE_H);
 	create_list_img(&e->mlx.img, SAV, FILENAME_SIZE_W, FILENAME_SIZE_H);
 	i = BUTTON1 - 1;

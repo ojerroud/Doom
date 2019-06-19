@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:30:13 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/14 16:39:00 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:11:37 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,24 @@ void	scale_texture_to_buttons(t_img *img, t_env *e)
 	img->texture_swap = (img->texture_swap == 2) ? 1 : 2;
 }
 
-void	put_texture_transparency(t_env *e, t_img *img, t_sprite list)
+void	put_texture_transparency(t_env *e, t_img *img, t_sprite *sprite)
 {
 	int w;
 	int h;
 
 	h = -1;
-	while (++h < list.texture.height)
+	while (++h < sprite->texture.height)
 	{
 		w = -1;
-		while (++w < list.texture.width)
-			if (list.texture.data[h * list.texture.width + w] != 0xFFFFFF)
-				img->data[((h * e->grid_size / 20) + list.pos.y) * img->width + ((w * e->grid_size / 20)+ list.pos.x)] = list.texture.data[h * list.texture.width + w];
+		while (++w < sprite->texture.width)
+		{
+			if (sprite->texture.data[h * sprite->texture.width + w] != 0xFFFFFF)
+				img->data[((h * e->grid_size / 20) + (int)sprite->pos.y)
+				* img->width + ((w * e->grid_size / 20) + (int)sprite->pos.x)]
+				= sprite->texture.data[h * sprite->texture.width + w];
+		}
 	}
-	draw_cross(e, e->spawn.pos.x, e->spawn.pos.y);
+	draw_cross(e, sprite->pos.x, sprite->pos.y);
 }
 /*
 **	give texture to button

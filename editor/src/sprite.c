@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 13:59:09 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 14:11:15 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:22:23 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,33 @@ void	get_texture(t_env *e, t_text *texture, char *path)
 	texture->data = (int *)mlx_get_data_addr(texture->img_ptr, &texture->bpp, &texture->size_l, &texture->endian);
 }
 
+void	init_txy(t_sprite *sprite)
+{
+	sprite->pos->x = 0;
+	sprite->pos->y = 0;
+
+}
+
+t_dxy	*lstnew_xy(int x, int y)
+{
+	t_dxy	*new;
+
+	if (!(new = (t_dxy *)malloc(sizeof(t_dxy))))
+		ft_error("malloc fail");
+	new->x = x;
+	new->y = y;
+	return (new);
+}
+
+void	add_sprite_pos(t_dxy **list, int x ,int y)
+{
+	t_dxy	*new;
+
+	new = lstnew_xy(x ,y);
+	new->next = *list;
+	*list = new;
+}
+
 t_sprite	*lstnew_sprite(t_env *e, char *name, char *path)
 {
 	t_sprite	*sprite;
@@ -29,8 +56,11 @@ t_sprite	*lstnew_sprite(t_env *e, char *name, char *path)
 	sprite->name = ft_strnew(ft_strlen(name));
 	sprite->name = ft_strcpy(sprite->name, name);
 	sprite->click = 0;
-	sprite->pos.x = -1;
-	sprite->pos.y = -1;
+	sprite->pos = NULL;
+	// sprite->pos->x = -1;
+	// sprite->pos->y = -1;
+	sprite->islist = (!ft_strcmp(sprite->name, "sasha")) ? 0 : 1;
+	add_sprite_pos(&sprite->pos, -1, -1);
 	get_texture(e, &sprite->texture, path);
 	return (sprite);
 }

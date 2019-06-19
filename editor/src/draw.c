@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 14:11:51 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:37:29 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,19 @@ void	draw_points_on_list(t_env *e)
 void	put_sprite(t_env *e)
 {
 	t_sprite	*sprite;
+	t_dxy		*pos;
 
 	sprite = e->sprite;
 	while (e->sprite)
 	{
-		if (e->sprite->pos.x != -1 && e->sprite->pos.y != -1)
+		pos = e->sprite->pos;
+		while(e->sprite->pos)
 		{
-			put_texture_transparency(e, e->central, e->sprite);
+			if (e->sprite->pos->x != -1 && e->sprite->pos->y != -1)
+				put_texture_transparency(e, e->central, e->sprite);
+			e->sprite->pos = e->sprite->pos->next;
 		}
+		e->sprite->pos = pos;
 		e->sprite = e->sprite->next;
 	}
 	e->sprite = sprite;

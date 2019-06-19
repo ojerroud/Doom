@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 14:30:13 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 14:11:37 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:20:52 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ void	put_texture_transparency(t_env *e, t_img *img, t_sprite *sprite)
 		while (++w < sprite->texture.width)
 		{
 			if (sprite->texture.data[h * sprite->texture.width + w] != 0xFFFFFF)
-				img->data[((h * e->grid_size / 20) + (int)sprite->pos.y)
-				* img->width + ((w * e->grid_size / 20) + (int)sprite->pos.x)]
+				img->data[((h * e->grid_size / 20) + (int)sprite->pos->y)
+				* img->width + ((w * e->grid_size / 20) + (int)sprite->pos->x)]
 				= sprite->texture.data[h * sprite->texture.width + w];
 		}
 	}
-	draw_cross(e, sprite->pos.x, sprite->pos.y);
+	draw_cross(e, sprite->pos->x, sprite->pos->y);
 }
 /*
 **	give texture to button

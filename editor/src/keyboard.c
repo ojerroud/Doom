@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 14:11:45 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:36:01 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,21 @@ void	scale_dots_grid(t_env *e, double grid)
 	t_ixy		*tmp;
 	t_sector	*sector;
 	t_sprite	*sprite;
+	t_dxy		*pos;
 
 	sprite = e->sprite;
 	while (e->sprite)
 	{
-		if (e->sprite->pos.x != -1 && e->sprite->pos.y)
+		if (e->sprite->pos->x != -1 && e->sprite->pos->y)
 		{
-			e->sprite->pos.x /= grid;
-			e->sprite->pos.y /= grid;
+			pos = e->sprite->pos;
+			while(e->sprite->pos)
+			{
+				e->sprite->pos->x /= grid;
+				e->sprite->pos->y /= grid;
+				e->sprite->pos = e->sprite->pos->next;
+			}
+			e->sprite->pos = pos;
 		}
 		e->sprite = e->sprite->next;
 	}

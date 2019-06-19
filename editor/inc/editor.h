@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 14:13:24 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:25:22 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ typedef struct		s_dxy
 {
 	double				x;
 	double				y;
-	// struct s_dxy		*next;
+	struct s_dxy		*next;
 }					t_dxy;
 
 typedef struct		s_map
@@ -211,8 +211,9 @@ typedef struct 		s_file
 
 typedef struct 		s_sprite
 {
-	t_dxy			pos;
+	t_dxy			*pos;
 	t_text			texture;
+	int				islist;
 	char			*name;
 	int				click;
 	struct s_sprite	*next;
@@ -370,6 +371,7 @@ void				fill_write_zone(t_env *e, int keycode);
 **	sprite.c
 */
 
+void				add_sprite_pos(t_dxy **list, int x ,int y);
 void    			get_sprites(t_env *e);
 void				create_sprites_img(t_env *e, t_sprite **list, char *name, char *path);
 t_sprite			*lstnew_sprite(t_env *e, char *name, char *path);

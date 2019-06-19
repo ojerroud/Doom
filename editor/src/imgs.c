@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 14:11:48 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 16:34:17 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,14 @@ void	put_data_on_file(t_env *e)
 void	sprite_build(t_env *e, t_sprite *sprite, int x, int y)
 {
 	e->index +=0;
-	sprite->pos.x = x;
-	sprite->pos.y = y;
-	if (sprite->pos.x != -1 && sprite->pos.y != -1)
+	if (!sprite->islist || (sprite->pos->x == -1 && sprite->pos->y == -1))
+	{
+		sprite->pos->x = x;
+		sprite->pos->y = y;
+	}
+	else
+		add_sprite_pos(&sprite->pos, x, y);
+	if (sprite->pos->x != -1 && sprite->pos->y != -1)
 	{
 		put_texture_transparency(e, e->central, sprite);
 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->central->img_ptr, e->central->pos.x, e->central->pos.y);
@@ -150,8 +155,8 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 			if (e->sprite->click == 1 && img->name == CENTRAL && e->select->name == END - 1)
 			{
 				sprite_build(e, e->sprite, x - e->central->pos.x, y - e->central->pos.y);
-				// e->sprite->click = 0;
 				e->sprite = sprite;
+				ft_strdel(&str);
 				return ;
 			}
 			e->sprite->click = (img->name >= SASHA && img->name < BUTTON1 
@@ -159,6 +164,7 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 			? 1 : 0;
 			e->sprite = e->sprite->next;
 		}
+		ft_strdel(&str);
 		e->sprite = sprite;
 		if (e->sector->next && ft_strlen(e->write_zone.str) && img->name == SAV)
 			put_data_on_file(e);

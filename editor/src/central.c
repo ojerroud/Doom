@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 10:44:58 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 14:11:17 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 16:49:55 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,26 @@
 void	reset_sprite(t_env *e)
 {
 	t_sprite	*sprite;
-
+	t_dxy		*pos;
 	sprite = e->sprite;
 	while (e->sprite)
 	{
-		e->sprite->pos.x = -1;
-		e->sprite->pos.y = -1;
-		e->spawn.click = 0;
+		ft_strdel(&e->sprite->name);
+		mlx_destroy_image(e->mlx.mlx, e->sprite->texture.img_ptr);
+		while (e->sprite->pos)
+		{
+			e->sprite->pos->x = -1;
+			e->sprite->pos->y = -1;
+			pos = e->sprite->pos->next;
+			free(e->sprite->pos);
+			e->sprite->pos = pos;
+		}
+		free(e->sprite);
 		e->sprite = e->sprite->next;
 	}
 	e->sprite = sprite;
+	e->sprite = NULL;
+	get_sprites(e);
 }
 
 void	delete_all_sectors(t_env *e)

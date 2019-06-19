@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 17:39:49 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/18 16:32:23 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:15:14 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	setup_img_data(t_env *e, t_img *img)
 	{
 		scale_texture_to_buttons(img, e);
 	}
-	else if (img->name >= SASHA && img->name < BUTTON1)
+	else if (img->name > SPRITES && img->name < BUTTON1)
 	{
 		scale_texture_to_img(img, e->sprite->texture);
 		if (e->sprite->next)

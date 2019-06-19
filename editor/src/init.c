@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/18 16:41:33 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:45:56 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	init_xy(t_img *list, t_env *e)
 			(cpt_w) ? cpt_h++ : 0;
 			cpt_w = !cpt_w;
 		}
-		if (tmp->name >= SASHA && tmp->name < BUTTON1)
+		if (tmp->name > SPRITES && tmp->name < BUTTON1)
 		{
 			img_param(tmp, BUTTON_W * cpt_w, BUTTON_H * cpt_h, WHITE);
 			(cpt_w) ? cpt_h++ : 0;

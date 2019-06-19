@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:28:37 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 15:36:01 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:52:21 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	print_sector(t_env *e)
 	tmp = e->sector;
 }
 
-void	positioning_sprite(t_env *e)
+void	finish_put_sprite(t_env *e)
 {
 	t_sprite	*sprite;
 
@@ -135,20 +135,23 @@ int		keyhooked(int keycode, t_env *e)
 {
 	if (keycode == ESC)
 		key_esc(e);
-	if (!e->sav_zone_bool)
+	if (e->select->name != END - 1 || e->select->texture_swap != 1)
+		return (0);
+	if (!e->sav_zone_bool && e->select->texture_swap == 1)
 	{
+		printf("passage\n");
 		if (keycode == G && e->select->name == END - 1)
 			sizegrid_change(e);
 		if (keycode == A)
 			print_sector(e);
-		if (keycode == P)
-			positioning_sprite(e);
+		// if (keycode == P)
+		// 	positioning_sprite(e);
 		if (keycode == R && e->select->name == END - 1)
 			delete_all_sectors(e);
 	}
 	else
 		fill_write_zone(e, keycode);
-	if (e->select->name == END - 1 && e->select->texture_swap)
+	if (e->select->name == END - 1 && e->select->texture_swap == 1)
 		put_sav_on_window(e);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 15:25:22 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:34:41 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # define BALL2				"texture/2.xpm"
 # define PATH_SASHA			"texture/sasha.xpm"
 # define PATH_MISTY			"texture/misty.xpm"
+# define PATH_FINISH		"texture/centerpkmn.xpm"
+# define PATH_TIM			"texture/tim.xpm"
 
 #define FILENAME_SIZE		200
 #define FILENAME_SIZE_W		200
@@ -55,8 +57,11 @@ typedef enum		e_name
 	CENTRAL,
 	WRITE,
 	SAV,
-	SASHA,
+	SPRITES,
+	FINISH,
 	MISTY,
+	SASHA,
+	TIM,
 	BUTTON1,
 	BUTTON2,
 	BUTTON3, 
@@ -270,6 +275,7 @@ void				key_esc(t_env *e);
 void				sizegrid_change(t_env *e);
 int					keyhooked(int keycode, t_env *e);
 void				print_sector(t_env *e);
+void				finish_put_sprite(t_env *e);
 
 /*
 **	list_utils.c

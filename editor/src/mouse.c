@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 16:26:32 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:09:58 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	right_click(t_env *e)
 {
 	t_ixy	*dots;
 
+	finish_put_sprite(e);
 	dots = e->sector->dots;
 	if (!e->sector->dots)
 		return ;

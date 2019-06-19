@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 16:34:17 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:35:39 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,10 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 			str = ft_strcpy(str, "sasha");
 		if (img->name == MISTY)
 			str = ft_strcpy(str, "misty");
+		if (img->name == FINISH)
+			str = ft_strcpy(str, "finish");
+		if (img->name == TIM)
+			str = ft_strcpy(str, "tim");
 		sprite = e->sprite;
 		while (e->sprite)
 		{
@@ -159,7 +163,7 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 				ft_strdel(&str);
 				return ;
 			}
-			e->sprite->click = (img->name >= SASHA && img->name < BUTTON1 
+			e->sprite->click = (img->name > SPRITES && img->name < BUTTON1 
 			&& e->select->name == END -1 && !ft_strcmp(e->sprite->name, str))
 			? 1 : 0;
 			e->sprite = e->sprite->next;
@@ -210,7 +214,7 @@ void	create_imgs(t_env *e)
 	int		i;
 
 	create_list_img(&e->mlx.img, CENTRAL, WIDTH - 2 * BUTTON_W, HEIGHT);
-	i = SASHA - 1;
+	i = SPRITES;
 	while (++i < BUTTON1)
 	{
 		create_list_img(&e->mlx.img, i, 64, 64);

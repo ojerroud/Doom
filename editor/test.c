@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 15:26:32 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/04/03 15:56:05 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/20 16:25:22 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		keyboard(int keycode, t_env *e)
 	if (keycode == 51)
 	{
 		e->file_name[ft_strlen(e->file_name) - 1] = '\0';
-		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.img_ptr, 5, 8);
+		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.lst_img_ptr, 5, 8);
 		mlx_string_put(e->mlx.mlx, e->mlx.win, 5, 5, 0xFF0000, e->file_name);
 	}
 	while (++i < 26)
@@ -52,7 +52,7 @@ int		keyboard(int keycode, t_env *e)
 				break;
 			e->file_name[len] = i + 97;
 			e->file_name[len + 1] = '\0';
-			mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.img_ptr, 5, 8);
+			mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.lst_img_ptr, 5, 8);
 			mlx_string_put(e->mlx.mlx, e->mlx.win, 5, 5, 0xFF0000, e->file_name);
 			return (0);
 		}
@@ -63,7 +63,7 @@ int		keyboard(int keycode, t_env *e)
 	// if (keycode == A)
 	// {
 	// 	e->file_name = strcat(e->file_name, "a");
-	// 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.img_ptr, 5, 5);
+	// 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.lst_img_ptr, 5, 5);
 	// 	mlx_string_put(e->mlx.mlx, e->mlx.win, 5, 5, 0xFF0000, e->file_name);
 	// }
 	return (0);
@@ -84,11 +84,11 @@ void	t(t_env *e)
 	img_height = 20;
 	e->mlx.mlx = mlx_init();
 	e->mlx.win = mlx_new_window(e->mlx.mlx, WIDTH, HEIGHT, "test");
-	e->mlx.img_ptr = mlx_new_image(e->mlx.mlx, FILENAME_SIZE, img_height);
-	e->mlx.data = (int *)mlx_get_data_addr(e->mlx.img_ptr, &e->mlx.bpp, &e->mlx.size_l, &e->mlx.endian);
+	e->mlx.lst_img_ptr = mlx_new_image(e->mlx.mlx, FILENAME_SIZE, img_height);
+	e->mlx.data = (int *)mlx_get_data_addr(e->mlx.lst_img_ptr, &e->mlx.bpp, &e->mlx.size_l, &e->mlx.endian);
 	ft_bzero(e->file_name, FILENAME_SIZE);
 	color_img(e->mlx.data, FILENAME_SIZE, img_height);
-	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.img_ptr, 5, 8);
+	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.lst_img_ptr, 5, 8);
 	mlx_key_hook(e->mlx.win, keyboard, e);
 	mlx_mouse_hook(e->mlx.win, mouse, e);
 	mlx_loop(e->mlx.mlx);

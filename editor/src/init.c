@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:56:45 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 17:45:56 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/07/01 13:06:39 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_xy(t_img *list, t_env *e)
 
 	tmp = list;
 	cpt_w = 0;
-	cpt_h = 0;
+	cpt_h = (tmp->name > SPRITES &&  tmp->name < BUTTON1) ? 1 : 0;
 	while (tmp)
 	{
 		if (tmp->name == CENTRAL)
@@ -46,12 +46,14 @@ void	init_xy(t_img *list, t_env *e)
 		if (tmp->name >= BUTTON1 && tmp->name < END)
 		{
 			img_param(tmp, BUTTON_W * cpt_w, BUTTON_H * cpt_h, WHITE);
+			// cpt_h++;
 			(cpt_w) ? cpt_h++ : 0;
 			cpt_w = !cpt_w;
 		}
 		if (tmp->name > SPRITES && tmp->name < BUTTON1)
 		{
 			img_param(tmp, BUTTON_W * cpt_w, BUTTON_H * cpt_h, WHITE);
+			// cpt_h++;
 			(cpt_w) ? cpt_h++ : 0;
 			cpt_w = !cpt_w;
 		}
@@ -63,7 +65,12 @@ void	init_xy(t_img *list, t_env *e)
 
 void	init_vars(t_env *e)
 {
-	e->mlx.img = NULL;
+	e->mlx.todraw_img = 1;
+	e->mlx.todraw_sprite = 0;
+	e->mlx.todraw_texture = 0;
+	e->mlx.lst_img = NULL;
+	e->mlx.lst_sprite = NULL;
+	e->mlx.lst_texture = NULL;
 	e->dots = NULL;
 	e->sector = NULL;
 	e->sprite = NULL;
@@ -85,6 +92,7 @@ void	init_mlx(t_env *e, char *title)
 	load_buttons_texture(e);
 	get_sprites(e);
 	create_imgs(e);
+	draw_lst(e);
 	mlx_mouse_hook(e->mlx.win, mousehooked, e);
 	mlx_key_hook(e->mlx.win, keyhooked, e);
 	mlx_loop(e->mlx.mlx);

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 17:39:49 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 17:15:14 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/20 16:55:18 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,26 +81,26 @@ void	create_mlx_img(t_env *e, t_img *img)
 	img->data = (int *)mlx_get_data_addr(img->img_ptr, &(img->bpp)
 	, &(img->size_l), &(img->endian));
 	setup_img_data(e, img);
-	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr
-	, img->pos.x, img->pos.y);
+	// mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr
+	// , img->pos.x, img->pos.y);
 }
 
 /*
 **	create images u need on mlx & give the pos
 */
 
-void	sav_img_pos(t_env *e)
+void	sav_img_pos(t_env *e, t_img	*lst)
 {
-	t_img		*tmp;
+	t_img		*lst_img;
 	t_sprite	*sprite;
 
-	tmp = e->mlx.img;
+	lst_img = lst;
 	sprite = e->sprite;
-	while (tmp)
+	while (lst_img)
 	{
-		if (tmp->name >= CENTRAL && tmp->name < END)
-			create_mlx_img(e, tmp);
-		tmp = tmp->next;
+		if (lst_img->name >= CENTRAL && lst_img->name < END)
+			create_mlx_img(e, lst_img);
+		lst_img = lst_img->next;
 	}
 	e->sprite = sprite;
 }

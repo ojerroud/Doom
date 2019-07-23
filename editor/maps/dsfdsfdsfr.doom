@@ -1,0 +1,6 @@
+Walls (1 entries) : 
+==========
+sector : 0
+[(400,380);(400,540)], nextsector = -1
+[(400,540);(520,420)], nextsector = -1
+[(520,420);(400,380)], nextsector = -1

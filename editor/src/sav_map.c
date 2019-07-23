@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 14:04:52 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 12:38:26 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/07/15 16:15:01 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	fill_write_zone(t_env *e, int keycode)
 		{	
 			len = ft_strlen(e->write_zone.str);
 			if (len * 10 >= FILENAME_SIZE)
-				break;
+				break ;
 			e->write_zone.str[len] = i + 97;
 			e->write_zone.str[len + 1] = '\0';
 			break ;
@@ -56,7 +56,7 @@ void		sav_area(t_env *e)
 {
 	t_img		*list;
 
-	list = e->mlx.img;
+	list = e->mlx.lst_img;
 	while (list)
 	{
 		if (list->name == WRITE)
@@ -65,7 +65,7 @@ void		sav_area(t_env *e)
 			button_sav_area(e, list);
 		list = list->next;
 	}
-	list = e->mlx.img;
+	list = e->mlx.lst_img;
 	mlx_string_put(e->mlx.mlx, e->mlx.win, e->sav_button.pos.x, e->sav_button.pos.y - 3, WHITE, e->sav_button.str);
 	mlx_string_put(e->mlx.mlx, e->mlx.win, e->write_zone.pos.x, e->write_zone.pos.y - 3, 0xFF0000, e->write_zone.str);
 }
@@ -75,7 +75,7 @@ void		put_sav_on_window(t_env *e)
 	t_img	*list;
 
 	put_grid(e);
-	list = e->mlx.img;
+	list = e->mlx.lst_img;
 	while (list)
 	{
 		if (list->name == WRITE || list->name == SAV)
@@ -83,6 +83,6 @@ void		put_sav_on_window(t_env *e)
 				mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, list->img_ptr, list->pos.x, list->pos.y);
 		list = list->next;
 	}
-	list = e->mlx.img;
+	list = e->mlx.lst_img;
 	sav_area(e);
 }

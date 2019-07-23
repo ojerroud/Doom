@@ -6,7 +6,7 @@
 #    By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 11:55:28 by ojerroud          #+#    #+#              #
-#    Updated: 2019/06/18 13:58:42 by ojerroud         ###   ########.fr        #
+#    Updated: 2019/07/03 17:02:12 by ojerroud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ INC_PATH = inc
 MINI_PATH = ../minilibx/
 LIBFT_PATH = ../libft/
 HEADER = inc/editor.h
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror 
+SANITIZE = -fsanitize=address -g
 vpath %.c src
 vpath_h = -I $(INC_PATH) -I $(MINI_PATH) -I $(LIBFT_PATH)includes
 LIBS = -L $(LIBFT_PATH) -lft -L $(MINI_PATH) -lmlx
@@ -32,7 +33,7 @@ sav_map.o sprite.o)
 $(OBJDIR)/%.o : %.c $(HEADER)
 	$(CC) $(FLAGS) $(vpath_h) -c \
 	$(OUTPUT_OPTION) $<
-
+	
 all : $(OBJS)
 	@make -C $(LIBFT_PATH)
 	@make -C $(MINI_PATH)
@@ -45,11 +46,11 @@ $(OBJDIR):
 
 clean :
 	@make clean -C $(LIBFT_PATH)
-	@/bin/rm -rf $(OBJDIR) $(OBJDIR_EDITOR)
+	@/bin/rm -rf $(OBJDIR)
 	@echo "clean.."
 
 fclean : clean
 	@make fclean -C $(LIBFT_PATH)
-	@/bin/rm -f $(NAME) $(EDITOR)
+	@/bin/rm -f $(NAME)
 
 re: fclean all

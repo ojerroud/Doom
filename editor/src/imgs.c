@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:42:05 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 17:35:39 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/07/01 13:21:03 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,8 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 			str = ft_strcpy(str, "misty");
 		if (img->name == FINISH)
 			str = ft_strcpy(str, "finish");
-		if (img->name == TIM)
-			str = ft_strcpy(str, "tim");
+		// if (img->name == TIM)
+		// 	str = ft_strcpy(str, "tim");
 		sprite = e->sprite;
 		while (e->sprite)
 		{
@@ -183,8 +183,8 @@ void	paint_if_img(t_img *img, int x, int y, t_env *e)
 		if (img->name == CENTRAL && e->select->name == END - 1
 		&& img->texture_swap && !e->sav_zone_bool)
 			select_dots(img, e, x, y);
-		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr
-		, img->pos.x, img->pos.y);
+		// mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr
+		// , img->pos.x, img->pos.y);
 	}
 }
 
@@ -213,20 +213,22 @@ void	create_imgs(t_env *e)
 {
 	int		i;
 
-	create_list_img(&e->mlx.img, CENTRAL, WIDTH - 2 * BUTTON_W, HEIGHT);
+	create_list_img(&e->mlx.lst_img, CENTRAL, WIDTH - 2 * BUTTON_W, HEIGHT);
 	i = SPRITES;
 	while (++i < BUTTON1)
 	{
-		create_list_img(&e->mlx.img, i, 64, 64);
+		create_list_img(&e->mlx.lst_sprite, i, 64, 64);
 	}
-	create_list_img(&e->mlx.img, WRITE, FILENAME_SIZE_W, FILENAME_SIZE_H);
-	create_list_img(&e->mlx.img, SAV, FILENAME_SIZE_W, FILENAME_SIZE_H);
+	create_list_img(&e->mlx.lst_img, WRITE, FILENAME_SIZE_W, FILENAME_SIZE_H);
+	create_list_img(&e->mlx.lst_img, SAV, FILENAME_SIZE_W, FILENAME_SIZE_H);
 	i = BUTTON1 - 1;
 	while (++i < END)
 	{
-		create_list_img(&e->mlx.img, i, BUTTON_W - SPACING, BUTTON_H - SPACING);
+		create_list_img(&e->mlx.lst_img, i, BUTTON_W - SPACING, BUTTON_H - SPACING);
 	}
-	init_xy(e->mlx.img, e);
-	sav_img_pos(e);
-	e->select = e->mlx.img;
+	init_xy(e->mlx.lst_img, e);
+	init_xy(e->mlx.lst_sprite, e);
+	sav_img_pos(e, e->mlx.lst_img);
+	sav_img_pos(e, e->mlx.lst_sprite);
+	e->select = e->mlx.lst_img;
 }

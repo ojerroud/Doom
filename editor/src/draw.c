@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:00:35 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 15:37:29 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/07/01 13:19:51 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,30 @@ void	put_sprite(t_env *e)
 		e->sprite = e->sprite->next;
 	}
 	e->sprite = sprite;
+}
+
+void	draw_lst_selected(t_env *e, t_img *lst, int todraw)
+{
+	t_img	*tmp;
+	
+	if (todraw)
+	{
+		tmp = lst;
+		while (tmp)
+		{
+			mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, tmp->img_ptr, tmp->pos.x, tmp->pos.y);
+			tmp = tmp->next;
+		}
+		tmp = lst;
+	}
+}
+
+void	draw_lst(t_env *e)
+{
+	// printf("img = %d sprite = %d texture = %d\n", e->mlx.todraw_img, e->mlx.todraw_sprite, e->mlx.todraw_texture);
+	draw_lst_selected(e,e->mlx.lst_img , e->mlx.todraw_img);
+	draw_lst_selected(e,e->mlx.lst_sprite , e->mlx.todraw_sprite);
+	draw_lst_selected(e,e->mlx.lst_texture , e->mlx.todraw_texture);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:55:20 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 17:34:41 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/07/14 14:50:09 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@
 # define PATH_FINISH		"texture/centerpkmn.xpm"
 # define PATH_TIM			"texture/tim.xpm"
 
-#define FILENAME_SIZE		200
-#define FILENAME_SIZE_W		200
-#define FILENAME_SIZE_H		20
+# define FILENAME_SIZE		200
+# define FILENAME_SIZE_W	200
+# define FILENAME_SIZE_H	20
 
 typedef enum		e_name
 {
@@ -61,12 +61,12 @@ typedef enum		e_name
 	FINISH,
 	MISTY,
 	SASHA,
-	TIM,
+	// TIM,
 	BUTTON1,
 	BUTTON2,
+	END,
 	BUTTON3, 
 	BUTTON4,
-	END,
 	BUTTON5,
 	BUTTON6,
 	BUTTON7,
@@ -184,7 +184,12 @@ typedef struct		s_mlx
 	int				size_l;
 	int				bpp;
 	int				endian;
-	t_img			*img;
+	t_img			*lst_img;
+	t_img			*lst_sprite;
+	t_img			*lst_texture;
+	int				todraw_img;
+	int				todraw_sprite;
+	int				todraw_texture;
 }					t_mlx;
 
 typedef struct		s_var
@@ -255,6 +260,7 @@ typedef struct		s_env
 **	draw.c
 */
 
+void				draw_lst(t_env *e);
 void				draw_cross(t_env *e, int x, int y);
 void				put_grid(t_env *e);
 void				draw_point(t_img *img, int x, int y);
@@ -323,7 +329,7 @@ void				load_textures(t_env *e, char *path);
 void				load_buttons_texture(t_env *e);
 void				setup_img_data(t_env *e, t_img *img);
 void				create_mlx_img(t_env *e, t_img *img);
-void				sav_img_pos(t_env *e);
+void				sav_img_pos(t_env *e, t_img *lst);
 
 /*
 **	init.c

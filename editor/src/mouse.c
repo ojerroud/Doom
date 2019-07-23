@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 13:44:30 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 17:09:58 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/07/01 13:16:45 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	reset_texture_buttons(t_env *e, t_img *img)
 		{
 			img->texture_swap = 2;
 			scale_texture_to_buttons(img, e);
-		// 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, img->img_ptr
-		// , img->pos.x, img->pos.y);
 		}
 		img = img->next;
 	}
@@ -35,13 +33,13 @@ void	left_click(t_env *e, int x, int y)
 	t_img	*list;
 
 	e->sav_zone_bool = 0;
-	list = e->mlx.img;
+	list = e->mlx.lst_img;
 	while (list)
 	{
 		paint_if_img(list, x, y, e);
 		list = list->next;
 	}
-	list = e->mlx.img;
+	list = e->mlx.lst_img;
 	while (list)
 	{
 		appli_buttons_text(list, e);
@@ -91,11 +89,13 @@ void	right_click(t_env *e)
 
 int		mousehooked(int button, int x, int y, t_env *e)
 {
+	mlx_clear_window(e->mlx.mlx, e->mlx.win);
 	if (button == MOUSE_LEFT)
 		left_click(e, x, y);
 	else if (button == MOUSE_RIGHT)
 		right_click(e);
-	if ((e->select->name == END - 1 && e->select->texture_swap) 
+	draw_lst(e);
+	if ((e->select->name == END - 1 && e->select->texture_swap == 1) 
 	|| (e->select->name >= WRITE && e->select->name < BUTTON1))
 		put_sav_on_window(e);
 	return (0);

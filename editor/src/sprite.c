@@ -6,7 +6,7 @@
 /*   By: ojerroud <ojerroud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 13:59:09 by ojerroud          #+#    #+#             */
-/*   Updated: 2019/06/19 17:58:25 by ojerroud         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:10:14 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ void    get_sprites(t_env *e)
 	create_sprites_img(e, &e->sprite, "finish", PATH_FINISH);
 	create_sprites_img(e, &e->sprite, "misty", PATH_MISTY);
     create_sprites_img(e, &e->sprite, "sasha", PATH_SASHA);
-    create_sprites_img(e, &e->sprite, "tim", PATH_TIM);
+    // create_sprites_img(e, &e->sprite, "tim", PATH_TIM);
 }
